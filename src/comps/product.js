@@ -12,7 +12,7 @@ function Product(props) {
           <div className="blog-card bg-white mb-4 overflow-hidden d-lg-flex rounded position-relative hover">
             <div className="blog-image overflow-hidden d-flex align-items-center">
               <img
-                src={item.img_url}
+                src={item.img_url || "/images/no_image.png"}
                 alt={item.name}
                 className="blog-thumbnail"
               />
