@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Lottie from "lottie-web";
-import "./page404.css";
+import "../css/page404.css";
 import { useNavigate } from "react-router-dom";
 
 function Page404(props) {

@@ -19,9 +19,13 @@ function SearchStore(props) {
 
   const doApi = async (_Search) => {
     let url = API_URL + "/stores/search?s=" + _Search + "&perPage=1000";
-    let resp = await doApiGet(url);
-    {
-      resp.data != 0 ? setSearchStore(resp.data) : searchNotFound();
+    try {
+      let resp = await doApiGet(url);
+      {
+        resp.data != 0 ? setSearchStore(resp.data) : searchNotFound();
+      }
+    } catch (err) {
+      toast.error(err.response.data.err);
     }
   };
 

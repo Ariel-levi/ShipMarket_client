@@ -7,13 +7,13 @@ function StoreCard(props) {
   let nav = useNavigate();
 
   return (
-    <div
-      onClick={() => {
-        nav("/store/" + item._id);
-      }}
-      className="col-lg-4 col-md-6 col-sm-12 p-2 store"
-    >
-      <div className="product-card bg-white mb-4 overflow-hidden d-lg-flex flex-column rounded-lg position-relative">
+    <div className="col-lg-4 col-md-6 col-sm-12 p-2">
+      <div
+        onClick={() => {
+          nav("/store/" + item._id);
+        }}
+        className="product-card bg-white mb-4 overflow-hidden d-lg-flex flex-column rounded-lg position-relative border store"
+      >
         <div className="product-image overflow-hidden">
           <img
             src={item.img_url || "/images/no_image.png"}

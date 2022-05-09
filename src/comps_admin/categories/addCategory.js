@@ -7,10 +7,13 @@ import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
 import { IoDuplicateOutline } from "react-icons/io5";
 import { BsCardImage } from "react-icons/bs";
 import "../css/formStore.css";
+import ImagesSearch from "../../comps/general_comps/imagesSearch";
 
 function AddCategory(props) {
-  let [ar, setAr] = useState([]);
-  let [btnSend, setBtnSend] = useState(false);
+  const [ar, setAr] = useState([]);
+  const [btnSend, setBtnSend] = useState(false);
+  const [openImageSearch, setOpenImageSearch] = useState(false);
+  const [imageSearch, setImageSearch] = useState("");
 
   useEffect(() => {
     doApi();
@@ -57,7 +60,7 @@ function AddCategory(props) {
   });
 
   const onSubForm = (formData) => {
-    console.log(formData);
+    formData.img_url = imageSearch;
     setBtnSend(true);
     doFormApi(formData);
   };
@@ -82,6 +85,14 @@ function AddCategory(props) {
   return (
     <div className="container">
       <AuthAdminComp />
+      {openImageSearch ? (
+        <ImagesSearch
+          setOpenImageSearch={setOpenImageSearch}
+          setImageSearch={setImageSearch}
+        />
+      ) : (
+        ""
+      )}
       <div className="store-form">
         <form onSubmit={handleSubmit(onSubForm)}>
           <div className="form-icon">
@@ -120,9 +131,15 @@ function AddCategory(props) {
             )}
           </div>
           <div className="form-group">
-            <p className="small">
-              Add Image <BsCardImage className="mx-1" />
-            </p>
+            <button
+              className="btn animaLinkSM mb-2"
+              onClick={(e) => {
+                setOpenImageSearch(true);
+                e.preventDefault();
+              }}
+            >
+              Get image from Pexels <BsCardImage className="mx-2" />
+            </button>
             {/* <input
             {...img_urlRef}
             type="file"
@@ -131,6 +148,7 @@ function AddCategory(props) {
           /> */}
             <input
               {...img_urlRef}
+              defaultValue={imageSearch}
               type="text"
               className="form-control item"
               placeholder="Add Image"
@@ -172,7 +190,8 @@ function AddCategory(props) {
             </button>
             <button
               className="btn btn-block create-account"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 nav(-1);
               }}
             >

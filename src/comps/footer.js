@@ -34,7 +34,7 @@ function Footer(props) {
             <Link to="/allStore">Stores</Link>
           </li>
         </ul>
-        <p className="copyright">Wolt Delivery © {dt.getFullYear()}</p>
+        <p className="copyright">ShipMarket Delivery © {dt.getFullYear()}</p>
       </footer>
     </div>
   );

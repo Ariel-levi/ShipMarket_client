@@ -7,9 +7,12 @@ import AuthAdminComp from "../../misc_comps/authAdminComp";
 import { FaRegEdit } from "react-icons/fa";
 import { BsCardImage } from "react-icons/bs";
 import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
+import ImagesSearch from "../../comps/general_comps/imagesSearch";
 
 function EditProductAdmin(props) {
   const [product, setProduct] = useState({});
+  const [openImageSearch, setOpenImageSearch] = useState(false);
+  const [imageSearch, setImageSearch] = useState("");
   let params = useParams();
   let nav = useNavigate();
 
@@ -55,9 +58,11 @@ function EditProductAdmin(props) {
     let urlProduct = API_URL + "/products/single/" + params.id;
     let resp2 = await doApiGet(urlProduct);
     setProduct(resp2.data);
+    setImageSearch(resp2.data.img_url);
   };
 
   const onSubForm = (formData) => {
+    formData.img_url = imageSearch;
     doFormApi(formData);
   };
 
@@ -82,6 +87,14 @@ function EditProductAdmin(props) {
   return (
     <div className="container">
       <AuthAdminComp />
+      {openImageSearch ? (
+        <ImagesSearch
+          setOpenImageSearch={setOpenImageSearch}
+          setImageSearch={setImageSearch}
+        />
+      ) : (
+        ""
+      )}
       <h1 className="text-center mt-3">Edit Product</h1>
       <div className="store-form">
         {product._id ? (
@@ -131,12 +144,18 @@ function EditProductAdmin(props) {
               )}
             </div>
             <div className="form-group">
-              <p className="small">
-                Image <BsCardImage className="mx-1" />
-              </p>
+              <button
+                className="btn animaLinkSM mb-2"
+                onClick={(e) => {
+                  setOpenImageSearch(true);
+                  e.preventDefault();
+                }}
+              >
+                Get image from Pexels <BsCardImage className="mx-2" />
+              </button>
               <input
                 {...img_urlRef}
-                defaultValue={product.img_url}
+                defaultValue={imageSearch}
                 type="text"
                 className="form-control item"
                 placeholder="Add Image"
@@ -232,7 +251,8 @@ function EditProductAdmin(props) {
               </button>
               <button
                 className="btn btn-block create-account"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   nav(-1);
                 }}
               >

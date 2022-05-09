@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { checkTokenLocal } from "../services/localService";
-import { FaBeer, FaCashRegister } from 'react-icons/fa'
-import { BsCartDash, BsSearch } from "react-icons/bs"
+import { MdOutlineShoppingCart } from "react-icons/md";
 import "./css/header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { ShowCart } from "../actions/cart_action";
@@ -11,42 +10,64 @@ function Header(props) {
   let [login, setLogin] = useState("");
   let [burgerAnimation, setBurgerAnimation] = useState(false);
   let location = useLocation();
-  let inputRef = useRef()
-  let nav = useNavigate()
-  let dispatch = useDispatch()
 
-  const showCart = useSelector(state => state.showCart)
+  let inputRef = useRef();
+  let nav = useNavigate();
+  let dispatch = useDispatch();
+
+  /////////////////////////
+  let [itemsInCart, setItemsInCart] = useState(0);
+  // const showCart = useSelector((state) => state.showCart);
+
+  const { cart_ar, showCart } = useSelector((state) => state);
 
   useEffect(() => {
+    setItemsInCart(cart_ar.length);
     setLogin(checkTokenLocal());
     setBurgerAnimation(false);
-  }, [location]);
-
-  const onSearchClick = () => {
-    let search = inputRef.current.value
-    nav("/products_search?s=" + search)
-  }
-  const onKeyClick = (e) => {
-    if (e.key === "Enter")
-      onSearchClick()
-  }
+  }, [location, cart_ar]);
 
   return (
     <header className="container-fluid">
       <div className="container">
-        <div className="row align-items-center justify-content-between">
+        <div className="row align-items-center text-center">
           <ul
             className={
               !burgerAnimation
-                ? "nav col-md-6 ul_links burger_pop"
-                : "nav col-md-6 ul_links"
+                ? "nav col-md-8 ul_links burger_pop"
+                : "nav col-md-8 ul_links"
             }
           >
             {login ? (
               <React.Fragment>
                 <li>
-                  <Link className="border text-danger" to="/logout">
+                  <button
+                    className="cartIcon rounded border mx-3"
+                    onClick={() => dispatch(ShowCart())}
+                  >
+                    {cart_ar.length === 0 ? (
+                      ""
+                    ) : (
+                      <p className="position-absolute top-0 start-100 translate-middle itemCart">
+                        {itemsInCart}
+                      </p>
+                    )}
+                    <MdOutlineShoppingCart />
+                  </button>
+                </li>
+                <li>
+                  <Link className="border rounded text-danger" to="/logout">
                     Log out
+                  </Link>
+                </li>
+                <li>
+                  <Link className="mx-2" to="/favs">
+                    Favorites
+                  </Link>
+                </li>
+                <li>
+                  <Link className="mx-2" to="/createStore">
+                    Create Store
                   </Link>
                 </li>
               </React.Fragment>
@@ -72,43 +93,25 @@ function Header(props) {
               <Link to="/allStore">Stores</Link>
             </li>
           </ul>
-          <div className="col-md-6 row justify-content-between">
-
-            <div className='searchHeader d-flex col-md-8 ms-3'>
-              <input type="text" placeholder='search...' className="form-control" />
-
-          
-              <div className="d-flex align-items-center p-3 ">
-                <BsSearch className="me-3" onClick={onSearchClick} style={{ color: "gray" }} />
-                <BsCartDash onClick={() =>dispatch(ShowCart())} className="me-3" style={{ color: "gray" }} />
-                {/* <FaCashRegister style={{ color: "gray" }} /> */}
-              </div>
+          <div className="logo col-md-3 d-flex mt-3 justify-content-between">
+            <Link to="/" className="logoFont">
+              <h2>ShipMarket</h2>
+            </Link>
+            {/* burger */}
+            <div
+              id="burger_btn"
+              onClick={() => {
+                burgerAnimation
+                  ? setBurgerAnimation(false)
+                  : setBurgerAnimation(true);
+              }}
+              className={burgerAnimation ? "burger change" : "burger"}
+            >
+              <div className="bar1"></div>
+              <div className="bar2"></div>
+              <div className="bar3"></div>
             </div>
-            <div className="logo col-md-3 d-flex mt-3 justify-content-between">
-              <Link to="/">
-                <img
-                  className=""
-                  src="/images/wolt.png"
-                  width="100"
-                  alt="logo img"
-                />
-              </Link>
-              {/* burger */}
-              <div
-                id="burger_btn"
-                onClick={() => {
-                  burgerAnimation
-                    ? setBurgerAnimation(false)
-                    : setBurgerAnimation(true);
-                }}
-                className={burgerAnimation ? "burger change" : "burger"}
-              >
-                <div className="bar1"></div>
-                <div className="bar2"></div>
-                <div className="bar3"></div>
-              </div>
-              {/* end burger */}
-            </div>
+            {/* end burger */}
           </div>
         </div>
       </div>

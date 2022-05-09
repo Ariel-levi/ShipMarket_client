@@ -31,6 +31,8 @@ import Logout from "./comps/logout";
 import AllStores from "./comps/allStores";
 import StoreInfo from "./comps/storeInfo";
 import SearchStore from "./comps/searchStore";
+import FavsProducts from "./comps/favsProducts";
+import CreateStoreFrom from "./comps/createStoreFrom";
 
 function AppRoutes(props) {
   return (
@@ -59,11 +61,13 @@ function AppRoutes(props) {
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/createStore" element={<CreateStoreFrom />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/allStore" element={<AllStores />} />
           <Route path="/store/:id" element={<StoreInfo />} />
           <Route path="/searchStore/:searchQ" element={<SearchStore />} />
+          <Route path="/favs" element={<FavsProducts />} />
           {/* * - for any url that not in another route go to 404 */}
           <Route path="/*" element={<Page404 />} />
         </Route>
