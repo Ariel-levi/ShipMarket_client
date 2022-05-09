@@ -45,13 +45,12 @@ const calculate = (_state) => {
   _state.cart_ar.forEach(item => {
     sum += item.price * item.amount
   })
-  return sum
+  _state.totalPrice = sum
 }
 
 // save in local and return state - updateStateAndLocal
 const saveLocal = (_newState) => {
-  _newState.totalPrice = calculate(_newState)
-  // _newState.showCart="none"
+  calculate(_newState)
   localStorage.setItem("cart", JSON.stringify(_newState));
   return _newState;
 }
