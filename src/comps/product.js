@@ -1,9 +1,12 @@
 import React from "react";
 import { MdAddShoppingCart } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { addCart } from "../actions/cart_action";
 import "./css/product.css";
 
 function Product(props) {
   let item = props.item;
+  const dispatch = useDispatch()
 
   return (
     <div className="container">
@@ -25,7 +28,7 @@ function Product(props) {
               <p className="text-muted">{item.info}</p>
               <div className="blog-footer d-flex justify-content-between align-items-center border-top">
                 <h2 className="mr-2">₪ {item.price}</h2>
-                <button className="btn btn-outline-primary">
+                <button className="btn btn-outline-primary" onClick={()=> dispatch(addCart(item))}>
                   Add to cart <MdAddShoppingCart className="me-2" />
                 </button>
               </div>

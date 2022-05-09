@@ -1,0 +1,25 @@
+.cart{
+    /* border: 1px solid black; */
+    position:fixed;
+    width:100%;
+    max-width: 400px;
+    height: 50vh;
+    background:white;
+    right:0;
+    top: 50px;
+    z-index: 9999;
+    border: solid 1px silver;
+    overflow-y: scroll;
+}
+.cart .close-btn{
+    z-index: 99999;
+    top:5px;
+    right:10px;
+    position:absolute;
+
+}
+.cart .btn-item{
+    z-index: 99999;
+   
+
+}
