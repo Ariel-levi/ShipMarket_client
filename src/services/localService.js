@@ -1,6 +1,6 @@
 // save short ids of products we visited in to show after in the home page
 export const VISITED_PRODUCT = "visitedProduct";
-export const WOLT_TOKEN = "tok";
+export const SHIPMARKET_TOKEN = "tok";
 export const CART = "cart_shop";
 
 export const saveCartLocal = (_cart_ar) => {
@@ -15,19 +15,19 @@ export const getCartFromLocal = () => {
 };
 
 export const saveTokenLocal = (_token) => {
-  localStorage.setItem(WOLT_TOKEN, _token);
+  localStorage.setItem(SHIPMARKET_TOKEN, _token);
 };
 
 export const checkTokenLocal = () => {
-  if (localStorage[WOLT_TOKEN]) {
-    return localStorage[WOLT_TOKEN];
+  if (localStorage[SHIPMARKET_TOKEN]) {
+    return localStorage[SHIPMARKET_TOKEN];
   } else {
     return false;
   }
 };
 
 export const deleteToken = () => {
-  localStorage.removeItem(WOLT_TOKEN);
+  localStorage.removeItem(SHIPMARKET_TOKEN);
 };
 
 export const addProdVisitedToLocal = (_short_id) => {

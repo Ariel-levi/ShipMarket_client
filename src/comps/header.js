@@ -1,22 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { checkTokenLocal } from "../services/localService";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import "./css/header.css";
+import { useDispatch, useSelector } from "react-redux";
+import { ShowCart } from "../actions/cart_action";
 
 function Header(props) {
   let [login, setLogin] = useState("");
   let [burgerAnimation, setBurgerAnimation] = useState(false);
   let location = useLocation();
 
+  let inputRef = useRef();
+  let nav = useNavigate();
+  let dispatch = useDispatch();
+
+  /////////////////////////
+  let [itemsInCart, setItemsInCart] = useState(0);
+  // const showCart = useSelector((state) => state.showCart);
+
+  const { cart_ar, showCart } = useSelector((state) => state);
+
   useEffect(() => {
+    setItemsInCart(cart_ar.length);
     setLogin(checkTokenLocal());
     setBurgerAnimation(false);
-  }, [location]);
+  }, [location, cart_ar]);
 
   return (
     <header className="container-fluid">
       <div className="container">
-        <div className="row align-items-center">
+        <div className="row align-items-center text-center">
           <ul
             className={
               !burgerAnimation
@@ -27,8 +41,33 @@ function Header(props) {
             {login ? (
               <React.Fragment>
                 <li>
-                  <Link className="border text-danger" to="/logout">
+                  <button
+                    className="cartIcon rounded border mx-3"
+                    onClick={() => dispatch(ShowCart())}
+                  >
+                    {cart_ar.length === 0 ? (
+                      ""
+                    ) : (
+                      <p className="position-absolute top-0 start-100 translate-middle itemCart">
+                        {itemsInCart}
+                      </p>
+                    )}
+                    <MdOutlineShoppingCart />
+                  </button>
+                </li>
+                <li>
+                  <Link className="border rounded text-danger" to="/logout">
                     Log out
+                  </Link>
+                </li>
+                <li>
+                  <Link className="mx-2" to="/favs">
+                    Favorites
+                  </Link>
+                </li>
+                <li>
+                  <Link className="mx-2" to="/createStore">
+                    Create Store
                   </Link>
                 </li>
               </React.Fragment>
@@ -55,13 +94,8 @@ function Header(props) {
             </li>
           </ul>
           <div className="logo col-md-3 d-flex mt-3 justify-content-between">
-            <Link to="/">
-              <img
-                className=""
-                src="/images/wolt.png"
-                width="100"
-                alt="logo img"
-              />
+            <Link to="/" className="logoFont">
+              <h2>ShipMarket</h2>
             </Link>
             {/* burger */}
             <div

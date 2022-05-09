@@ -8,10 +8,13 @@ import LottieAnimation from "../../comps/general_comps/lottieAnimation";
 import { IoDuplicateOutline } from "react-icons/io5";
 import { BsCardImage } from "react-icons/bs";
 import "../css/formStore.css";
+import ImagesSearch from "../../comps/general_comps/imagesSearch";
 
 function EditCategory(props) {
-  let [category, setCategory] = useState({});
-  let [ar, setAr] = useState([]);
+  const [category, setCategory] = useState({});
+  const [ar, setAr] = useState([]);
+  const [openImageSearch, setOpenImageSearch] = useState(false);
+  const [imageSearch, setImageSearch] = useState("");
   let params = useParams();
   let nav = useNavigate();
 
@@ -50,6 +53,7 @@ function EditCategory(props) {
     let resp2 = await doApiGet(urlStore);
     // console.log(resp2.data);
     setCategory(resp2.data);
+    setImageSearch(resp2.data.img_url);
 
     // get all stores for the [store_short_id]
     let url = API_URL + "/stores";
@@ -65,6 +69,7 @@ function EditCategory(props) {
   };
 
   const onSubForm = (formData) => {
+    formData.img_url = imageSearch;
     doFormApi(formData);
   };
 
@@ -90,6 +95,14 @@ function EditCategory(props) {
   return (
     <div className="container">
       <AuthAdminComp />
+      {openImageSearch ? (
+        <ImagesSearch
+          setOpenImageSearch={setOpenImageSearch}
+          setImageSearch={setImageSearch}
+        />
+      ) : (
+        ""
+      )}
       <div className="store-form">
         {category._id ? (
           <form onSubmit={handleSubmit(onSubForm)}>
@@ -136,9 +149,15 @@ function EditCategory(props) {
               )}
             </div>
             <div className="form-group">
-              <p className="small">
-                Add Image <BsCardImage className="mx-1" />
-              </p>
+              <button
+                className="btn animaLinkSM mb-2"
+                onClick={(e) => {
+                  setOpenImageSearch(true);
+                  e.preventDefault();
+                }}
+              >
+                Get image from Pexels <BsCardImage className="mx-2" />
+              </button>
               {/* <input
             {...img_urlRef}
             type="file"
@@ -147,7 +166,7 @@ function EditCategory(props) {
           /> */}
               <input
                 {...img_urlRef}
-                defaultValue={category.img_url}
+                defaultValue={imageSearch}
                 type="text"
                 className="form-control item"
                 placeholder="Add Image"
@@ -187,7 +206,8 @@ function EditCategory(props) {
               </button>
               <button
                 className="btn btn-block create-account"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   nav(-1);
                 }}
               >

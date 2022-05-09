@@ -7,10 +7,13 @@ import { API_URL, doApiMethod } from "../../services/apiService";
 import { MdAddBusiness } from "react-icons/md";
 import { BsCardImage } from "react-icons/bs";
 import "../css/formStore.css";
+import ImagesSearch from "../../comps/general_comps/imagesSearch";
 
 function AddStore(props) {
   // for disabled the send btn for avoid multi click on him
-  let [btnSend, setBtnSend] = useState(false);
+  const [btnSend, setBtnSend] = useState(false);
+  const [openImageSearch, setOpenImageSearch] = useState(false);
+  const [imageSearch, setImageSearch] = useState("");
 
   let nav = useNavigate();
   let {
@@ -33,7 +36,7 @@ function AddStore(props) {
   });
 
   const onSubForm = (formData) => {
-    console.log(formData);
+    formData.img_url = imageSearch;
     setBtnSend(true);
     doFormApi(formData);
   };
@@ -58,6 +61,14 @@ function AddStore(props) {
   return (
     <div className="container">
       <AuthAdminComp />
+      {openImageSearch ? (
+        <ImagesSearch
+          setOpenImageSearch={setOpenImageSearch}
+          setImageSearch={setImageSearch}
+        />
+      ) : (
+        ""
+      )}
       <div className="store-form">
         <form onSubmit={handleSubmit(onSubForm)}>
           <div className="form-icon">
@@ -96,9 +107,15 @@ function AddStore(props) {
             )}
           </div>
           <div className="form-group">
-            <p className="small">
-              Add Image <BsCardImage className="mx-1" />
-            </p>
+            <button
+              className="btn animaLinkSM mb-2"
+              onClick={(e) => {
+                setOpenImageSearch(true);
+                e.preventDefault();
+              }}
+            >
+              Get image from Pexels <BsCardImage className="mx-2" />
+            </button>
             {/* <input
               {...img_urlRef}
               type="file"
@@ -107,6 +124,7 @@ function AddStore(props) {
             /> */}
             <input
               {...img_urlRef}
+              defaultValue={imageSearch}
               type="text"
               className="form-control item"
               placeholder="Add Image"
@@ -122,7 +140,6 @@ function AddStore(props) {
           <div className="form-group">
             <textarea
               {...infoRef}
-              required
               className="form-control item"
               placeholder="Store Info *"
               style={{ width: "100%", height: "150px" }}
@@ -144,7 +161,8 @@ function AddStore(props) {
             </button>
             <button
               className="btn btn-block create-account"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 nav(-1);
               }}
             >

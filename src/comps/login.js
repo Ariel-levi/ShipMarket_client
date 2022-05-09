@@ -23,7 +23,7 @@ function Login(props) {
     let url = API_URL + "/users/login";
     try {
       let resp = await doApiMethod(url, "POST", _dataBody);
-      console.log(resp.data);
+      // console.log(resp.data);
       if (resp.data.token) {
         localStorage.setItem("tok", resp.data.token);
         // send user to home

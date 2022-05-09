@@ -1,7 +1,9 @@
 import axios from "axios";
 
-// export const API_URL = "http://localhost:3002";
-export const API_URL = "https://wolt-back-end.herokuapp.com";
+// export const API_URL = "https://wolt-back-end.herokuapp.com";
+export const API_URL = "http://localhost:3002";
+export const PEXELS_API_KEY =
+  "563492ad6f9170000100000139f54184d24b48a3b9e1bfde617c174d";
 
 export const doApiGet = async (_url) => {
   try {

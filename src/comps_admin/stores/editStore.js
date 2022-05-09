@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -8,9 +8,12 @@ import { FaRegEdit } from "react-icons/fa";
 import { BsCardImage } from "react-icons/bs";
 import LottieAnimation from "../../comps/general_comps/lottieAnimation";
 import "../css/formStore.css";
+import ImagesSearch from "../../comps/general_comps/imagesSearch";
 
 function EditStore(props) {
-  let [store, setStore] = useState({});
+  const [store, setStore] = useState({});
+  const [openImageSearch, setOpenImageSearch] = useState(false);
+  const [imageSearch, setImageSearch] = useState("");
   let params = useParams();
   let nav = useNavigate();
 
@@ -40,11 +43,12 @@ function EditStore(props) {
   const doApi = async () => {
     let urlStore = API_URL + "/stores/single/" + params.id;
     let resp2 = await doApiGet(urlStore);
-    // console.log(resp2.data);
     setStore(resp2.data);
+    setImageSearch(resp2.data.img_url);
   };
 
   const onSubForm = (formData) => {
+    formData.img_url = imageSearch;
     doFormApi(formData);
   };
 
@@ -70,6 +74,14 @@ function EditStore(props) {
   return (
     <div className="container">
       <AuthAdminComp />
+      {openImageSearch ? (
+        <ImagesSearch
+          setOpenImageSearch={setOpenImageSearch}
+          setImageSearch={setImageSearch}
+        />
+      ) : (
+        ""
+      )}
       <h1 className="text-center mt-3">Edit Store</h1>
       <div className="store-form">
         {store._id ? (
@@ -119,12 +131,18 @@ function EditStore(props) {
               )}
             </div>
             <div className="form-group">
-              <p className="small">
-                Image <BsCardImage className="mx-1" />
-              </p>
+              <button
+                className="btn animaLinkSM mb-2"
+                onClick={(e) => {
+                  setOpenImageSearch(true);
+                  e.preventDefault();
+                }}
+              >
+                Get image from Pexels <BsCardImage className="mx-2" />
+              </button>
               <input
-                defaultValue={store.img_url}
                 {...img_urlRef}
+                defaultValue={imageSearch}
                 type="text"
                 className="form-control item"
                 placeholder="Add Image"
@@ -161,7 +179,8 @@ function EditStore(props) {
               </button>
               <button
                 className="btn btn-block create-account"
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   nav(-1);
                 }}
               >

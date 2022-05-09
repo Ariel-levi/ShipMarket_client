@@ -6,11 +6,14 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { BsCardImage } from "react-icons/bs";
+import ImagesSearch from "../../comps/general_comps/imagesSearch";
 
 function AddProductAdmin(props) {
   const [btnSend, setBtnSend] = useState(false);
   const [stores, setStores] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [openImageSearch, setOpenImageSearch] = useState(false);
+  const [imageSearch, setImageSearch] = useState("");
   let nav = useNavigate();
 
   useEffect(() => {
@@ -77,6 +80,7 @@ function AddProductAdmin(props) {
   });
 
   const onSubForm = (formData) => {
+    formData.img_url = imageSearch;
     setBtnSend(true);
     doFormApi(formData);
   };
@@ -99,6 +103,14 @@ function AddProductAdmin(props) {
   return (
     <div className="container">
       <AuthAdminComp />
+      {openImageSearch ? (
+        <ImagesSearch
+          setOpenImageSearch={setOpenImageSearch}
+          setImageSearch={setImageSearch}
+        />
+      ) : (
+        ""
+      )}
       <h1 className="text-center mt-3">Add Product</h1>
       <div className="store-form">
         <form onSubmit={handleSubmit(onSubForm)}>
@@ -138,11 +150,18 @@ function AddProductAdmin(props) {
             )}
           </div>
           <div className="form-group">
-            <p className="small">
-              Image <BsCardImage className="mx-1" />
-            </p>
+            <button
+              className="btn animaLinkSM mb-2"
+              onClick={(e) => {
+                setOpenImageSearch(true);
+                e.preventDefault();
+              }}
+            >
+              Get image from Pexels <BsCardImage className="mx-2" />
+            </button>
             <input
               {...img_urlRef}
+              defaultValue={imageSearch}
               type="text"
               className="form-control item"
               placeholder="Add Image"
@@ -243,7 +262,8 @@ function AddProductAdmin(props) {
             </button>
             <button
               className="btn btn-block create-account"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 nav(-1);
               }}
             >

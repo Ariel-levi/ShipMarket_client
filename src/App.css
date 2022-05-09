@@ -14,6 +14,17 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+.logoFont {
+  /* font-family: 'Libre Bodoni', serif; */
+  font-family: 'Lobster', cursive;
+  text-decoration: none;
+  color: black;
+}
+
+.logoFont:hover {
+  color: black;
+}
+
 /* Lottie Animation */
 .box_Animation {
   height: 300px;

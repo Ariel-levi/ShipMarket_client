@@ -31,14 +31,11 @@ function Search(props) {
           onKeyPress={handleKeyPress}
           type="search"
           placeholder={props.text}
-          aria-describedby="button-addon1"
           className="form-control border-0 bg-light"
         />
         <div className="input-group-append">
           <button
             onClick={search}
-            id="button-addon1"
-            type="submit"
             className="btn btn-link text-primary searchBtn"
           >
             <BsSearch />
