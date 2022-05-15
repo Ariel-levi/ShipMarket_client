@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./cartItem";
 import "../comps/css/cart.css";
-import { resetAll, ShowCart } from "../actions/cart_action";
+import { resetAll, ShowCart } from "../redux/actions/cart_action";
 
 function Cart(props) {
-  let [total, setTotal] = useState(0);
 
-  const { cart_ar, showCart, totalPrice } = useSelector((state) => state);
+  const { cart_ar, showCart, totalPrice } = useSelector((state) => state.clientReducer);
   const dispatch = useDispatch();
 
   return (

@@ -4,7 +4,7 @@ import { checkTokenLocal } from "../services/localService";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import "./css/header.css";
 import { useDispatch, useSelector } from "react-redux";
-import { ShowCart } from "../actions/cart_action";
+import { ShowCart } from "../redux/actions/cart_action";
 
 function Header(props) {
   let [login, setLogin] = useState("");
@@ -19,7 +19,7 @@ function Header(props) {
   let [itemsInCart, setItemsInCart] = useState(0);
   // const showCart = useSelector((state) => state.showCart);
 
-  const { cart_ar, showCart } = useSelector((state) => state);
+  const { cart_ar, showCart } = useSelector((state) => state.clientReducer);
 
   useEffect(() => {
     setItemsInCart(cart_ar.length);

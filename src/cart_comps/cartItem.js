@@ -4,7 +4,7 @@ import {
   addCart,
   deleteCartSingle,
   reduceOneCart,
-} from "../actions/cart_action";
+} from "../redux/actions/cart_action";
 import { BsEraser } from "react-icons/bs";
 
 function CartItem(props) {
