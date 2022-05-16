@@ -9,11 +9,7 @@ export const doApiGet = async (_url) => {
   try {
     let data = await axios.get(_url, {
       headers: {
-<<<<<<< HEAD
         // send header for authentication when it needed
-=======
-        // send header for authentication when it needed 
->>>>>>> f1fa0af9128169b9c1e3cd37746aa361126d0a13
         "x-api-key": localStorage["tok"],
         "content-type": "application/json",
       },
