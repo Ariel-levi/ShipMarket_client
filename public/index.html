@@ -52,6 +52,8 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
+    <!-- Paypal Client Id -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AT9KzHdSfN6wVOT7wyM_nLtHIZ1zxfPKzgFA5ZS5EBfXH_T5Vkx12FTndEvvMj0zO_ySknSIl9iXIXYY&currency=ILS"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -67,5 +69,13 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     <!-- JavaScript Bundle with Popper -->
+    <script>
+      nagishli_config = {
+        color: "gray",
+        language: "en",
+        pos: "tr",
+      };
+    </script>
+    <script src="/nagishli_beta.js" charset="utf-8" defer="defer"></script>
   </body>
 </html>

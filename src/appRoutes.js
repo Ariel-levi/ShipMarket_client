@@ -33,6 +33,9 @@ import StoreInfo from "./comps/storeInfo";
 import SearchStore from "./comps/searchStore";
 import FavsProducts from "./comps/favsProducts";
 import CreateStoreFrom from "./comps/createStoreFrom";
+import Checkout from "./comps/orders_comps/checkout";
+import OldOrders from "./comps/orders_comps/oldOrders";
+import OldOrderInfoClient from "./comps/orders_comps/oldOrderInfoClient";
 
 function AppRoutes(props) {
   return (
@@ -68,6 +71,9 @@ function AppRoutes(props) {
           <Route path="/store/:id" element={<StoreInfo />} />
           <Route path="/searchStore/:searchQ" element={<SearchStore />} />
           <Route path="/favs" element={<FavsProducts />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/oldOrders" element={<OldOrders />} />
+          <Route path="/oldOrders/:idOrder" element={<OldOrderInfoClient />} />
           {/* * - for any url that not in another route go to 404 */}
           <Route path="/*" element={<Page404 />} />
         </Route>

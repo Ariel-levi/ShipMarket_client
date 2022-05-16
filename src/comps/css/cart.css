@@ -2,14 +2,15 @@
   /* border: 1px solid black; */
   position:fixed;
   width:100%;
-  max-width: 500px;
+  max-width: 650px;
   height: 70vh;
   right:0;
   top: 70px;
   z-index: 9999;
-  border: solid 1px silver;
+  border: solid 2px silver;
   overflow-y: scroll;
-  background: #eee;
+  overflow-x:hidden;
+  background: white;
   padding: 8px;
   border-radius: 15px 0px 0px 32px;
 }

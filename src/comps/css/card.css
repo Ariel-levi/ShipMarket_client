@@ -1,6 +1,6 @@
 .product-card {
 	box-shadow: 0 12px 17px rgba(129, 140, 151, 0.1);
-    border-radius: 20px;
+  border-radius: 20px;
 }
 .product-card .product-image {
 	height: 250px;
