@@ -10,11 +10,19 @@ import { addRemoveFavs } from "../redux/actions/favs_action";
 function Product(props) {
   let item = props.item;
   const dispatch = useDispatch();
+<<<<<<< HEAD
   const { favs } = useSelector((state) => state.favsReducer);
 
   const inFavs = () => {
     return favs.includes(item.short_id);
   };
+=======
+  const { favs } = useSelector(state => state.favsReducer)
+
+  const inFavs = () => {
+    return favs.includes(item.short_id)
+  }
+>>>>>>> f1fa0af9128169b9c1e3cd37746aa361126d0a13
 
   // useEffect(() => {
 
@@ -36,6 +44,7 @@ function Product(props) {
               <small className="font_bold blog-category text-uppercase py-1 px-2 float-left rounded">
                 Food
               </small>
+<<<<<<< HEAD
               {!inFavs() ? (
                 <button
                   onClick={() => dispatch(addRemoveFavs(item.short_id))}
@@ -51,6 +60,13 @@ function Product(props) {
                   <BsStarFill />
                 </button>
               )}
+=======
+              {!inFavs() ?
+                <button onClick={() => dispatch(addRemoveFavs(item.short_id))} className='font_bold text-uppercase py-1 px-2 float-end rounded '><BsStar/></button>
+                :
+                <button onClick={() => dispatch(addRemoveFavs(item.short_id))}  className="font_bold starColor text-uppercase py-1 px-2 float-end rounded"><BsStarFill /></button>
+              }
+>>>>>>> f1fa0af9128169b9c1e3cd37746aa361126d0a13
               <h4 className="mt-2 font_bold text-dark">{item.name}</h4>
               <p className="text-muted">{item.info}</p>
               <div className="blog-footer d-flex justify-content-between align-items-center border-top">

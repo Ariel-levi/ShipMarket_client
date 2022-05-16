@@ -11,7 +11,11 @@ import { fetchFavs } from "../redux/actions/favs_action";
 
 function FavsProducts(props) {
   let [ar, setAr] = useState([]);
+<<<<<<< HEAD
   const { favs, loading, error } = useSelector((state) => state.favsReducer);
+=======
+  const {favs,loading, error} =  useSelector(state => state.favsReducer)
+>>>>>>> f1fa0af9128169b9c1e3cd37746aa361126d0a13
 
   useEffect(() => {
     doApiListFav();
@@ -29,6 +33,7 @@ function FavsProducts(props) {
     <div className="container-fluid" style={{ minHeight: "85vh" }}>
       <div className="container">
         <AuthClientComp />
+<<<<<<< HEAD
         {!loading && favs.length === 0 ? (
           <div className="text-center display-2 mt-5">
             no favorites found <BiConfused />
@@ -49,6 +54,26 @@ function FavsProducts(props) {
 
         {loading ? <LottieAnimation /> : ""}
 
+=======
+        {!loading && favs.length === 0 ? <div className="text-center display-2 mt-5">no favorites found</div> : 
+        
+        <motion.div
+        initial={{ y: "-100vw" }}
+        animate={{ y: 0 }}
+        transition={{ delay: 0.5, duration: 0.7 }}
+        className="text-center my-5"
+        >
+          <h3 className="mt-4">
+            Your Favorites Products <BsStar />
+          </h3>
+          <h6>Click on star to remove them from the list</h6>
+        </motion.div>
+        }
+        
+
+        {loading ? <LottieAnimation /> : ""}
+        
+>>>>>>> f1fa0af9128169b9c1e3cd37746aa361126d0a13
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

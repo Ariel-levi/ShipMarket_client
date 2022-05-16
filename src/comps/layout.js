@@ -12,11 +12,19 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import StartRedux from "../redux/startRedux";
 
+<<<<<<< HEAD
 const reduxDevTool = composeWithDevTools(applyMiddleware(thunk, logger));
 const rootReducer = combineReducers({ clientReducer, favsReducer });
 const globalStore = createStore(rootReducer, reduxDevTool);
+=======
+const reduxDevTool = composeWithDevTools(applyMiddleware(thunk, logger))
+const rootReducer = combineReducers({clientReducer, favsReducer})
+const globalStore = createStore(rootReducer , reduxDevTool);
+
+>>>>>>> f1fa0af9128169b9c1e3cd37746aa361126d0a13
 
 function Layout(props) {
+  
   return (
     <Provider store={globalStore}>
       <StartRedux />

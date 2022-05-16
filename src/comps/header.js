@@ -15,7 +15,14 @@ function Header(props) {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
+<<<<<<< HEAD
   const [itemsInCart, setItemsInCart] = useState(0);
+=======
+  /////////////////////////
+  let [itemsInCart, setItemsInCart] = useState(0);
+  // const showCart = useSelector((state) => state.showCart);
+
+>>>>>>> f1fa0af9128169b9c1e3cd37746aa361126d0a13
   const { cart_ar, showCart } = useSelector((state) => state.clientReducer);
 
   useEffect(() => {

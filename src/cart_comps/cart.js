@@ -6,8 +6,6 @@ import { resetAll, ShowCart } from "../redux/actions/cart_action";
 import { Link } from "react-router-dom";
 
 function Cart(props) {
-  let [total, setTotal] = useState(0);
-
   const { cart_ar, showCart, totalPrice } = useSelector(
     (state) => state.clientReducer
   );

@@ -52,6 +52,7 @@ export const clientReducer = (_state = initState, _action) => {
 };
 
 const calculate = (_state) => {
+<<<<<<< HEAD
   let sum = 0;
   _state.cart_ar.forEach((item) => {
     sum += item.price * item.amount;
@@ -62,6 +63,20 @@ const calculate = (_state) => {
 // save in local and return state - updateStateAndLocal
 const saveLocal = (_newState) => {
   calculate(_newState);
+=======
+  let sum = 0
+  _state.cart_ar.forEach(item => {
+    sum += item.price * item.amount
+  })
+  _state.totalPrice = sum
+}
+
+// save in local and return state - updateStateAndLocal
+const saveLocal = (_newState) => {
+  calculate(_newState)
+>>>>>>> f1fa0af9128169b9c1e3cd37746aa361126d0a13
   localStorage.setItem("cart", JSON.stringify(_newState));
   return _newState;
 };
+
+
