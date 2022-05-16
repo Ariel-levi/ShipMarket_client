@@ -1,10 +1,7 @@
-import { toast } from "react-toastify";
-import { ADD_REMOVE_FAVS, fetchFavs, FETCH_FAVS_FAILIER, FETCH_FAVS_REQUEST, FETCH_FAVS_SUCCESS } from "../actions/favs_action";
-import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
-
+import {FETCH_FAVS_FAILIER, FETCH_FAVS_REQUEST, FETCH_FAVS_SUCCESS } from "../actions/favs_action";
 
 export const initState = {
-    items: [],
+    favs: [],
     loading: true,
     error: null
 }

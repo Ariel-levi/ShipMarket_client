@@ -32,7 +32,8 @@ import AllStores from "./comps/allStores";
 import StoreInfo from "./comps/storeInfo";
 import SearchStore from "./comps/searchStore";
 import FavsProducts from "./comps/favsProducts";
-import CreateStoreFrom from "./comps/createStoreFrom";
+import CreateStoreFrom from "./comps/createStoreForm";
+
 
 function AppRoutes(props) {
   return (
