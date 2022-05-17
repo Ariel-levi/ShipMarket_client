@@ -7,18 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { ShowCart } from "../redux/actions/cart_action";
 
 function Header(props) {
-  let [login, setLogin] = useState("");
-  let [burgerAnimation, setBurgerAnimation] = useState(false);
-  let location = useLocation();
+  const [login, setLogin] = useState("");
+  const [burgerAnimation, setBurgerAnimation] = useState(false);
+  const location = useLocation();
 
-  let inputRef = useRef();
-  let nav = useNavigate();
-  let dispatch = useDispatch();
+  const inputRef = useRef();
+  const nav = useNavigate();
+  const dispatch = useDispatch();
 
-  /////////////////////////
-  let [itemsInCart, setItemsInCart] = useState(0);
-  // const showCart = useSelector((state) => state.showCart);
-
+  const [itemsInCart, setItemsInCart] = useState(0);
   const { cart_ar, showCart } = useSelector((state) => state.clientReducer);
 
   useEffect(() => {
@@ -61,14 +58,16 @@ function Header(props) {
                   </Link>
                 </li>
                 <li>
-                  <Link className="mx-2" to="/favs">
-                    Favorites
-                  </Link>
+                  <Link to="/favs">Favorites</Link>
                 </li>
                 <li>
-                  <Link className="mx-2" to="/createStore">
-                    Create Store
-                  </Link>
+                  <Link to="/createStore">Create Store</Link>
+                </li>
+                <li>
+                  <Link to="/checkout">Checkout</Link>
+                </li>
+                <li>
+                  <Link to="/oldOrders">Old Orders</Link>
                 </li>
               </React.Fragment>
             ) : (

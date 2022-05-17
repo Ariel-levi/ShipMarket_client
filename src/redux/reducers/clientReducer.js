@@ -52,18 +52,16 @@ export const clientReducer = (_state = initState, _action) => {
 };
 
 const calculate = (_state) => {
-  let sum = 0
-  _state.cart_ar.forEach(item => {
-    sum += item.price * item.amount
-  })
-  _state.totalPrice = sum
-}
+  let sum = 0;
+  _state.cart_ar.forEach((item) => {
+    sum += item.price * item.amount;
+  });
+  _state.totalPrice = sum;
+};
 
 // save in local and return state - updateStateAndLocal
 const saveLocal = (_newState) => {
-  calculate(_newState)
+  calculate(_newState);
   localStorage.setItem("cart", JSON.stringify(_newState));
   return _newState;
 };
-
-
