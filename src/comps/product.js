@@ -36,6 +36,7 @@ function Product(props) {
               <small className="font_bold blog-category text-uppercase py-1 px-2 float-left rounded">
                 Food
               </small>
+
               {!inFavs() ? (
                 <button
                   onClick={() => dispatch(addRemoveFavs(item.short_id))}
@@ -51,6 +52,7 @@ function Product(props) {
                   <BsStarFill />
                 </button>
               )}
+
               <h4 className="mt-2 font_bold text-dark">{item.name}</h4>
               <p className="text-muted">{item.info}</p>
               <div className="blog-footer d-flex justify-content-between align-items-center border-top">

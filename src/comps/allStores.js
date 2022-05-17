@@ -18,7 +18,7 @@ function AllStores(props) {
   const doApi = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     let pageQuery = urlParams.get("page") || 1;
-    let url = API_URL + "/stores?perPage=6&page=" + pageQuery;
+    let url = API_URL + "/stores?&status=active&perPage=6&page=" + pageQuery;
     let resp = await doApiGet(url);
     setShops_ar(resp.data);
   };
@@ -42,7 +42,7 @@ function AllStores(props) {
       {shops_ar.length === 0 ? <LottieAnimation /> : ""}
       <PageLinks
         perPage="6"
-        apiUrlAmount={API_URL + "/stores/amount"}
+        apiUrlAmount={API_URL + "/stores/amount?status=active"}
         urlLinkTo={"/allStore"}
         clsCss="btn me-2 mt-4 pageLinks"
       />

@@ -37,7 +37,7 @@ export const addRemoveFavs = (_short_id) =>  async (dispatch, getState) => {
                         toast.success("added to favorites")
                     }
                     else{
-                        toast.error("removed from favorites")
+                        toast.warning("removed from favorites")
                     }
                     dispatch(fetchFavs())
                 }

@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion/dist/framer-motion";
 import "./css/register.css";
+import { API_URL, doApiMethod } from './../services/apiService';
+import { toast } from "react-toastify";
 
 function CreateStoreFrom(props) {
   let nav = useNavigate();
@@ -14,38 +16,38 @@ function CreateStoreFrom(props) {
 
   const onSubForm = (data) => {
     console.log(data);
-    // doApi(data);
+    doApi(data);
   };
 
-  // const doApi = async (_dataBody) => {
-  //   let url = API_URL + "/users/";
-  //   try {
-  //     let resp = await doApiMethod(url, "POST", _dataBody);
-  //     if (resp.data._id) {
-  //       toast.success("You sign up");
-  //       nav("/login");
-  //     }
-  //   } catch (err) {
-  //     if (err.response.data.code == 11000) {
-  //       toast.error("Email already in system , try log in");
-  //     } else {
-  //       alert("There problem , try come back later");
-  //     }
-  //   }
-  // };
+  const doApi = async (_dataBody) => {
+    let url = API_URL + "/stores";
+    try {
+      let resp = await doApiMethod(url, "POST", _dataBody);
+      if (resp.data._id) {
+        toast.success("store requests sent successfully, and pending for admin approval");
+      }
+    } catch (err) {
+      if (err.response.data.code == 11000) {
+        toast.error(err.response.data.message);
+      } else {
+        alert("There problem , try come back later");
+      }
+    }
+    // nav("/");
+  };
 
-  let emailRef = register("email", {
-    required: true,
-    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-  });
+  // let emailRef = register("email", {
+  //   required: true,
+  //   pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+  // });
   let nameRef = register("name", { required: true, minLength: 2 });
   let addressRef = register("address", { required: true, minLength: 5 });
   let infoRef = register("info", { required: true, minLength: 5 });
-  let phoneRef = register("phone", {
-    required: true,
-    minLength: 10,
-    maxLength: 10,
-  });
+  // let phoneRef = register("phone", {
+  //   required: true,
+  //   minLength: 10,
+  //   maxLength: 10,
+  // });
 
   return (
     <div className="container">
@@ -73,6 +75,7 @@ function CreateStoreFrom(props) {
             <h2 className="text-center">
               <strong>Request</strong> to create a Store.
             </h2>
+            {/* name */}
             <div className="form-group mb-3">
               <input
                 {...nameRef}
@@ -80,6 +83,7 @@ function CreateStoreFrom(props) {
                 type="name"
                 name="name"
                 placeholder="Name"
+                value = "yellow"
               />
               {errors.name ? (
                 <small className="text-danger d-block">
@@ -89,20 +93,23 @@ function CreateStoreFrom(props) {
                 ""
               )}
             </div>
-            <div className="form-group mb-3">
+            {/* email */}
+            {/* <div className="form-group mb-3">
               <input
                 {...emailRef}
                 className="form-control"
                 type="email"
                 name="email"
                 placeholder="Email"
+                value = "ronennt@gmail.com"
               />
               {errors.email ? (
                 <small className="text-danger d-block">* Email invalid</small>
               ) : (
                 ""
               )}
-            </div>
+            </div> */}
+            {/* address */}
             <div className="form-group mb-3">
               <input
                 {...addressRef}
@@ -110,6 +117,7 @@ function CreateStoreFrom(props) {
                 type="address"
                 name="address"
                 placeholder="Address"
+                value = "einstein"
               />
               {errors.address ? (
                 <small className="text-danger d-block">* Address invalid</small>
@@ -117,13 +125,15 @@ function CreateStoreFrom(props) {
                 ""
               )}
             </div>
-            <div className="form-group mb-3">
+            {/* phone */}
+            {/* <div className="form-group mb-3">
               <input
                 {...phoneRef}
                 className="form-control"
                 type="phone"
                 name="phone"
                 placeholder="Phone"
+                value = "0542007978"
               />
               {errors.phone ? (
                 <small className="text-danger d-block">
@@ -132,13 +142,15 @@ function CreateStoreFrom(props) {
               ) : (
                 ""
               )}
-            </div>
+            </div> */}
+            {/* store info */}
             <div className="form-group mb-3">
               <textarea
                 {...infoRef}
                 required
                 className="form-control"
-                placeholder="Write us briefly why you want to create a store *"
+                placeholder="Store info *"
+                value = "asjdfkl jkasdlfjlk jasdklfj asjkfjl; fasd kj"
                 style={{ width: "100%", height: "150px" }}
               ></textarea>
               {errors.info ? (
