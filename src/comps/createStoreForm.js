@@ -6,7 +6,7 @@ import "./css/register.css";
 import { API_URL, doApiMethod } from './../services/apiService';
 import { toast } from "react-toastify";
 
-function CreateStoreFrom(props) {
+function CreateStoreForm(props) {
   let nav = useNavigate();
   let {
     register,
@@ -173,4 +173,4 @@ function CreateStoreFrom(props) {
   );
 }
 
-export default CreateStoreFrom;
+export default CreateStoreForm;
