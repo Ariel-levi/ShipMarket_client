@@ -22,7 +22,7 @@ function AuthAdminComp(props) {
       let resp = await doApiGet(url);
       // console.log(resp.data);
       // check if the token is of super_admin
-      if (resp.data.role != "super_admin") {
+      if (resp.data.role != "system_admin") {
         toast.error(
           "You must be Super Admin to be here! or you need to login again"
         );

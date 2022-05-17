@@ -12,19 +12,20 @@ function StoresAdmin(props) {
   let [ar, setAr] = useState([]);
   let [ownerAr, setOwnerAr] = useState([]);
   let [numPage, setPageNum] = useState(1);
+  let [status, setStatus] = useState("");
   let nav = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     doApi();
-  }, [location]);
+  }, [location, status]);
 
   const doApi = async () => {
     // get stores page number
     const urlParams = new URLSearchParams(window.location.search);
     let pageQuery = urlParams.get("page") || 1;
     setPageNum(pageQuery);
-    let url = API_URL + "/stores?page=" + pageQuery;
+    let url = API_URL + "/stores?page=" + pageQuery +"&status=" + status;
     try {
       let resp = await doApiGet(url);
       setAr(resp.data);
@@ -69,6 +70,13 @@ function StoresAdmin(props) {
     }
   };
 
+  const updateStatus = async(_id) => { 
+    let url = API_URL + "/stores/updateStatus/" + _id
+    let resp = await doApiMethod(url,"PATCH", {});
+    toast.info("store " + resp.data.status)
+    doApi()
+  }
+
   return (
     <div className="container">
       <AuthAdminComp />
@@ -76,6 +84,9 @@ function StoresAdmin(props) {
       <Link className="btn btn-outline-success" to="/admin/addStore">
         Add Store <MdAddBusiness />
       </Link>
+      <button className="btn btn-outline-success" onClick={() =>setStatus("")}>All stores</button>
+      <button className="btn btn-outline-success" onClick={() =>setStatus("active")}>Active</button>
+      <button className="btn btn-outline-success" onClick={() =>setStatus("pending")}>Pending</button>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -84,6 +95,7 @@ function StoresAdmin(props) {
             <th>Owner</th>
             <th>Image</th>
             <th>Short_id</th>
+            <th>status</th>
             <th>Del/Edit</th>
           </tr>
         </thead>
@@ -107,6 +119,7 @@ function StoresAdmin(props) {
                   />
                 </td>
                 <td>{item.short_id}</td>
+                <td><button onClick={()=>updateStatus(item._id)} className="btn btn-primary">{item.status}</button></td>
                 <td>
                   <button
                     onClick={() => {
@@ -134,7 +147,7 @@ function StoresAdmin(props) {
       </table>
       <PageLinks
         perPage="5"
-        apiUrlAmount={API_URL + "/stores/amount"}
+        apiUrlAmount={API_URL + "/stores/amount?status=" + status}
         urlLinkTo={"/admin/stores"}
         clsCss="btn me-2 mt-4 pageLinks"
       />

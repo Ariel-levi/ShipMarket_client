@@ -8,10 +8,11 @@ function PageLinks(props) {
   // get categories page number
   const urlParams = new URLSearchParams(window.location.search);
   let pageQuery = urlParams.get("page") || 1;
+  
 
   useEffect(() => {
     doApi();
-  }, []);
+  }, [props.apiUrlAmount]); //updating the stores amount according the new api request
 
   const doApi = async () => {
     let url = props.apiUrlAmount;
