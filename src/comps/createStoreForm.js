@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion/dist/framer-motion";
 import "./css/register.css";
-import { API_URL, doApiMethod } from './../services/apiService';
+import { API_URL, doApiMethod } from "./../services/apiService";
 import { toast } from "react-toastify";
 
 function CreateStoreFrom(props) {
@@ -24,7 +24,9 @@ function CreateStoreFrom(props) {
     try {
       let resp = await doApiMethod(url, "POST", _dataBody);
       if (resp.data._id) {
-        toast.success("store requests sent successfully, and pending for admin approval");
+        toast.success(
+          "store requests sent successfully, and pending for admin approval"
+        );
       }
     } catch (err) {
       if (err.response.data.code == 11000) {
@@ -83,7 +85,7 @@ function CreateStoreFrom(props) {
                 type="name"
                 name="name"
                 placeholder="Name"
-                value = "yellow"
+                value="yellow"
               />
               {errors.name ? (
                 <small className="text-danger d-block">
@@ -117,7 +119,7 @@ function CreateStoreFrom(props) {
                 type="address"
                 name="address"
                 placeholder="Address"
-                value = "einstein"
+                value="einstein"
               />
               {errors.address ? (
                 <small className="text-danger d-block">* Address invalid</small>
@@ -150,7 +152,7 @@ function CreateStoreFrom(props) {
                 required
                 className="form-control"
                 placeholder="Store info *"
-                value = "asjdfkl jkasdlfjlk jasdklfj asjkfjl; fasd kj"
+                value="asjdfkl jkasdlfjlk jasdklfj asjkfjl; fasd kj"
                 style={{ width: "100%", height: "150px" }}
               ></textarea>
               {errors.info ? (
