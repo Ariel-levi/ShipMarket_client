@@ -13,7 +13,7 @@ function Home(props) {
   }, []);
 
   const doApi = async () => {
-    let url = API_URL + "/stores?perPage=6";
+    let url = API_URL + "/stores?perPage=6&status=active";
     let resp = await doApiGet(url);
     setShops_ar(resp.data);
   };

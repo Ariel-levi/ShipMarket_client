@@ -9,26 +9,34 @@ import { toast } from "react-toastify";
 import PageLinks from "../../misc_comps/pageLinks";
 
 function StoresAdmin(props) {
-  let [ar, setAr] = useState([]);
-  let [ownerAr, setOwnerAr] = useState([]);
-  let [numPage, setPageNum] = useState(1);
-  let [status, setStatus] = useState("");
-  let nav = useNavigate();
+  const [ar, setAr] = useState([]);
+  const [ownerAr, setOwnerAr] = useState([]);
+  const [numPage, setPageNum] = useState(1);
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const nav = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
+    setLoading(true);
     doApi();
   }, [location, status]);
+
+  useEffect(() => {
+    nav("/admin/stores");
+  }, [status]);
 
   const doApi = async () => {
     // get stores page number
     const urlParams = new URLSearchParams(window.location.search);
     let pageQuery = urlParams.get("page") || 1;
     setPageNum(pageQuery);
-    let url = API_URL + "/stores?page=" + pageQuery +"&status=" + status;
+    let url = API_URL + "/stores?page=" + pageQuery + "&status=" + status;
     try {
       let resp = await doApiGet(url);
       setAr(resp.data);
+      setLoading(false);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -70,23 +78,39 @@ function StoresAdmin(props) {
     }
   };
 
-  const updateStatus = async(_id) => { 
-    let url = API_URL + "/stores/updateStatus/" + _id
-    let resp = await doApiMethod(url,"PATCH", {});
-    toast.info("store " + resp.data.status)
-    doApi()
-  }
+  const updateStatus = async (_id, _name) => {
+    let url = API_URL + "/stores/updateStatus/" + _id;
+    let resp = await doApiMethod(url, "PATCH", {});
+    // console.log(resp.data);
+    toast.info("Store " + _name + " is " + resp.data.status);
+    doApi();
+  };
 
   return (
     <div className="container">
       <AuthAdminComp />
       <h1>Stores in system</h1>
-      <Link className="btn btn-outline-success" to="/admin/addStore">
+      <Link className="btn btn-outline-success me-3 my-3" to="/admin/addStore">
         Add Store <MdAddBusiness />
       </Link>
-      <button className="btn btn-outline-success" onClick={() =>setStatus("")}>All stores</button>
-      <button className="btn btn-outline-success" onClick={() =>setStatus("active")}>Active</button>
-      <button className="btn btn-outline-success" onClick={() =>setStatus("pending")}>Pending</button>
+      <button
+        className="btn btn-outline-success me-3 my-3"
+        onClick={() => setStatus("")}
+      >
+        All stores
+      </button>
+      <button
+        className="btn btn-outline-success me-3 my-3"
+        onClick={() => setStatus("active")}
+      >
+        Active
+      </button>
+      <button
+        className="btn btn-outline-success me-3 my-3"
+        onClick={() => setStatus("pending")}
+      >
+        Pending
+      </button>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -119,7 +143,14 @@ function StoresAdmin(props) {
                   />
                 </td>
                 <td>{item.short_id}</td>
-                <td><button onClick={()=>updateStatus(item._id)} className="btn btn-primary">{item.status}</button></td>
+                <td>
+                  <button
+                    onClick={() => updateStatus(item._id, item.name)}
+                    className="btn btn-primary"
+                  >
+                    {item.status}
+                  </button>
+                </td>
                 <td>
                   <button
                     onClick={() => {
@@ -145,13 +176,18 @@ function StoresAdmin(props) {
           })}
         </tbody>
       </table>
+      {ar.length === 0 ? (
+        <h2 className="text-center my-5">No Stores fund</h2>
+      ) : (
+        ""
+      )}
+      {loading ? <LottieAnimation /> : ""}
       <PageLinks
         perPage="5"
         apiUrlAmount={API_URL + "/stores/amount?status=" + status}
         urlLinkTo={"/admin/stores"}
         clsCss="btn me-2 mt-4 pageLinks"
       />
-      {ar.length === 0 ? <LottieAnimation /> : ""}
     </div>
   );
 }
