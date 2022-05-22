@@ -1,12 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { checkTokenLocal } from "../services/localService";
-import {
-  MdOutlineShoppingCart,
-  MdStorefront,
-  MdOutlineLogout,
-  MdOutlineLogin,
-} from "react-icons/md";
+import { MdStorefront, MdOutlineLogout, MdOutlineLogin } from "react-icons/md";
 import { BiHomeAlt } from "react-icons/bi";
 import { RiUserAddLine } from "react-icons/ri";
 import { AiOutlineStar } from "react-icons/ai";
@@ -16,23 +11,15 @@ import {
   BsInfoCircle,
   BsBagCheck,
 } from "react-icons/bs";
-import { useDispatch, useSelector } from "react-redux";
-import { ShowCart } from "../redux/actions/cart_action";
 import "./css/header.css";
 
 function Header(props) {
   const [login, setLogin] = useState("");
   const location = useLocation();
 
-  const dispatch = useDispatch();
-
-  const [itemsInCart, setItemsInCart] = useState(0);
-  const { cart_ar } = useSelector((state) => state.clientReducer);
-
   useEffect(() => {
-    setItemsInCart(cart_ar.length);
     setLogin(checkTokenLocal());
-  }, [location, cart_ar]);
+  }, [location]);
 
   return (
     <header>
@@ -58,19 +45,7 @@ function Header(props) {
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                <button
-                  className="cartIcon rounded border btn mx-3"
-                  onClick={() => dispatch(ShowCart())}
-                >
-                  {cart_ar.length === 0 ? (
-                    ""
-                  ) : (
-                    <p className="position-absolute top-0 start-100 translate-middle itemCart">
-                      {itemsInCart}
-                    </p>
-                  )}
-                  <MdOutlineShoppingCart />
-                </button>
+                goood
               </h5>
               <button
                 type="button"
@@ -83,21 +58,6 @@ function Header(props) {
               <ul className="navbar-nav justify-content-start flex-grow-1 ps-5">
                 {login ? (
                   <React.Fragment>
-                    <li className="cartBurger">
-                      <button
-                        className="cartIcon rounded border btn mx-3"
-                        onClick={() => dispatch(ShowCart())}
-                      >
-                        {cart_ar.length === 0 ? (
-                          ""
-                        ) : (
-                          <p className="position-absolute top-0 start-100 translate-middle itemCart">
-                            {itemsInCart}
-                          </p>
-                        )}
-                        <MdOutlineShoppingCart />
-                      </button>
-                    </li>
                     <li>
                       <Link
                         className="nav-link rounded text-danger"

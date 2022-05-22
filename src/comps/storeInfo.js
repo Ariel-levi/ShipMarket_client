@@ -1,22 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { API_URL, doApiGet } from "../services/apiService";
-import { MdOutlineLocationCity } from "react-icons/md";
+import { MdOutlineLocationCity, MdOutlineShoppingCart } from "react-icons/md";
 import { BsInfoCircleFill, BsChevronRight } from "react-icons/bs";
 import { HiTemplate } from "react-icons/hi";
 import "./css/storeInfo.css";
 import Product from "./product";
 import LottieAnimation from "./general_comps/lottieAnimation";
+import { useDispatch, useSelector } from "react-redux";
+import { resetAll, ShowCart } from "../redux/actions/cart_action";
 
 function StoreInfo(props) {
   const [shop, setShop] = useState([]);
   const [storeProducts, setStoreProducts] = useState([]);
+  const dispatch = useDispatch();
   let params = useParams();
   let nav = useNavigate();
 
+  const [itemsInCart, setItemsInCart] = useState(0);
+  const { cart_ar } = useSelector((state) => state.clientReducer);
+
   useEffect(() => {
+    dispatch(resetAll());
     doApi();
   }, []);
+
+  useEffect(() => {
+    setItemsInCart(cart_ar.length);
+  }, [cart_ar]);
 
   const doApi = async () => {
     let url = API_URL + "/stores/single/" + params.id;
@@ -46,6 +57,19 @@ function StoreInfo(props) {
             </div>
           </div>
           <div className="container store_info text-center">
+            <button
+              className="cartIcon rounded border btn position-absolute top-0 start-0 m-5"
+              onClick={() => dispatch(ShowCart())}
+            >
+              {cart_ar.length === 0 ? (
+                ""
+              ) : (
+                <p className="position-absolute top-0 start-100 translate-middle itemCart">
+                  {itemsInCart}
+                </p>
+              )}
+              <MdOutlineShoppingCart />
+            </button>
             <button
               style={{ background: "none" }}
               className="position-absolute top-0 end-0 m-5 animaLinkSM "

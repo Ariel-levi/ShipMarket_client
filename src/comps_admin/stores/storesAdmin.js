@@ -19,7 +19,6 @@ function StoresAdmin(props) {
   const location = useLocation();
 
   useEffect(() => {
-    setLoading(true);
     doApi();
   }, [location, status]);
 
@@ -176,7 +175,7 @@ function StoresAdmin(props) {
           })}
         </tbody>
       </table>
-      {ar.length === 0 ? (
+      {ar.length === 0 && !loading ? (
         <h2 className="text-center my-5">No Stores fund</h2>
       ) : (
         ""

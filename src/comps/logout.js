@@ -7,8 +7,12 @@ function Logout(props) {
 
   useEffect(() => {
     localStorage.removeItem("tok");
-    toast.info("You log out from system, see you later");
     nav("/");
+    window.location.reload();
+    // toast.info("You log out from system, see you later");
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 2000);
   }, []);
 
   return <div>Please wait... you log out.</div>;

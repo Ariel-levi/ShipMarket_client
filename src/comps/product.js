@@ -12,13 +12,27 @@ function Product(props) {
   const dispatch = useDispatch();
   const { favs } = useSelector((state) => state.favsReducer);
 
+  const starColor = {
+    background: "#ffefc1",
+    color: "#fabb00",
+  };
+
   const inFavs = () => {
     return favs.includes(item.short_id);
   };
 
-  // useEffect(() => {
+  const addRemoveFavsClick = () => {
+    if (localStorage["tok"]) {
+      dispatch(addRemoveFavs(item.short_id));
+    } else toast.error("you must be logged in to add a favourite");
+  };
 
-  // },[favs])
+  const addItemoCart = () => {
+    if (localStorage["tok"]) {
+      dispatch(addCart(item));
+      toast.info(item.name + " add to Cart");
+    } else toast.error("you must be logged in to add Item to Cart");
+  };
 
   return (
     <div className="container">
@@ -36,33 +50,20 @@ function Product(props) {
               <small className="font_bold blog-category text-uppercase py-1 px-2 float-left rounded">
                 Food
               </small>
-
-              {!inFavs() ? (
-                <button
-                  onClick={() => dispatch(addRemoveFavs(item.short_id))}
-                  className="font_bold text-uppercase py-1 px-2 float-end rounded "
-                >
-                  <BsStar />
-                </button>
-              ) : (
-                <button
-                  onClick={() => dispatch(addRemoveFavs(item.short_id))}
-                  className="font_bold starColor text-uppercase py-1 px-2 float-end rounded"
-                >
-                  <BsStarFill />
-                </button>
-              )}
-
+              <button
+                onClick={addRemoveFavsClick}
+                className="font_bold text-uppercase py-1 px-2 float-end rounded"
+                style={!inFavs() ? {} : starColor}
+              >
+                {!inFavs() ? <BsStar /> : <BsStarFill />}
+              </button>
               <h4 className="mt-2 font_bold text-dark">{item.name}</h4>
               <p className="text-muted">{item.info}</p>
               <div className="blog-footer d-flex justify-content-between align-items-center border-top">
                 <h2 className="mr-2">₪ {item.price}</h2>
                 <button
                   className="btn btn-outline-primary"
-                  onClick={() => {
-                    dispatch(addCart(item));
-                    toast.info(item.name + " add to Cart");
-                  }}
+                  onClick={addItemoCart}
                 >
                   Add to cart <MdAddShoppingCart className="me-2" />
                 </button>

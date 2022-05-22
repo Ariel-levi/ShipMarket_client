@@ -60,7 +60,9 @@ function AddCategory(props) {
   });
 
   const onSubForm = (formData) => {
-    formData.img_url = imageSearch;
+    if (imageSearch) {
+      formData.img_url = imageSearch;
+    }
     setBtnSend(true);
     doFormApi(formData);
   };
