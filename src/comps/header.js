@@ -37,21 +37,7 @@ function Header(props) {
           >
             {login ? (
               <React.Fragment>
-                <li>
-                  <button
-                    className="cartIcon rounded border mx-3"
-                    onClick={() => dispatch(ShowCart())}
-                  >
-                    {cart_ar.length === 0 ? (
-                      ""
-                    ) : (
-                      <p className="position-absolute top-0 start-100 translate-middle itemCart">
-                        {itemsInCart}
-                      </p>
-                    )}
-                    <MdOutlineShoppingCart />
-                  </button>
-                </li>
+                
                 <li>
                   <Link className="border rounded text-danger" to="/logout">
                     Log out
@@ -64,8 +50,9 @@ function Header(props) {
                   <Link to="/createStore">Create Store</Link>
                 </li>
                 <li>
-                  <Link to="/checkout">Checkout</Link>
+                  <Link to="/applyAsDriver">for drivers</Link>
                 </li>
+               
                 <li>
                   <Link to="/oldOrders">Old Orders</Link>
                 </li>

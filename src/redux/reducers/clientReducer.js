@@ -11,7 +11,8 @@ const initState = localStorage["cart"]
   : {
       cart_ar: [],
       totalPrice: 0,
-      showCart: "none",
+      store_short_id:"",
+      showCart: "none"
     };
 
 export const clientReducer = (_state = initState, _action) => {
@@ -28,14 +29,18 @@ export const clientReducer = (_state = initState, _action) => {
       if (index >= 0) {
         //item already added
         _state.cart_ar[index].amount++;
-      } else {
-        //item not found
-        _action.newItem.amount = 1; // create and initial amout element to 1
-        _state.cart_ar = [..._state.cart_ar, _action.newItem]; //add new item
+      } else { //item not found
+        // verify that the new item belongs to same store
+        if(_state.store_short_id === "" || _state.store_short_id === _action.newItem.store_short_id) {
+          _action.newItem.amount = 1; // create and initial amout element to 1
+          _state.cart_ar = [..._state.cart_ar, _action.newItem]; //add new item
+          _state.store_short_id = _action.newItem.store_short_id
+        }
+         
       }
       return saveLocal({ ..._state });
     case RESET_ALL_CART:
-      return saveLocal({ ..._state, cart_ar: [] });
+      return saveLocal({ ..._state, cart_ar: [], store_short_id:"" });
     case SHOW_CART:
       return saveLocal({
         ..._state,

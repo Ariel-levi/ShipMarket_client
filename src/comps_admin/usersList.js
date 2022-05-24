@@ -10,22 +10,25 @@ import { useLocation } from "react-router-dom";
 
 function UsersList(props) {
   let [ar, setAr] = useState([]);
-  let selectRef = useRef();
   let [numPage, setPageNum] = useState(1);
   const location = useLocation();
+  const [role, setRole] = useState("")
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     doApi();
-  }, [location]);
+  }, [location, role]);
 
+  //fetch users list
   const doApi = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     let pageQuery = urlParams.get("page") || 1;
     setPageNum(pageQuery);
-    let url = API_URL + "/users/usersList?page=" + pageQuery;
+    let url = API_URL + `/users/usersList?page=${pageQuery}&role=${role}`;
     try {
       let resp = await doApiGet(url);
       setAr(resp.data);
+      setLoading(false)
     } catch (err) {
       alert("there problem come back later");
       if (err.response) {
@@ -34,8 +37,8 @@ function UsersList(props) {
     }
   };
 
+  // delete user
   const delUser = async (_idDel) => {
-    // del user
     if (window.confirm("Are you sure you want to delete the user?")) {
       let url = API_URL + `/users/delete/${_idDel}`;
       try {
@@ -52,14 +55,15 @@ function UsersList(props) {
     }
   };
 
-  // change role user for admin or back to regular user
-  const changeRole = async (_userId) => {
-    let role = selectRef.current.value;
-    let url = API_URL + `/users/changeRole/${_userId}/${role}`;
+  // change user's role
+  const changeRole = async (e,_userId) => {
+    let newRole = e.target.value;
+    let url = API_URL + `/users/changeRole/${_userId}/${newRole}`;
     try {
       let resp = await doApiMethod(url, "PATCH", {});
       if (resp.data.modifiedCount) {
-        doApi();
+          setLoading(true);
+           doApi();
       }
     } catch (err) {
       alert("there problem come back later");
@@ -72,7 +76,17 @@ function UsersList(props) {
   return (
     <div className="container">
       <AuthAdminComp />
-      <h1>List of Users in system</h1>
+      <h1 className="display-2">Users List</h1>
+      {/* filter users list by role */}
+      <div>
+
+      <button className="btn btn-outline-primary" onClick={() =>setRole("")}>All users</button>
+      <button className="btn btn-outline-primary" onClick={() =>setRole("user")}>Clients</button>
+      <button className="btn btn-outline-primary" onClick={() =>setRole("admin")}>Store admins</button>
+      <button className="btn btn-outline-primary" onClick={() =>setRole("deliver")}>delivers</button>
+      <button className="btn btn-outline-primary" onClick={() =>setRole("apply_for_delivery")}>Applicant for delivers</button>
+      </div>
+      {ar.length >0?
       <table className="table table-striped">
         <thead>
           <tr>
@@ -90,7 +104,7 @@ function UsersList(props) {
               <tr key={item._id}>
                 <td>{i + 1 + 10 * (numPage - 1)}</td>
                 <td>
-                  {item.role === "super_admin" ? <MdAdminPanelSettings /> : ""}
+                  {item.role === "system_admin" ? <MdAdminPanelSettings /> : ""}
                   {item.role === "admin" ? <BsShop /> : ""}
                   {item.role === "deliver" ? <MdOutlineDeliveryDining /> : ""}
                   {item.role === "user" ? <FaUserAlt /> : ""}
@@ -100,17 +114,17 @@ function UsersList(props) {
                 <td>{item.address}</td>
                 <td className="d-flex justify-content-center">
                   <select
-                    ref={selectRef}
                     defaultValue={item.role}
-                    onChange={() => {
-                      changeRole(item._id);
+                    onChange={(e) => {
+                      changeRole(e,item._id);
                     }}
                     className="form-select"
                   >
-                    <option value="super_admin">Super Admin</option>
+                    <option value="system_admin">System Admin</option>
                     <option value="admin">Admin</option>
-                    <option value="deliver">Deliver</option>
+                    <option value="deliver">deliver</option>
                     <option value="user">User</option>
+                    <option value="apply_for_delivery">Apply for delivery</option>
                   </select>
                 </td>
                 <td>
@@ -120,7 +134,7 @@ function UsersList(props) {
                     }}
                     className="btn btn-outline-danger mx-2"
                     title="Delete"
-                  >
+                    >
                     <BsEraser />
                   </button>
                 </td>
@@ -129,13 +143,16 @@ function UsersList(props) {
           })}
         </tbody>
       </table>
+      :""}
+      {loading ? <LottieAnimation /> : ""}
+      {!loading && ar.length === 0 ? <h2 className="display-4 text-danger text-center mt-5">No users found</h2> : 
       <PageLinks
-        perPage="10"
-        apiUrlAmount={API_URL + "/users/amount"}
-        urlLinkTo={"/admin/users"}
-        clsCss="btn me-2 mt-4 pageLinks"
+      perPage="10"
+      apiUrlAmount={API_URL + "/users/amount"}
+      urlLinkTo={"/admin/users"}
+      clsCss="btn me-2 mt-4 pageLinks"
       />
-      {ar.length === 0 ? <LottieAnimation /> : ""}
+    }
     </div>
   );
 }

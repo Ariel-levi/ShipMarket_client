@@ -83,7 +83,6 @@ function CreateStoreForm(props) {
                 type="name"
                 name="name"
                 placeholder="Name"
-                value = "yellow"
               />
               {errors.name ? (
                 <small className="text-danger d-block">
@@ -93,23 +92,7 @@ function CreateStoreForm(props) {
                 ""
               )}
             </div>
-            {/* email */}
-            {/* <div className="form-group mb-3">
-              <input
-                {...emailRef}
-                className="form-control"
-                type="email"
-                name="email"
-                placeholder="Email"
-                value = "ronennt@gmail.com"
-              />
-              {errors.email ? (
-                <small className="text-danger d-block">* Email invalid</small>
-              ) : (
-                ""
-              )}
-            </div> */}
-            {/* address */}
+       
             <div className="form-group mb-3">
               <input
                 {...addressRef}
@@ -125,24 +108,7 @@ function CreateStoreForm(props) {
                 ""
               )}
             </div>
-            {/* phone */}
-            {/* <div className="form-group mb-3">
-              <input
-                {...phoneRef}
-                className="form-control"
-                type="phone"
-                name="phone"
-                placeholder="Phone"
-                value = "0542007978"
-              />
-              {errors.phone ? (
-                <small className="text-danger d-block">
-                  * Enter valid phone, 10 chars
-                </small>
-              ) : (
-                ""
-              )}
-            </div> */}
+ 
             {/* store info */}
             <div className="form-group mb-3">
               <textarea

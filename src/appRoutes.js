@@ -37,6 +37,10 @@ import CreateStoreFrom from "./comps/createStoreForm";
 import Checkout from "./comps/orders_comps/checkout";
 import OldOrders from "./comps/orders_comps/oldOrders";
 import OldOrderInfoClient from "./comps/orders_comps/oldOrderInfoClient";
+import ApplyingDriverForm from "./comps/applyingDriverForm";
+import LayoutDelivery from "./comps_delivery/layoutDelivery";
+import HomeDelivery from "./comps_delivery/homeDelivery";
+import OpenOrders from "./comps_delivery/openOrders";
 
 function AppRoutes(props) {
   return (
@@ -75,8 +79,15 @@ function AppRoutes(props) {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/oldOrders" element={<OldOrders />} />
           <Route path="/oldOrders/:idOrder" element={<OldOrderInfoClient />} />
+          <Route path="/applyAsDriver" element={<ApplyingDriverForm />} />
           {/* * - for any url that not in another route go to 404 */}
           <Route path="/*" element={<Page404 />} />
+        </Route>
+
+        {/* delivery routes */}
+        <Route path="/delivery" element={<LayoutDelivery/>}>
+          <Route index element={<HomeDelivery />}/>
+          <Route path="openOrders" element={<OpenOrders/>}/>
         </Route>
       </Routes>
       {/* theme='colored' make the toast message bg to be red,green... */}

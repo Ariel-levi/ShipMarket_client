@@ -84,9 +84,9 @@ function StoresAdmin(props) {
       <Link className="btn btn-outline-success" to="/admin/addStore">
         Add Store <MdAddBusiness />
       </Link>
-      <button className="btn btn-outline-success" onClick={() =>setStatus("")}>All stores</button>
-      <button className="btn btn-outline-success" onClick={() =>setStatus("active")}>Active</button>
-      <button className="btn btn-outline-success" onClick={() =>setStatus("pending")}>Pending</button>
+      <button className="btn btn-outline-primary" onClick={() =>setStatus("")}>All stores</button>
+      <button className="btn btn-outline-primary" onClick={() =>setStatus("active")}>Active</button>
+      <button className="btn btn-outline-primary" onClick={() =>setStatus("pending")}>Pending</button>
       <table className="table table-striped">
         <thead>
           <tr>
