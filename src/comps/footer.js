@@ -33,6 +33,9 @@ function Footer(props) {
           <li className="list-inline-item animaLinkSM">
             <Link to="/allStore">Stores</Link>
           </li>
+          <li className="list-inline-item animaLinkSM">
+            <Link to="/createStore">Create Store</Link>
+          </li>
         </ul>
         <p className="copyright">ShipMarket Delivery © {dt.getFullYear()}</p>
       </footer>

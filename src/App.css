@@ -115,6 +115,7 @@ body {
   text-decoration: none;
   align-items: center;
   z-index: 1;
+  border: none;
 }
 
 .animaLinkSM:hover {

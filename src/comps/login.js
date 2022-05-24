@@ -28,7 +28,11 @@ function Login(props) {
         localStorage.setItem("tok", resp.data.token);
         // send user to home
         nav("/");
-        toast.info("Welcome ");
+        window.location.reload();
+        // toast.info("Welcome ");
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
       } else {
         toast.error("There some error come back later...");
       }
