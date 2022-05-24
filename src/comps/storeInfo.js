@@ -14,13 +14,10 @@ import { useDispatch, useSelector } from "react-redux";
 function StoreInfo(props) {
   const [shop, setShop] = useState([]);
   const [storeProducts, setStoreProducts] = useState([]);
-  const dispatch = useDispatch();
   let params = useParams();
   let nav = useNavigate();
   const dispatch = useDispatch()
   
-  const [itemsInCart, setItemsInCart] = useState(0);
-  const { cart_ar, showCart } = useSelector((state) => state.clientReducer);
 
   const [itemsInCart, setItemsInCart] = useState(0);
   const { cart_ar } = useSelector((state) => state.clientReducer);
