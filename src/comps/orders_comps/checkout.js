@@ -3,16 +3,19 @@ import { API_URL, doApiMethod } from "../../services/apiService";
 import AuthClientComp from "../general_comps/authClientComp";
 import { useDispatch, useSelector } from "react-redux";
 import CheckoutItem from "./checkoutItem";
-import { MdOutlineRemoveShoppingCart } from "react-icons/md";
+import { MdOutlineDeliveryDining, MdOutlineRemoveShoppingCart } from "react-icons/md";
+import {GrFormNext, GrNext} from "react-icons/gr";
 import { resetAll } from "../../redux/actions/cart_action";
 import { PayPalButton } from "react-paypal-button-v2";
 import { motion } from "framer-motion/dist/framer-motion";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../css/checkout.css";
+import SimpleReactLightbox from 'simple-react-lightbox'
+import { SRLWrapper } from "simple-react-lightbox";
 
 function Checkout(props) {
-  const { cart_ar, totalPrice } = useSelector((state) => state.clientReducer);
+  const { cart_ar, totalPrice, store_short_id } = useSelector((state) => state.clientReducer);
   const nav = useNavigate();
   const dispatch = useDispatch();
 
@@ -44,6 +47,7 @@ function Checkout(props) {
     let resp = await doApiMethod(url, "POST", {
       total_price: totalPrice,
       products_ar: cart_ar,
+      store_short_id: store_short_id
     });
     console.log(resp.data);
   };
@@ -65,6 +69,8 @@ function Checkout(props) {
   };
 
   return (
+    <SimpleReactLightbox>
+
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -73,6 +79,14 @@ function Checkout(props) {
       style={{ minHeight: "85vh" }}
     >
       <AuthClientComp />
+      <div>
+      <h3>Delivery method and time</h3>
+      <button className="btn  text-start py-3 shadow">
+        <MdOutlineDeliveryDining className="mx-3"/> 
+        Please enter a delivery address
+        <GrNext className="mx-5"/>
+        </button>
+      </div>
       <section className="shopping-cart">
         <div className="container">
           <div className="content">
@@ -129,7 +143,7 @@ function Checkout(props) {
                       options={{
                         clientId:
                           "ATRPIUvU2B6lrdeCovo7c4NzauAsSjlElL4xi_BaxHyCrrcmAO_fjdCddURxRhRPcq9W9hBQpnxjBzMD",
-                      }}
+                        }}
                       onSuccess={(details, data) => {
                         // data - have info of pay token to check in nodejs
                         // console.log("data", data);
@@ -155,6 +169,7 @@ function Checkout(props) {
         </div>
       </section>
     </motion.div>
+                          </SimpleReactLightbox>
   );
 }
 

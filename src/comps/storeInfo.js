@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { API_URL, doApiGet } from "../services/apiService";
 import { MdOutlineLocationCity, MdOutlineShoppingCart } from "react-icons/md";
 import { BsInfoCircleFill, BsChevronRight } from "react-icons/bs";
@@ -7,21 +7,23 @@ import { HiTemplate } from "react-icons/hi";
 import "./css/storeInfo.css";
 import Product from "./product";
 import LottieAnimation from "./general_comps/lottieAnimation";
-import { useDispatch, useSelector } from "react-redux";
+import Cart from "../cart_comps/cart";
 import { resetAll, ShowCart } from "../redux/actions/cart_action";
+import { useDispatch, useSelector } from "react-redux";
 
 function StoreInfo(props) {
   const [shop, setShop] = useState([]);
   const [storeProducts, setStoreProducts] = useState([]);
-  const dispatch = useDispatch();
   let params = useParams();
   let nav = useNavigate();
+  const dispatch = useDispatch()
+  
 
   const [itemsInCart, setItemsInCart] = useState(0);
   const { cart_ar } = useSelector((state) => state.clientReducer);
 
   useEffect(() => {
-    dispatch(resetAll());
+    dispatch(resetAll())  // reset cart
     doApi();
   }, []);
 
@@ -79,6 +81,19 @@ function StoreInfo(props) {
             >
               Back <BsChevronRight className="mx-2" />
             </button>
+            <button
+                    className="cartIcon rounded border mx-3"
+                    onClick={() => dispatch(ShowCart())}
+                  >
+                    {cart_ar.length === 0 ? (
+                      ""
+                    ) : (
+                      <p className="position-absolute top-0 start-100 translate-middle itemCart">
+                        {itemsInCart}
+                      </p>
+                    )}
+                    <MdOutlineShoppingCart />
+                  </button>
             <img
               src={shop.img_url || "/images/no_image.png"}
               alt={shop.name}

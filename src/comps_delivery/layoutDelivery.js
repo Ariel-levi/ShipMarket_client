@@ -1,17 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import AuthComp from "../misc_comps/authAdminComp";
-import HeaderAdmin from "./headerAdmin";
+import HeaderDelivery from "./headerDelivery";
 
-function LayoutAdmin(props) {
+function LayoutDelivery(props) {
   return (
     <div>
       <React.Fragment>
-        <HeaderAdmin />
+        <HeaderDelivery />
         <Outlet />
       </React.Fragment>
     </div>
   );
 }
 
-export default LayoutAdmin;
+export default LayoutDelivery;
