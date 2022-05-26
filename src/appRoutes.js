@@ -36,6 +36,10 @@ import CreateStoreFrom from "./comps/createStoreForm";
 import Checkout from "./comps/orders_comps/checkout";
 import OldOrders from "./comps/orders_comps/oldOrders";
 import OldOrderInfoClient from "./comps/orders_comps/oldOrderInfoClient";
+// store Admin imports
+import LayoutStore from "./comps_storeAdmin/layoutStore";
+import MyStore from "./comps_storeAdmin/myStore";
+import EditStoreAdmin from "./comps_storeAdmin/editStoreAdmin";
 
 function AppRoutes(props) {
   return (
@@ -58,6 +62,14 @@ function AppRoutes(props) {
           <Route path="/admin/addCategory" element={<AddCategory />} />
           <Route path="/admin/editCategory/:id" element={<EditCategory />} />
           <Route path="/admin/orders" element={<OrdersAdmin />} />
+        </Route>
+        {/* Store Admin */}
+        <Route path="/storeAdmin" element={<LayoutStore />}>
+          <Route index element={<MyStore />} />
+          <Route
+            path="/storeAdmin/editStore/:id"
+            element={<EditStoreAdmin />}
+          />
         </Route>
         {/* For regular user client path */}
         <Route path="/" element={<Layout />}>
