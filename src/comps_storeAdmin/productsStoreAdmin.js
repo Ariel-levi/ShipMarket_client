@@ -1,34 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import LottieAnimation from "../comps/general_comps/lottieAnimation";
+import { dateCreated } from "../misc_comps/dateCreated";
+import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
 import { BsPen, BsEraser, BsInfoCircle } from "react-icons/bs";
+import { IoMdArrowRoundBack } from "react-icons/io";
 import { MdAddShoppingCart } from "react-icons/md";
-import AuthAdminComp from "../../misc_comps/authAdminComp";
-import LottieAnimation from "../../comps/general_comps/lottieAnimation";
-import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
 import { toast } from "react-toastify";
-import PageLinks from "../../misc_comps/pageLinks";
-import { dateCreated } from "../../misc_comps/dateCreated";
+import AuthClientComp from "../comps/general_comps/authClientComp";
 
-function ProductsAdmin(props) {
-  let [ar, setAr] = useState([]);
-  let [numPage, setPageNum] = useState(1);
-  let nav = useNavigate();
+function ProductsStoreAdmin(props) {
+  const [products, setProducts] = useState([]);
+  const [storeInfo, setStoreInfo] = useState([]);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
+  let params = useParams();
+  let nav = useNavigate();
 
   useEffect(() => {
+    // get the store info from the link state by location
+    setStoreInfo(location.state.item);
     doApi();
-  }, [location]);
+  }, []);
 
   const doApi = async () => {
-    // get products page number
-    const urlParams = new URLSearchParams(window.location.search);
-    let pageQuery = urlParams.get("page") || 1;
-    setPageNum(pageQuery);
-    let url = API_URL + "/products?page=" + pageQuery;
+    let url = API_URL + "/products/storeProducts/" + params.id;
     try {
       let resp = await doApiGet(url);
       // console.log(resp.data);
-      setAr(resp.data);
+      setProducts(resp.data);
+      setLoading(false);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -40,7 +41,7 @@ function ProductsAdmin(props) {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         let url = API_URL + "/products/" + _idDel;
-        let resp = await doApiMethod(url, "DELETE", {});
+        let resp = await doApiMethod(url, "DELETE", {}, params.id);
         // console.log(resp.data);
         if (resp.data.deletedCount) {
           toast.info("Product delted !");
@@ -56,11 +57,20 @@ function ProductsAdmin(props) {
 
   return (
     <div className="container">
-      <AuthAdminComp />
-      <h1 className="display-4">Products in System</h1>
+      <AuthClientComp />
+      <h1>{storeInfo.name} Products</h1>
+      <button
+        onClick={() => {
+          nav(-1);
+        }}
+        className="btn btn-outline-dark me-2"
+      >
+        Back <IoMdArrowRoundBack />
+      </button>
       <Link
-        className="btn btn-outline-success mt-2 mb-4"
-        to="/admin/addProduct"
+        className="btn btn-outline-success my-3"
+        to="/storeAdmin/products/addProduct"
+        state={{ storeInfo }}
       >
         Add Product <MdAddShoppingCart />
       </Link>
@@ -78,10 +88,10 @@ function ProductsAdmin(props) {
           </tr>
         </thead>
         <tbody>
-          {ar.map((item, i) => {
+          {products.map((item, i) => {
             return (
               <tr key={item._id}>
-                <td>{i + 1 + 5 * (numPage - 1)}</td>
+                <td>{i + 1}</td>
                 <td>
                   <img
                     src={item.img_url || "/images/no_image.png"}
@@ -105,18 +115,17 @@ function ProductsAdmin(props) {
                   >
                     <BsEraser />
                   </button>
-                  <button
-                    onClick={() => {
-                      nav("/admin/editProduct/" + item._id);
-                    }}
+                  <Link
+                    to={"/storeAdmin/products/edit/" + item._id}
+                    state={{ storeInfo }}
                     className="btn btn-outline-secondary mx-2"
                     title="Edit"
                   >
                     <BsPen />
-                  </button>
+                  </Link>
                   <button
                     onClick={() => {
-                      nav("/admin/productInfo/" + item._id);
+                      nav("/storeAdmin/products/info/" + item._id);
                     }}
                     className="btn btn-outline-info"
                     title="Info"
@@ -129,15 +138,14 @@ function ProductsAdmin(props) {
           })}
         </tbody>
       </table>
-      <PageLinks
-        perPage="5"
-        apiUrlAmount={API_URL + "/products/amount"}
-        urlLinkTo={"/admin/products"}
-        clsCss="btn me-2 mt-4 pageLinks"
-      />
-      {ar.length === 0 ? <LottieAnimation /> : ""}
+      {products.length === 0 ? (
+        <h2 className="text-center display-2">No Products</h2>
+      ) : (
+        ""
+      )}
+      {loading ? <LottieAnimation /> : ""}
     </div>
   );
 }
 
-export default ProductsAdmin;
+export default ProductsStoreAdmin;

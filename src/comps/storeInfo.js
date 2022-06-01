@@ -16,14 +16,13 @@ function StoreInfo(props) {
   const [storeProducts, setStoreProducts] = useState([]);
   let params = useParams();
   let nav = useNavigate();
-  const dispatch = useDispatch()
-  
+  const dispatch = useDispatch();
 
   const [itemsInCart, setItemsInCart] = useState(0);
   const { cart_ar } = useSelector((state) => state.clientReducer);
 
   useEffect(() => {
-    dispatch(resetAll())  // reset cart
+    dispatch(resetAll()); // reset cart
     doApi();
   }, []);
 
@@ -58,7 +57,7 @@ function StoreInfo(props) {
               <h2 className="shop_name">{shop.name}</h2>
             </div>
           </div>
-          <div className="container store_info text-center">
+          <div className="container store__info text-center">
             <button
               className="cartIcon rounded border btn position-absolute top-0 start-0 m-5"
               onClick={() => dispatch(ShowCart())}
@@ -81,19 +80,6 @@ function StoreInfo(props) {
             >
               Back <BsChevronRight className="mx-2" />
             </button>
-            <button
-                    className="cartIcon rounded border mx-3"
-                    onClick={() => dispatch(ShowCart())}
-                  >
-                    {cart_ar.length === 0 ? (
-                      ""
-                    ) : (
-                      <p className="position-absolute top-0 start-100 translate-middle itemCart">
-                        {itemsInCart}
-                      </p>
-                    )}
-                    <MdOutlineShoppingCart />
-                  </button>
             <img
               src={shop.img_url || "/images/no_image.png"}
               alt={shop.name}

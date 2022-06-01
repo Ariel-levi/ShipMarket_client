@@ -1,7 +1,8 @@
 import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
-import { BsFillInfoCircleFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
+import { BsFillInfoCircleFill, BsColumns } from "react-icons/bs";
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion/dist/framer-motion";
 
 function MyStoreItem(props) {
   let nav = useNavigate();
@@ -12,7 +13,13 @@ function MyStoreItem(props) {
   };
 
   return (
-    <div className="col-md-4 col-sm-6 mb-4">
+    <motion.div
+      layout
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      className="col-md-4 col-sm-6 mb-4"
+    >
       <div className="payment-card rounded-lg shadow bg-white text-center h-100">
         <div className="payment-card__type px-4 py-5 d-flex justify-content-center align-items-center">
           <div
@@ -31,24 +38,41 @@ function MyStoreItem(props) {
           <p className="text-muted">address : {item.address}</p>
           <hr />
           <div className="d-flex justify-content-between">
-            <button className="mx-2" style={{ background: "none" }}>
+            <button
+              onClick={() => {
+                nav("/storeAdmin/more/" + item._id);
+              }}
+              className="mx-2"
+              style={{ background: "none" }}
+              title="Info"
+            >
               Info <BsFillInfoCircleFill size="1.5em" color="#34495E" />
             </button>
             <div>
-              <button
-                onClick={() => {
-                  nav("/storeAdmin/editStore/" + item._id);
-                }}
+              <Link
+                to={"/storeAdmin/products/" + item._id}
+                state={{ item }}
                 className="mx-2"
                 style={{ background: "none" }}
+                title="Products"
+              >
+                <BsColumns size="1.5em" color="#16A085" />
+              </Link>
+              <Link
+                to={"/storeAdmin/editStore/" + item._id}
+                className="mx-2"
+                state={{ item }}
+                style={{ background: "none" }}
+                title="Edit"
               >
                 <MdEdit size="1.5em" color="#3498DB" />
-              </button>
+              </Link>
               <button
                 onClick={() => {
                   props.delStore(item._id);
                 }}
                 style={{ background: "none" }}
+                title="Delete"
               >
                 <MdDelete size="1.5em" color="#E74C3C" />
               </button>
@@ -56,7 +80,7 @@ function MyStoreItem(props) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

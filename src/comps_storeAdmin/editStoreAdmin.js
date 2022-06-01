@@ -58,14 +58,14 @@ function EditStoreAdmin(props) {
   const doFormApi = async (formData) => {
     let url = API_URL + "/stores/" + store._id;
     try {
-      let resp = await doApiMethod(url, "PUT", formData);
+      let resp = await doApiMethod(url, "PUT", formData, params.id);
       // console.log(resp.data);
       if (resp.data.modifiedCount) {
         toast.success("Store Updated");
         // back to the list of stores
         nav("/storeAdmin");
       } else {
-        toast.warning("you not change nothing");
+        toast.warning("you didn't change nothing");
       }
     } catch (err) {
       console.log(err.response);

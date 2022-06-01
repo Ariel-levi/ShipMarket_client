@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { BiHomeAlt } from "react-icons/bi";
+import { MdStorefront } from "react-icons/md";
 
 function HeaderStore(props) {
   return (
@@ -26,7 +28,7 @@ function HeaderStore(props) {
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                goood
+                AdminStore
               </h5>
               <button
                 type="button"
@@ -39,17 +41,12 @@ function HeaderStore(props) {
               <ul className="navbar-nav justify-content-start flex-grow-1 ps-5">
                 <li>
                   <Link className="nav-link" to="/storeAdmin">
-                    My Stores
+                    My Stores <MdStorefront className="ms-1" />
                   </Link>
                 </li>
                 <li>
-                  <Link className="nav-link" to="/storeAdmin">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link className="nav-link" to="/storeAdmin">
-                    Stores
+                  <Link className="nav-link" to="/">
+                    Go Home <BiHomeAlt className="ms-1" />
                   </Link>
                 </li>
               </ul>

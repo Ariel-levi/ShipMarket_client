@@ -1,48 +1,20 @@
 import React, { useEffect, useState } from "react";
-import AuthAdminComp from "../../misc_comps/authAdminComp";
-import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
+import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
 import { useForm } from "react-hook-form";
 import { MdAddShoppingCart } from "react-icons/md";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { BsCardImage } from "react-icons/bs";
-import ImagesSearch from "../../comps/general_comps/imagesSearch";
+import ImagesSearch from "../comps/general_comps/imagesSearch";
+import AuthClientComp from "../comps/general_comps/authClientComp";
 
-function AddProductAdmin(props) {
+function AddProductStoreAdmin(props) {
   const [btnSend, setBtnSend] = useState(false);
-  const [stores, setStores] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [openImageSearch, setOpenImageSearch] = useState(false);
   const [imageSearch, setImageSearch] = useState("");
+  const location = useLocation();
+  const storeInfo = location.state.storeInfo;
   let nav = useNavigate();
-
-  useEffect(() => {
-    doApi();
-  }, []);
-
-  const doApi = async () => {
-    let urlStores = API_URL + "/stores?perPage=100";
-    try {
-      let resp2 = await doApiGet(urlStores);
-      setStores(resp2.data);
-      // console.log("stores", resp2.data);
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data);
-      }
-    }
-
-    let urlCategories = API_URL + "/categories";
-    try {
-      let resp3 = await doApiGet(urlCategories);
-      setCategories(resp3.data);
-      // console.log("categories", resp3.data);
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data);
-      }
-    }
-  };
 
   let {
     register,
@@ -57,17 +29,6 @@ function AddProductAdmin(props) {
   });
   let priceRef = register("price", { required: true, minLength: 1 });
   let infoRef = register("info", { required: true, minLength: 5 });
-  let store_short_idRef = register("store_short_id", {
-    required: true,
-    minLength: 5,
-    maxLength: 99,
-  });
-  let cat_short_idRef = register("cat_short_id", {
-    required: true,
-    minLength: 5,
-    maxLength: 99,
-  });
-
   let img_urlRef = register("img_url", {
     required: false,
     minLength: 3,
@@ -83,28 +44,31 @@ function AddProductAdmin(props) {
     if (imageSearch) {
       formData.img_url = imageSearch;
     }
+    formData.store_short_id = storeInfo.short_id;
+    formData.cat_short_id = "xxxxxxx";
     setBtnSend(true);
+
+    // console.log(formData);
     doFormApi(formData);
   };
 
   const doFormApi = async (formData) => {
     let url = API_URL + "/products";
     try {
-      let resp = await doApiMethod(url, "POST", formData);
+      let resp = await doApiMethod(url, "POST", formData, storeInfo._id);
       if (resp.data._id) {
         toast.success("Product Created");
-        nav("/admin/products");
+        nav(-1);
       }
     } catch (err) {
       console.log(err.response);
       alert("There problem try again later");
-      // nav("/admin/products");
     }
   };
 
   return (
     <div className="container">
-      <AuthAdminComp />
+      <AuthClientComp />
       {openImageSearch ? (
         <ImagesSearch
           setOpenImageSearch={setOpenImageSearch}
@@ -201,46 +165,6 @@ function AddProductAdmin(props) {
             )}
           </div>
           <div className="form-group">
-            <select
-              {...store_short_idRef}
-              className="form-control form-select item"
-            >
-              <option value="">* Select Store</option>
-              {stores.map((item) => {
-                return (
-                  <option key={item._id} value={item.short_id}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-            {errors.store_short_id ? (
-              <small className="text-danger d-block">* Select Store</small>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className="form-group">
-            <select
-              {...cat_short_idRef}
-              className="form-control form-select item"
-            >
-              <option value="">* Select Category</option>
-              {categories.map((item) => {
-                return (
-                  <option key={item._id} value={item.short_id}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-            {errors.store_short_id ? (
-              <small className="text-danger d-block">* Select Category</small>
-            ) : (
-              ""
-            )}
-          </div>
-          <div className="form-group">
             <textarea
               {...infoRef}
               className="form-control item"
@@ -278,4 +202,4 @@ function AddProductAdmin(props) {
   );
 }
 
-export default AddProductAdmin;
+export default AddProductStoreAdmin;

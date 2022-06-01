@@ -21,7 +21,7 @@ function AddCategory(props) {
 
   const doApi = async () => {
     // get all stores for the [store_short_id]
-    let url = API_URL + "/stores";
+    let url = API_URL + "/stores?perPage=100";
     try {
       let resp2 = await doApiGet(url);
       // console.log(resp2.data);

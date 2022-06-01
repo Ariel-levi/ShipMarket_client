@@ -3,6 +3,7 @@ import AuthAdminComp from "../misc_comps/authAdminComp";
 import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
 import { MdOutlineDeliveryDining, MdAdminPanelSettings } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
+import { FiGitPullRequest } from "react-icons/fi";
 import { BsShop, BsEraser } from "react-icons/bs";
 import LottieAnimation from "../comps/general_comps/lottieAnimation";
 import PageLinks from "../misc_comps/pageLinks";
@@ -12,8 +13,9 @@ function UsersList(props) {
   let [ar, setAr] = useState([]);
   let [numPage, setPageNum] = useState(1);
   const location = useLocation();
-  const [role, setRole] = useState("")
-  const [loading, setLoading] = useState(true)
+  const [role, setRole] = useState("");
+  const [loading, setLoading] = useState(true);
+  let selectRef = useRef();
 
   useEffect(() => {
     doApi();
@@ -28,7 +30,7 @@ function UsersList(props) {
     try {
       let resp = await doApiGet(url);
       setAr(resp.data);
-      setLoading(false)
+      setLoading(false);
     } catch (err) {
       alert("there problem come back later");
       if (err.response) {
@@ -56,14 +58,14 @@ function UsersList(props) {
   };
 
   // change user's role
-  const changeRole = async (e,_userId) => {
+  const changeRole = async (e, _userId) => {
     let newRole = e.target.value;
     let url = API_URL + `/users/changeRole/${_userId}/${newRole}`;
     try {
       let resp = await doApiMethod(url, "PATCH", {});
       if (resp.data.modifiedCount) {
-          setLoading(true);
-           doApi();
+        setLoading(true);
+        doApi();
       }
     } catch (err) {
       alert("there problem come back later");
@@ -73,86 +75,114 @@ function UsersList(props) {
     }
   };
 
+  const onSelectOption = () => {
+    let role = selectRef.current.value;
+    setRole(role);
+  };
+
   return (
     <div className="container">
       <AuthAdminComp />
-      <h1 className="display-2">Users List</h1>
+      <h1 className="display-4">Users List</h1>
       {/* filter users list by role */}
-      <div>
-
-      <button className="btn btn-outline-primary" onClick={() =>setRole("")}>All users</button>
-      <button className="btn btn-outline-primary" onClick={() =>setRole("user")}>Clients</button>
-      <button className="btn btn-outline-primary" onClick={() =>setRole("admin")}>Store admins</button>
-      <button className="btn btn-outline-primary" onClick={() =>setRole("deliver")}>delivers</button>
-      <button className="btn btn-outline-primary" onClick={() =>setRole("apply_for_delivery")}>Applicant for delivers</button>
+      <div className="my-5 col-md-3 position-absolute top-0 end-0">
+        <select
+          ref={selectRef}
+          onChange={onSelectOption}
+          className="form-select"
+        >
+          <option value="">All users</option>
+          <option value="system_admin">System Admin</option>
+          <option value="admin">Store admins</option>
+          <option value="user">Clients</option>
+          <option value="deliver">delivers</option>
+          <option value="apply_for_delivery">Applicant for delivers</option>
+        </select>
       </div>
-      {ar.length >0?
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>name</th>
-            <th>email</th>
-            <th>address</th>
-            <th>role</th>
-            <th>del</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ar.map((item, i) => {
-            return (
-              <tr key={item._id}>
-                <td>{i + 1 + 10 * (numPage - 1)}</td>
-                <td>
-                  {item.role === "system_admin" ? <MdAdminPanelSettings /> : ""}
-                  {item.role === "admin" ? <BsShop /> : ""}
-                  {item.role === "deliver" ? <MdOutlineDeliveryDining /> : ""}
-                  {item.role === "user" ? <FaUserAlt /> : ""}
-                  {" " + item.name}
-                </td>
-                <td>{item.email}</td>
-                <td>{item.address}</td>
-                <td className="d-flex justify-content-center">
-                  <select
-                    defaultValue={item.role}
-                    onChange={(e) => {
-                      changeRole(e,item._id);
-                    }}
-                    className="form-select"
-                  >
-                    <option value="system_admin">System Admin</option>
-                    <option value="admin">Admin</option>
-                    <option value="deliver">deliver</option>
-                    <option value="user">User</option>
-                    <option value="apply_for_delivery">Apply for delivery</option>
-                  </select>
-                </td>
-                <td>
-                  <button
-                    onClick={() => {
-                      delUser(item._id);
-                    }}
-                    className="btn btn-outline-danger mx-2"
-                    title="Delete"
+      {ar.length > 0 ? (
+        <table className="table table-striped mt-5">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>name</th>
+              <th>email</th>
+              <th>address</th>
+              <th>role</th>
+              <th>del</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ar.map((item, i) => {
+              return (
+                <tr key={item._id}>
+                  <td>{i + 1 + 10 * (numPage - 1)}</td>
+                  <td>
+                    {item.role === "system_admin" ? (
+                      <MdAdminPanelSettings />
+                    ) : (
+                      ""
+                    )}
+                    {item.role === "admin" ? <BsShop /> : ""}
+                    {item.role === "apply_for_delivery" ? (
+                      <FiGitPullRequest />
+                    ) : (
+                      ""
+                    )}
+                    {item.role === "deliver" ? <MdOutlineDeliveryDining /> : ""}
+                    {item.role === "user" ? <FaUserAlt /> : ""}
+                    {" " + item.name}
+                  </td>
+                  <td>{item.email}</td>
+                  <td>{item.address}</td>
+                  <td className="d-flex justify-content-center">
+                    <select
+                      defaultValue={item.role}
+                      onChange={(e) => {
+                        changeRole(e, item._id);
+                      }}
+                      className="form-select"
                     >
-                    <BsEraser />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      :""}
+                      <option value="system_admin">System Admin</option>
+                      <option value="admin">Admin</option>
+                      <option value="deliver">deliver</option>
+                      <option value="user">User</option>
+                      <option value="apply_for_delivery">
+                        Apply for delivery
+                      </option>
+                    </select>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => {
+                        delUser(item._id);
+                      }}
+                      className="btn btn-outline-danger mx-2"
+                      title="Delete"
+                    >
+                      <BsEraser />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      ) : (
+        ""
+      )}
       {loading ? <LottieAnimation /> : ""}
-      {!loading && ar.length === 0 ? <h2 className="display-4 text-danger text-center mt-5">No users found</h2> : 
-      <PageLinks
-      perPage="10"
-      apiUrlAmount={API_URL + "/users/amount"}
-      urlLinkTo={"/admin/users"}
-      clsCss="btn me-2 mt-4 pageLinks"
-      />
-    }
+      {!loading && ar.length === 0 ? (
+        <h2 className="display-4 text-danger text-center mt-5">
+          No users found
+        </h2>
+      ) : (
+        <PageLinks
+          perPage="10"
+          apiUrlAmount={API_URL + "/users/amount"}
+          urlLinkTo={"/admin/users"}
+          clsCss="btn me-2 mt-4 pageLinks"
+        />
+      )}
     </div>
   );
 }

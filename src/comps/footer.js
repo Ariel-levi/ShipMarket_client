@@ -25,13 +25,7 @@ function Footer(props) {
         </div>
         <ul className="list-inline">
           <li className="list-inline-item animaLinkSM">
-            <Link to="/">Home</Link>
-          </li>
-          <li className="list-inline-item animaLinkSM">
-            <Link to="/about">About</Link>
-          </li>
-          <li className="list-inline-item animaLinkSM">
-            <Link to="/allStore">Stores</Link>
+            <Link to="/storeAdmin">My Stores</Link>
           </li>
           <li className="list-inline-item animaLinkSM">
             <Link to="/createStore">Create Store</Link>

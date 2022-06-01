@@ -36,15 +36,20 @@ import CreateStoreFrom from "./comps/createStoreForm";
 import Checkout from "./comps/orders_comps/checkout";
 import OldOrders from "./comps/orders_comps/oldOrders";
 import OldOrderInfoClient from "./comps/orders_comps/oldOrderInfoClient";
-// store Admin imports
-import LayoutStore from "./comps_storeAdmin/layoutStore";
-import MyStore from "./comps_storeAdmin/myStore";
-import EditStoreAdmin from "./comps_storeAdmin/editStoreAdmin";
 // Driver imports
 import ApplyingDriverForm from "./comps/applyingDriverForm";
 import LayoutDelivery from "./comps_delivery/layoutDelivery";
 import HomeDelivery from "./comps_delivery/homeDelivery";
 import OpenOrders from "./comps_delivery/openOrders";
+// store Admin imports
+import LayoutStore from "./comps_storeAdmin/layoutStore";
+import MyStore from "./comps_storeAdmin/myStore";
+import EditStoreAdmin from "./comps_storeAdmin/editStoreAdmin";
+import MoreStore from "./comps_storeAdmin/moreStore";
+import ProductsStoreAdmin from "./comps_storeAdmin/productsStoreAdmin";
+import EditProductAdminStore from "./comps_storeAdmin/editProductAdminStore";
+import ProductInfoAdminStore from "./comps_storeAdmin/productInfoAdminStore";
+import AddProductStoreAdmin from "./comps_storeAdmin/addProductStoreAdmin";
 
 function AppRoutes(props) {
   return (
@@ -74,6 +79,23 @@ function AppRoutes(props) {
           <Route
             path="/storeAdmin/editStore/:id"
             element={<EditStoreAdmin />}
+          />
+          <Route path="/storeAdmin/more/:id" element={<MoreStore />} />
+          <Route
+            path="/storeAdmin/products/:id"
+            element={<ProductsStoreAdmin />}
+          />
+          <Route
+            path="/storeAdmin/products/edit/:id"
+            element={<EditProductAdminStore />}
+          />
+          <Route
+            path="/storeAdmin/products/info/:id"
+            element={<ProductInfoAdminStore />}
+          />
+          <Route
+            path="/storeAdmin/products/addProduct"
+            element={<AddProductStoreAdmin />}
           />
         </Route>
         {/* For regular user client path */}

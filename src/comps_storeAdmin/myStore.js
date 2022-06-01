@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import AuthClientComp from "../comps/general_comps/authClientComp";
 import "./css/myStore.css";
 import { toast } from "react-toastify";
+import { motion, AnimatePresence } from "framer-motion/dist/framer-motion";
 
 function MyStore(props) {
   const [ar, setAr] = useState([]);
@@ -33,7 +34,7 @@ function MyStore(props) {
     if (window.confirm("Are you sure you want to delete?")) {
       try {
         let url = API_URL + "/stores/" + _idDel;
-        let resp = await doApiMethod(url, "DELETE", {});
+        let resp = await doApiMethod(url, "DELETE", {}, _idDel);
         // console.log(resp.data);
         if (resp.data.deletedCount) {
           toast.info("Stores delted !");
@@ -65,26 +66,33 @@ function MyStore(props) {
       <AuthClientComp />
       <div className="container">
         <h1 className="text-uppercase display-4 text-center mb-4">My Stores</h1>
-        <div className="mb-5 col-3">
+        <div className="mb-5 col-md-3">
           <select
             ref={selectRef}
             onChange={onSelectOption}
             className="form-select"
-            aria-label="Default select example"
           >
             <option value="all">All</option>
             <option value="active">Active</option>
             <option value="pending">Pending</option>
           </select>
         </div>
-        <div className="row">
-          {arSort.map((item) => {
-            return (
-              <MyStoreItem key={item._id} item={item} delStore={delStore} />
-            );
-          })}
+        <motion.div layout className="row">
+          <AnimatePresence>
+            {arSort.map((item) => {
+              return (
+                <MyStoreItem key={item._id} item={item} delStore={delStore} />
+              );
+            })}
+          </AnimatePresence>
 
-          <div className="col-md-4 col-sm-6 mb-4">
+          <motion.div
+            layout
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            className="col-md-4 col-sm-6 mb-4"
+          >
             <div
               onClick={() => {
                 nav("/createStore");
@@ -93,8 +101,8 @@ function MyStore(props) {
             >
               <BsPlusLg size="3em" />
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </main>
   );
