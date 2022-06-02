@@ -100,7 +100,6 @@ function CreateStoreForm(props) {
                 {...nameRef}
                 className="form-control"
                 type="name"
-                // value="aaaaaaaaaaaaaa"
                 placeholder="* Store Name"
               />
               {errors.name ? (
@@ -117,7 +116,6 @@ function CreateStoreForm(props) {
                 {...addressRef}
                 className="form-control"
                 type="address"
-                // value="aaaaaaaaaaaaaa"
                 placeholder="* Address"
               />
               {errors.address ? (
@@ -156,7 +154,6 @@ function CreateStoreForm(props) {
             <div className="form-group mb-3">
               <textarea
                 {...infoRef}
-                // value="aaaaaaaaaaaaaa"
                 className="form-control"
                 placeholder="* Store info "
                 style={{ width: "100%", height: "150px" }}

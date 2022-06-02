@@ -17,23 +17,10 @@
   color: #eee;
 }
 
-.store__info {
+.store_info {
   margin-top: -55px;
+  min-height: 650px;
   padding: 20px;
   background: white;
   border-radius: 20px;
-}
-
-.store__info .logo {
-  border-radius: 50%;
-}
-
-.store__info .text_info {
-  font-size: 1.5em;
-}
-
-@media (max-width: 970px) {
-  .strip {
-    height: 50vh;
-  }
 }

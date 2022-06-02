@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import LottieAnimation from "../../comps/general_comps/lottieAnimation";
-import AuthAdminComp from "../../misc_comps/authAdminComp";
 import { FaRegEdit } from "react-icons/fa";
 import { BsCardImage } from "react-icons/bs";
-import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
-import ImagesSearch from "../../comps/general_comps/imagesSearch";
+import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
+import LottieAnimation from "../comps/general_comps/lottieAnimation";
+import ImagesSearch from "../comps/general_comps/imagesSearch";
+import AuthClientComp from "../comps/general_comps/authClientComp";
+// import "../css/formStore.css";
+import "../comps_admin/css/formStore.css";
 
-function EditProductAdmin(props) {
-  const [product, setProduct] = useState({});
+function EditStoreAdmin(props) {
+  const [store, setStore] = useState({});
   const [openImageSearch, setOpenImageSearch] = useState(false);
   const [imageSearch, setImageSearch] = useState("");
   let params = useParams();
@@ -27,27 +29,12 @@ function EditProductAdmin(props) {
     minLength: 2,
     maxLength: 150,
   });
-  let priceRef = register("price", { required: true, minLength: 1 });
+  let addressRef = register("address", { required: true, minLength: 5 });
   let infoRef = register("info", { required: true, minLength: 5 });
-  let store_short_idRef = register("store_short_id", {
-    required: true,
-    minLength: 5,
-    maxLength: 99,
-  });
-  let cat_short_idRef = register("cat_short_id", {
-    required: true,
-    minLength: 5,
-    maxLength: 99,
-  });
   let img_urlRef = register("img_url", {
     required: false,
     minLength: 3,
     maxLength: 500,
-  });
-  let qtyRef = register("qty", {
-    required: false,
-    minLength: 1,
-    maxLength: 99999,
   });
 
   useEffect(() => {
@@ -55,9 +42,9 @@ function EditProductAdmin(props) {
   }, []);
 
   const doApi = async () => {
-    let urlProduct = API_URL + "/products/single/" + params.id;
-    let resp2 = await doApiGet(urlProduct);
-    setProduct(resp2.data);
+    let urlStore = API_URL + "/stores/single/" + params.id;
+    let resp2 = await doApiGet(urlStore);
+    setStore(resp2.data);
     setImageSearch(resp2.data.img_url);
   };
 
@@ -69,26 +56,27 @@ function EditProductAdmin(props) {
   };
 
   const doFormApi = async (formData) => {
-    let url = API_URL + "/products/" + product._id;
+    let url = API_URL + "/stores/" + store._id;
     try {
-      let resp = await doApiMethod(url, "PUT", formData);
+      let resp = await doApiMethod(url, "PUT", formData, params.id);
+      // console.log(resp.data);
       if (resp.data.modifiedCount) {
-        toast.success("Product updated");
-        // back to the list of products in the admin panel
-        nav("/admin/products");
+        toast.success("Store Updated");
+        // back to the list of stores
+        nav("/storeAdmin");
       } else {
         toast.warning("you didn't change nothing");
       }
     } catch (err) {
       console.log(err.response);
       alert("There problem try again later");
-      nav("/admin/products");
+      nav("/storeAdmin");
     }
   };
 
   return (
     <div className="container">
-      <AuthAdminComp />
+      <AuthClientComp />
       {openImageSearch ? (
         <ImagesSearch
           setOpenImageSearch={setOpenImageSearch}
@@ -97,14 +85,14 @@ function EditProductAdmin(props) {
       ) : (
         ""
       )}
-      <h1 className="text-center mt-3">Edit Product</h1>
+      <h1 className="text-center mt-3">Edit Store</h1>
       <div className="store-form">
-        {product._id ? (
+        {store._id ? (
           <form onSubmit={handleSubmit(onSubForm)}>
             <div
               className="form-icon edit_img"
               style={{
-                backgroundImage: `url(${product.img_url})`,
+                backgroundImage: `url(${store.img_url})`,
               }}
             >
               <span>
@@ -112,13 +100,13 @@ function EditProductAdmin(props) {
               </span>
             </div>
             <div className="form-group">
-              <p className="small">Name</p>
+              <p className="small">* Name</p>
               <input
+                defaultValue={store.name}
                 {...nameRef}
-                defaultValue={product.name}
                 type="text"
                 className="form-control item"
-                placeholder="product Name"
+                placeholder="Store Name *"
               />
               {errors.name ? (
                 <small className="text-danger d-block">
@@ -129,17 +117,17 @@ function EditProductAdmin(props) {
               )}
             </div>
             <div className="form-group">
-              <p className="small">Price</p>
+              <p className="small">* Address</p>
               <input
-                {...priceRef}
-                defaultValue={product.price}
-                type="text"
+                defaultValue={store.address}
+                {...addressRef}
+                type="address"
                 className="form-control item"
-                placeholder="Price"
+                placeholder="Address *"
               />
-              {errors.price ? (
+              {errors.address ? (
                 <small className="text-danger d-block">
-                  * Enter valid price, min 1
+                  * Enter valid address, min 5 chars
                 </small>
               ) : (
                 ""
@@ -171,72 +159,13 @@ function EditProductAdmin(props) {
               )}
             </div>
             <div className="form-group">
-              <p className="small">Condition</p>
-              <input
-                defaultValue={product.condition}
-                type="text"
-                className="form-control item"
-                placeholder="Condition"
-              />
-            </div>
-            <div className="form-group">
-              <p className="small">Qty</p>
-              <input
-                {...qtyRef}
-                defaultValue={product.qty}
-                type="text"
-                className="form-control item"
-                placeholder="Qty"
-              />
-              {errors.qty ? (
-                <small className="text-danger d-block">
-                  * Enter valid qty, min 1
-                </small>
-              ) : (
-                ""
-              )}
-            </div>
-            <div className="form-group">
-              <p className="small">Cat Short Id</p>
-              <input
-                {...cat_short_idRef}
-                defaultValue={product.cat_short_id}
-                type="text"
-                className="form-control item"
-                placeholder="Cat Short Id"
-              />
-              {errors.store_short_id ? (
-                <small className="text-danger d-block">
-                  * Enter valid qty, min 5 max 99
-                </small>
-              ) : (
-                ""
-              )}
-            </div>
-            <div className="form-group">
-              <p className="small">Store Short Id</p>
-              <input
-                {...store_short_idRef}
-                defaultValue={product.store_short_id}
-                type="text"
-                className="form-control item"
-                placeholder="Store Short Id"
-              />
-              {errors.store_short_id ? (
-                <small className="text-danger d-block">
-                  * Enter valid qty, min 5 max 99
-                </small>
-              ) : (
-                ""
-              )}
-            </div>
-            <div className="form-group">
-              <p className="small">Info</p>
+              <p className="small">* Info</p>
               <textarea
+                defaultValue={store.info}
                 {...infoRef}
-                defaultValue={product.info}
+                required
                 className="form-control item"
-                placeholder="product Info"
+                placeholder="Store Info *"
                 style={{ width: "100%", height: "150px" }}
               ></textarea>
               {errors.info ? (
@@ -270,4 +199,4 @@ function EditProductAdmin(props) {
   );
 }
 
-export default EditProductAdmin;
+export default EditStoreAdmin;

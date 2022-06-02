@@ -36,10 +36,20 @@ import CreateStoreFrom from "./comps/createStoreForm";
 import Checkout from "./comps/orders_comps/checkout";
 import OldOrders from "./comps/orders_comps/oldOrders";
 import OldOrderInfoClient from "./comps/orders_comps/oldOrderInfoClient";
+// Driver imports
 import ApplyingDriverForm from "./comps/applyingDriverForm";
 import LayoutDelivery from "./comps_delivery/layoutDelivery";
 import HomeDelivery from "./comps_delivery/homeDelivery";
 import OpenOrders from "./comps_delivery/openOrders";
+// store Admin imports
+import LayoutStore from "./comps_storeAdmin/layoutStore";
+import MyStore from "./comps_storeAdmin/myStore";
+import EditStoreAdmin from "./comps_storeAdmin/editStoreAdmin";
+import MoreStore from "./comps_storeAdmin/moreStore";
+import ProductsStoreAdmin from "./comps_storeAdmin/productsStoreAdmin";
+import EditProductAdminStore from "./comps_storeAdmin/editProductAdminStore";
+import ProductInfoAdminStore from "./comps_storeAdmin/productInfoAdminStore";
+import AddProductStoreAdmin from "./comps_storeAdmin/addProductStoreAdmin";
 
 function AppRoutes(props) {
   return (
@@ -63,6 +73,31 @@ function AppRoutes(props) {
           <Route path="/admin/editCategory/:id" element={<EditCategory />} />
           <Route path="/admin/orders" element={<OrdersAdmin />} />
         </Route>
+        {/* Store Admin */}
+        <Route path="/storeAdmin" element={<LayoutStore />}>
+          <Route index element={<MyStore />} />
+          <Route
+            path="/storeAdmin/editStore/:id"
+            element={<EditStoreAdmin />}
+          />
+          <Route path="/storeAdmin/more/:id" element={<MoreStore />} />
+          <Route
+            path="/storeAdmin/products/:id"
+            element={<ProductsStoreAdmin />}
+          />
+          <Route
+            path="/storeAdmin/products/edit/:id"
+            element={<EditProductAdminStore />}
+          />
+          <Route
+            path="/storeAdmin/products/info/:id"
+            element={<ProductInfoAdminStore />}
+          />
+          <Route
+            path="/storeAdmin/products/addProduct"
+            element={<AddProductStoreAdmin />}
+          />
+        </Route>
         {/* For regular user client path */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -82,11 +117,10 @@ function AppRoutes(props) {
           {/* * - for any url that not in another route go to 404 */}
           <Route path="/*" element={<Page404 />} />
         </Route>
-
         {/* delivery routes */}
-        <Route path="/delivery" element={<LayoutDelivery/>}>
-          <Route index element={<HomeDelivery />}/>
-          <Route path="openOrders" element={<OpenOrders/>}/>
+        <Route path="/delivery" element={<LayoutDelivery />}>
+          <Route index element={<HomeDelivery />} />
+          <Route path="openOrders" element={<OpenOrders />} />
         </Route>
       </Routes>
       {/* theme='colored' make the toast message bg to be red,green... */}

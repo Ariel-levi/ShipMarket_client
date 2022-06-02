@@ -56,7 +56,7 @@ function EditCategory(props) {
     setImageSearch(resp2.data.img_url);
 
     // get all stores for the [store_short_id]
-    let url = API_URL + "/stores";
+    let url = API_URL + "/stores?perPage=100";
     try {
       let resp3 = await doApiGet(url);
       // console.log(resp3.data);
@@ -85,7 +85,7 @@ function EditCategory(props) {
         // back to the list of categories in the admin panel
         nav("/admin/categories");
       } else {
-        toast.warning("you not change nothing");
+        toast.warning("you didn't change nothing");
       }
     } catch (err) {
       console.log(err.response);

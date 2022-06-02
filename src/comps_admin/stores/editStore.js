@@ -64,7 +64,7 @@ function EditStore(props) {
         // back to the list of stores in the admin panel
         nav("/admin/stores");
       } else {
-        toast.warning("you not change nothing");
+        toast.warning("you didn't change nothing");
       }
     } catch (err) {
       console.log(err.response);

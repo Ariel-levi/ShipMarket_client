@@ -45,7 +45,7 @@ function Header(props) {
           >
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                goood
+                User Panel
               </h5>
               <button
                 type="button"

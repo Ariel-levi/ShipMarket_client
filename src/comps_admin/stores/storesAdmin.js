@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import AuthAdminComp from "../../misc_comps/authAdminComp";
 import LottieAnimation from "../../comps/general_comps/lottieAnimation";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ function StoresAdmin(props) {
 
   const nav = useNavigate();
   const location = useLocation();
+  let selectRef = useRef();
 
   useEffect(() => {
     doApi();
@@ -80,36 +81,42 @@ function StoresAdmin(props) {
   const updateStatus = async (_id, _name) => {
     let url = API_URL + "/stores/updateStatus/" + _id;
     let resp = await doApiMethod(url, "PATCH", {});
-    // console.log(resp.data);
-    toast.info("Store " + _name + " is " + resp.data.status);
+    console.log(resp.data);
+
+    if (resp.data.emailStatus === "ok") {
+      toast.success("Email sended to the Store Admin");
+    } else {
+      toast.error("The email failed to reach the Store Owner");
+    }
+    toast.info("Store " + _name + " is " + resp.data.data.status);
     doApi();
+  };
+
+  const onSelectOption = () => {
+    let storeStatus = selectRef.current.value;
+    setStatus(storeStatus);
   };
 
   return (
     <div className="container">
       <AuthAdminComp />
-      <h1>Stores in system</h1>
-      <Link className="btn btn-outline-success me-3 my-3" to="/admin/addStore">
-        Add Store <MdAddBusiness />
-      </Link>
-      <button
-        className="btn btn-outline-success me-3 my-3"
-        onClick={() => setStatus("")}
-      >
-        All stores
-      </button>
-      <button
-        className="btn btn-outline-success me-3 my-3"
-        onClick={() => setStatus("active")}
-      >
-        Active
-      </button>
-      <button
-        className="btn btn-outline-success me-3 my-3"
-        onClick={() => setStatus("pending")}
-      >
-        Pending
-      </button>
+      <h1 className="display-4">Stores in System</h1>
+      <div className="container my-4">
+        <Link className="btn btn-outline-success" to="/admin/addStore">
+          Add Store <MdAddBusiness />
+        </Link>
+        <div className="mb-5 col-md-3 position-absolute top-0 end-0">
+          <select
+            ref={selectRef}
+            onChange={onSelectOption}
+            className="form-select"
+          >
+            <option value="">All</option>
+            <option value="active">Active</option>
+            <option value="pending">Pending</option>
+          </select>
+        </div>
+      </div>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -145,7 +152,11 @@ function StoresAdmin(props) {
                 <td>
                   <button
                     onClick={() => updateStatus(item._id, item.name)}
-                    className="btn btn-primary"
+                    className={
+                      item.status == "active"
+                        ? "btn btn-primary"
+                        : "btn btn-danger"
+                    }
                   >
                     {item.status}
                   </button>

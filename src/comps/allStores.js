@@ -34,7 +34,12 @@ function AllStores(props) {
         <BiStore className="me-2" />
         All Stores
       </p>
-      <div className="row">
+      <div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.7 }}
+        className="row"
+      >
         {shops_ar.map((item) => {
           return <StoreCard key={item._id} item={item} />;
         })}

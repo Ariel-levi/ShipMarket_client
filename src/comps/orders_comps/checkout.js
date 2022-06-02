@@ -11,8 +11,6 @@ import { motion } from 'framer-motion/dist/framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '../css/checkout.css';
-import SimpleReactLightbox from 'simple-react-lightbox';
-import { SRLWrapper } from 'simple-react-lightbox';
 import AddAddress from './addAddress';
 import { ADDRESS, checkAddressLocal } from './../../services/localService';
 

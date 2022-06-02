@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import LottieAnimation from "../../comps/general_comps/lottieAnimation";
-import AuthAdminComp from "../../misc_comps/authAdminComp";
 import { FaRegEdit } from "react-icons/fa";
 import { BsCardImage } from "react-icons/bs";
-import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
-import ImagesSearch from "../../comps/general_comps/imagesSearch";
+import LottieAnimation from "../comps/general_comps/lottieAnimation";
+import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
+import ImagesSearch from "../comps/general_comps/imagesSearch";
+import AuthClientComp from "../comps/general_comps/authClientComp";
 
-function EditProductAdmin(props) {
+function EditProductAdminStore(props) {
   const [product, setProduct] = useState({});
   const [openImageSearch, setOpenImageSearch] = useState(false);
   const [imageSearch, setImageSearch] = useState("");
   let params = useParams();
   let nav = useNavigate();
+
+  // to get store id
+  const location = useLocation();
+  const storeInfo = location.state.storeInfo;
 
   let {
     register,
@@ -70,25 +74,25 @@ function EditProductAdmin(props) {
 
   const doFormApi = async (formData) => {
     let url = API_URL + "/products/" + product._id;
+
     try {
-      let resp = await doApiMethod(url, "PUT", formData);
+      let resp = await doApiMethod(url, "PUT", formData, storeInfo._id);
       if (resp.data.modifiedCount) {
-        toast.success("Product updated");
-        // back to the list of products in the admin panel
-        nav("/admin/products");
+        toast.success("Product Updated");
+        nav(-1);
       } else {
         toast.warning("you didn't change nothing");
       }
     } catch (err) {
       console.log(err.response);
       alert("There problem try again later");
-      nav("/admin/products");
+      nav("/storeAdmin");
     }
   };
 
   return (
     <div className="container">
-      <AuthAdminComp />
+      <AuthClientComp />
       {openImageSearch ? (
         <ImagesSearch
           setOpenImageSearch={setOpenImageSearch}
@@ -270,4 +274,4 @@ function EditProductAdmin(props) {
   );
 }
 
-export default EditProductAdmin;
+export default EditProductAdminStore;

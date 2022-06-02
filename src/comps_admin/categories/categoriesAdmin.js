@@ -30,7 +30,7 @@ function CategoriesAdmin(props) {
     setAr(resp2.data);
 
     // get Store name
-    let ownerUrl = API_URL + "/stores";
+    let ownerUrl = API_URL + "/stores?perPage=100";
     try {
       let resp = await doApiGet(ownerUrl);
       let temp_ar = resp.data.map((item) => {
