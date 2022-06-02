@@ -1,6 +1,6 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import HeaderDelivery from "./headerDelivery";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import HeaderDelivery from './headerDelivery';
 
 function LayoutDelivery(props) {
   return (

@@ -15,6 +15,7 @@ function AddProductAdmin(props) {
   const [openImageSearch, setOpenImageSearch] = useState(false);
   const [imageSearch, setImageSearch] = useState("");
   let nav = useNavigate();
+  
 
   useEffect(() => {
     doApi();

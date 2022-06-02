@@ -1,10 +1,21 @@
 // save short ids of products we visited in to show after in the home page
-export const VISITED_PRODUCT = "visitedProduct";
-export const SHIPMARKET_TOKEN = "tok";
-export const CART = "cart_shop";
+export const VISITED_PRODUCT = 'visitedProduct';
+export const SHIPMARKET_TOKEN = 'tok';
+export const CART = 'cart_shop';
+export const ADDRESS = 'address';
 
 export const saveCartLocal = (_cart_ar) => {
   localStorage.setItem(CART, JSON.stringify(_cart_ar));
+};
+
+export const saveAddressLocal = (_address) => {
+  localStorage.setItem(ADDRESS, JSON.stringify(_address));
+};
+export const checkAddressLocal = () => {
+  if (localStorage[ADDRESS]) {
+    return JSON.parse(localStorage[ADDRESS]);
+  }
+  return null;
 };
 
 export const getCartFromLocal = () => {
@@ -34,9 +45,7 @@ export const addProdVisitedToLocal = (_short_id) => {
   // if there local of products local_ar equal to the data in local if not equal to new array
   // Primitive array cant do stringfy or parse , need to use split or join
   // split - like parse of JSON for primtive array
-  let local_ar = localStorage[VISITED_PRODUCT]
-    ? localStorage[VISITED_PRODUCT].split(",")
-    : [];
+  let local_ar = localStorage[VISITED_PRODUCT] ? localStorage[VISITED_PRODUCT].split(',') : [];
   // check if id already in local
   if (!local_ar.includes(_short_id)) {
     // add new cell in array in the start
@@ -46,7 +55,7 @@ export const addProdVisitedToLocal = (_short_id) => {
     // console.log(local_ar)
     // Primitive array cant do stringfy or parse , need to use split or join
     // join like stringfy of JSON just for primitive array
-    localStorage.setItem(VISITED_PRODUCT, local_ar.join(","));
+    localStorage.setItem(VISITED_PRODUCT, local_ar.join(','));
   }
 };
 
