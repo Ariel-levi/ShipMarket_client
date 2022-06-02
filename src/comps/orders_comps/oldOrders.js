@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion/dist/framer-motion";
-import { API_URL, doApiGet } from "../../services/apiService";
-import AuthClientComp from "../general_comps/authClientComp";
-import { GrDeliver } from "react-icons/gr";
-import "../css/checkout.css";
-import OldOrderItem from "./oldOrderItem";
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion/dist/framer-motion';
+import { API_URL, doApiGet } from '../../services/apiService';
+import AuthClientComp from '../general_comps/authClientComp';
+import { GrDeliver } from 'react-icons/gr';
+import '../css/checkout.css';
+import OldOrderItem from './oldOrderItem';
 
 function OldOrders(props) {
   const [ar, setAr] = useState([]);
@@ -19,10 +19,11 @@ function OldOrders(props) {
   }, [ar]);
 
   const doApi = async () => {
-    let url = API_URL + "/orders/userOrder";
+    let url = API_URL + '/orders/userOrder';
+    console.log('reach');
     let resp = await doApiGet(url);
-    // console.log(resp.data);
-    let temp_ar = resp.data.filter((item) => item.status != "pending");
+    console.log(resp.data);
+    let temp_ar = resp.data.filter((item) => item.status != 'pending');
     // console.log(temp_ar);
     setAr(temp_ar);
   };
@@ -41,8 +42,7 @@ function OldOrders(props) {
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5, duration: 0.7 }}
       className="container mt-5"
-      style={{ minHeight: "85vh" }}
-    >
+      style={{ minHeight: '85vh' }}>
       <AuthClientComp />
       <section className="shopping-cart">
         <div className="container">
@@ -57,20 +57,13 @@ function OldOrders(props) {
                       <GrDeliver className="mx-2" />
                     </h2>
                   ) : (
-                    ""
+                    ''
                   )}
                   {ar.map((item, i) => {
-                    let date = item.date_created.replace("T", " ");
-                    date = date.substring(0, date.indexOf(":") + 3);
+                    let date = item.date_created.replace('T', ' ');
+                    date = date.substring(0, date.indexOf(':') + 3);
 
-                    return (
-                      <OldOrderItem
-                        key={item._id}
-                        item={item}
-                        i={i}
-                        date={date}
-                      />
-                    );
+                    return <OldOrderItem key={item._id} item={item} i={i} date={date} />;
                   })}
                   {/* end product */}
                 </div>

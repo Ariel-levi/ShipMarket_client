@@ -1,13 +1,13 @@
-import axios from "axios";
-import React, { useEffect, useState, useRef } from "react";
-import { toast } from "react-toastify";
-import { BsSearch } from "react-icons/bs";
-import { AiOutlineClose } from "react-icons/ai";
-import { BiLoader } from "react-icons/bi";
-import "../css/search.css";
-import "../css/imagesSearch.css";
-import LottieAnimation from "./lottieAnimation";
-import { PEXELS_API_KEY } from "../../services/apiService";
+import axios from 'axios';
+import React, { useEffect, useState, useRef } from 'react';
+import { toast } from 'react-toastify';
+import { BsSearch } from 'react-icons/bs';
+import { AiOutlineClose } from 'react-icons/ai';
+import { BiLoader } from 'react-icons/bi';
+import '../css/search.css';
+import '../css/imagesSearch.css';
+import LottieAnimation from './lottieAnimation';
+import { PEXELS_API_KEY } from '../../services/apiService';
 
 function ImagesSearch(props) {
   const [images, setImages] = useState([]);
@@ -17,19 +17,19 @@ function ImagesSearch(props) {
   let searchRef = useRef();
 
   useEffect(() => {
-    doApi("food");
+    doApi('food');
   }, []);
 
   const search = () => {
     let search = searchRef.current.value;
     setImages([]);
     {
-      search ? doApi(search) : toast.error("You need to enter something 😒");
+      search ? doApi(search) : toast.error('You need to enter something 😒');
     }
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       search();
     }
   };
@@ -38,8 +38,8 @@ function ImagesSearch(props) {
     let url = `https://api.pexels.com/v1/search?query=${_SearchQ}&per_page=80`;
     let resp = await axios.get(url, {
       headers: {
-        Authorization: PEXELS_API_KEY,
-      },
+        Authorization: PEXELS_API_KEY
+      }
     });
     // console.log(resp.data);
     // console.log(resp.data.photos);
@@ -53,8 +53,8 @@ function ImagesSearch(props) {
     let url = pexels.next_page;
     let resp = await axios.get(url, {
       headers: {
-        Authorization: PEXELS_API_KEY,
-      },
+        Authorization: PEXELS_API_KEY
+      }
     });
     setPexels(resp.data);
     setResults_num(results_num + 80);
@@ -67,8 +67,7 @@ function ImagesSearch(props) {
         onClick={() => {
           props.setOpenImageSearch(false);
         }}
-        className="btn btn-outline-danger position-absolute top-0 end-0 mt-5 me-5"
-      >
+        className="btn btn-outline-danger position-absolute top-0 end-0 mt-5 me-5">
         <AiOutlineClose />
       </button>
       {images.length === 0 ? (
@@ -86,10 +85,7 @@ function ImagesSearch(props) {
                 className="form-control border-0 bg-light"
               />
               <div className="input-group-append">
-                <button
-                  onClick={search}
-                  className="btn btn-link text-primary searchBtn"
-                >
+                <button onClick={search} className="btn btn-link text-primary searchBtn">
                   <BsSearch />
                 </button>
               </div>
@@ -116,13 +112,14 @@ function ImagesSearch(props) {
                 onClick={() => {
                   onClickLoadeMore();
                 }}
-                style={{ background: "none" }}
-                className="animaLinkSM"
-              >
+                style={{
+                  background: 'none'
+                }}
+                className="animaLinkSM">
                 Load More <BiLoader className="mx-2" />
               </button>
             ) : (
-              ""
+              ''
             )}
           </div>
         </div>

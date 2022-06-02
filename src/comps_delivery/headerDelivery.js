@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { checkTokenLocal } from "../services/localService";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { checkTokenLocal } from '../services/localService';
 
 function HeaderDelivery(props) {
-  let [login, setLogin] = useState("");
+  let [login, setLogin] = useState('');
   let location = useLocation();
 
   useEffect(() => {
@@ -23,13 +23,17 @@ function HeaderDelivery(props) {
               </li>
             ) : (
               <React.Fragment>
-               
                 <li>
-                  <Link className="btn" to="/Delivery/openOrders">
-                     Open orders
+                  <Link className="btn" to="/Delivery/">
+                    Home
                   </Link>
                 </li>
-               </React.Fragment>
+                <li>
+                  <Link className="btn" to="/Delivery/openOrders">
+                    Open orders
+                  </Link>
+                </li>
+              </React.Fragment>
             )}
           </ul>
           <div className="logo col-md-3 mt-3">
