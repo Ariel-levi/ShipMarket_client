@@ -1,48 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import { motion } from 'framer-motion/dist/framer-motion';
 import { AiOutlineClose } from 'react-icons/ai';
 import { GrLocation, GrLocationPin } from 'react-icons/gr';
-
-import '../css/light_box.css';
 import { ADDRESS, checkAddressLocal, saveAddressLocal } from '../../services/localService';
+import { useDebounce } from '../../hooks/useDebounce';
+import '../css/light_box.css';
 
 function AddAddress(props) {
   const [suggestions, setSuggestions] = useState([]);
   const provider = new OpenStreetMapProvider();
 
+  const searchRef = useRef();
+  const debouncedSearch = useDebounce(suggestions, 500);
+
   useEffect(() => {
-    // addCurrentLocation();
     updateInput();
   }, []);
 
-  const addCurrentLocation = () => {
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        // רק בפעם השניה שיפעיל את היוזאפקט לאחר שהמאפ קונטיינר
-        // עדכן את המאפ הסטויו יעבוד ויעביר
-        // את מיקום המפה למקום של הקורדינטות
-        // ולכן צריך את הסימן שאלה כדי לא לקבל אירור
-        // map?.setView([pos.coords.latitude, pos.coords.longitude]);
-        // setCoordAr([pos.coords.latitude, pos.coords.longitude]);
-        console.log(pos);
-      },
-      (err) => {
-        console.log(err);
-        alert('there problem with the position');
-      }
-    );
-  };
+  // //update the suggestions according to typing
+  // const onChangeHandler = async (_val) => {
+  //   let input_val = _val;
+  //   let result = await provider.search({ query: input_val });
+  //   result = result.filter((item) => item.raw.osm_type === 'way' && item.raw.type !== 'town');
+  //   if (result.length > 0) {
+  //     setSuggestions(result);
+  //     console.log(result);
+  //   }
+  // };
 
-  //update the suggestions according to typing
-  const onChangeHandler = async (_val) => {
-    let input_val = _val;
-    let result = await provider.search({ query: input_val });
-    // edit the location name to contain just street and city name
-    // result.forEach((item, i) => {
-    //   let fileds = item.label.split(',');
-    //   item.label = fileds[0] + ', ' + fileds[2];
-    // });
+  const onSearch = () => {};
+
+  const doApi = async () => {
+    let result = await provider.search({ query: debouncedSearch });
     result = result.filter((item) => item.raw.osm_type === 'way' && item.raw.type !== 'town');
     if (result.length > 0) {
       setSuggestions(result);
@@ -87,11 +77,11 @@ function AddAddress(props) {
 
           <div className="border p-2 rounded d-flex align-items-center justify-content-between">
             <input
-              id="input"
+              ref={searchRef}
               type="text"
-              className=" "
               placeholder="search address"
-              onChange={(e) => onChangeHandler(e.target.value)}
+              onChange={onSearch}
+              // onChange={(e) => onChangeHandler(e.target.value)}
             />
             {checkAddressLocal() && (
               <button className="btn text-info" onClick={onChangeClick}>
