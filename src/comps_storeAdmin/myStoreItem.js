@@ -2,7 +2,8 @@ import React from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { BsFillInfoCircleFill, BsColumns } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
+import AuthStoreAdminComp from "../misc_comps/authStoreAdminComp";
 
 function MyStoreItem(props) {
   let nav = useNavigate();
@@ -20,6 +21,7 @@ function MyStoreItem(props) {
       exit={{ opacity: 0 }}
       className="col-md-4 col-sm-6 mb-4"
     >
+      <AuthStoreAdminComp store_short_id={item.short_id}/>
       <div className="payment-card rounded-lg shadow bg-white text-center h-100">
         <div className="payment-card__type px-4 py-5 d-flex justify-content-center align-items-center">
           <div

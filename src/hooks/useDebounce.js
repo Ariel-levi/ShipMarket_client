@@ -13,5 +13,5 @@ export const useDebounce = (_value, _delay) => {
     };
   }, [_value, _delay]);
 
-  return [debouncedValue];
+  return debouncedValue;
 };

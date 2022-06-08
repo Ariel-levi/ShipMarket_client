@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { API_URL, doApiMethod } from "../services/apiService";
 import "./css/login.css";
 import { BsShop } from "react-icons/bs";
-import { motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 
 function Login(props) {
   let nav = useNavigate();

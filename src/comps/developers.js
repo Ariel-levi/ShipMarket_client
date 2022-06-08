@@ -1,6 +1,6 @@
 import React from "react";
 import { BsFacebook, BsTwitter, BsSnapchat, BsInstagram } from "react-icons/bs";
-import { motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 
 function Developers(props) {
   let devInfo = props.devInfo;

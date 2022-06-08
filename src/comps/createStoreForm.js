@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 import { BsCardImage } from "react-icons/bs";
 import { API_URL, doApiMethod } from "./../services/apiService";
 import { toast } from "react-toastify";
 import "./css/register.css";
 import ImagesSearch from "./general_comps/imagesSearch";
+import AddAddress from "./orders_comps/addAddress";
+import { GrFormNext, GrNext } from 'react-icons/gr';
 
 function CreateStoreForm(props) {
   // for disabled the send btn for avoid multi click on him
   const [btnSend, setBtnSend] = useState(false);
   const [openImageSearch, setOpenImageSearch] = useState(false);
   const [imageSearch, setImageSearch] = useState("");
+  const [displayLightBox, setDisplayLightBox] = useState(true);
+  const [address, setAddress] = useState({});
+  const [addressName, setAddressName] = useState("");
 
+
+  useEffect(() => {
+    if(address){
+      setAddressName(address.label);
+    }
+  }, [address, imageSearch]);
   let nav = useNavigate();
-
   let {
     register,
     handleSubmit,
@@ -24,6 +34,9 @@ function CreateStoreForm(props) {
 
   const onSubForm = (data) => {
     console.log(data);
+    if (address) {
+      data.address = JSON.stringify(address);
+    }
     if (imageSearch) {
       data.img_url = imageSearch;
     }
@@ -51,9 +64,9 @@ function CreateStoreForm(props) {
     }
   };
 
-  let nameRef = register("name", { required: true, minLength: 2 });
-  let addressRef = register("address", { required: true, minLength: 5 });
-  let infoRef = register("info", { required: true, minLength: 5 });
+  let nameRef = register("name", { required: false, minLength: 2 });
+  let addressRef = register("address", { required: true});
+  let infoRef = register("info", { required: false, minLength: 5 });
   let img_urlRef = register("img_url", {
     required: false,
     minLength: 3,
@@ -85,11 +98,24 @@ function CreateStoreForm(props) {
         transition={{ delay: 0.5, duration: 0.7 }}
         className="register-photo"
       >
+
+        {/* search address comp */}
+        {displayLightBox && (
+          <AddAddress
+            setDisplayLightBox={setDisplayLightBox}
+            address={address}
+            setAddress={setAddress}
+            addCurrentLocation={false}
+          />
+        )}
+
         <div className="form-container">
           <div
             className="image-holder"
             style={{ backgroundImage: `url("/images/createStore.jpg")` }}
           ></div>
+
+          {/* form */}
           <form onSubmit={handleSubmit(onSubForm)}>
             <h2 className="text-center">
               <strong>Request</strong> to create a Store.
@@ -110,13 +136,26 @@ function CreateStoreForm(props) {
                 ""
               )}
             </div>
+
             {/* address */}
             <div className="form-group mb-3">
+              <button
+                className="btn animaLinkSM mb-2"
+                onClick={(e) => {
+                  setDisplayLightBox(true)
+                  e.preventDefault();
+                }}
+              >
+                Get address <BsCardImage className="mx-2" />
+              </button>
+
               <input
                 {...addressRef}
+                readOnly
+                defaultValue={addressName}
                 className="form-control"
                 type="address"
-                placeholder="* Address"
+                placeholder="add address"
               />
               {errors.address ? (
                 <small className="text-danger d-block">* Address invalid</small>
@@ -124,6 +163,7 @@ function CreateStoreForm(props) {
                 ""
               )}
             </div>
+
             {/* Store image */}
             <div className="form-group mb-3">
               <button
@@ -136,6 +176,7 @@ function CreateStoreForm(props) {
                 Get image from Pexels <BsCardImage className="mx-2" />
               </button>
               <input
+                readOnly
                 {...img_urlRef}
                 defaultValue={imageSearch}
                 className="form-control"

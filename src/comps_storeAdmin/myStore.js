@@ -6,7 +6,8 @@ import { useNavigate } from "react-router-dom";
 import AuthClientComp from "../comps/general_comps/authClientComp";
 import "./css/myStore.css";
 import { toast } from "react-toastify";
-import { motion, AnimatePresence } from "framer-motion/dist/framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { saveStoresIdsLocall } from "../services/localService";
 
 function MyStore(props) {
   const [ar, setAr] = useState([]);
@@ -22,13 +23,19 @@ function MyStore(props) {
     let url = API_URL + "/stores/userStores";
     try {
       let resp = await doApiGet(url);
-      // console.log(resp.data);
+      console.log(resp.data);
       setAr(resp.data);
       setArSort(resp.data);
+      saveShortIdTolacal(resp.data)
     } catch (err) {
       console.log(err.response);
     }
   };
+
+  const saveShortIdTolacal = (_ar) => { 
+    let short_id_ar = _ar.map(item => item.short_id);
+    saveStoresIdsLocall(short_id_ar)
+  }
 
   const delStore = async (_idDel) => {
     if (window.confirm("Are you sure you want to delete?")) {

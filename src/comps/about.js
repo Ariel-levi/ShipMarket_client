@@ -1,7 +1,7 @@
 import React from "react";
 import Developers from "./developers";
 import "./css/about.css";
-import { motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 
 function About(props) {
   let dev1Info = {

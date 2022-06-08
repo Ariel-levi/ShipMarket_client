@@ -7,18 +7,18 @@ import { MdOutlineDeliveryDining, MdOutlineRemoveShoppingCart } from 'react-icon
 import { GrFormNext, GrNext } from 'react-icons/gr';
 import { resetAll } from '../../redux/actions/cart_action';
 import { PayPalButton } from 'react-paypal-button-v2';
-import { motion } from 'framer-motion/dist/framer-motion';
+import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '../css/checkout.css';
 import AddAddress from './addAddress';
-import { ADDRESS, checkAddressLocal } from './../../services/localService';
+import { ADDRESS, checkAddressLocal, saveAddressLocal } from './../../services/localService';
 
 function Checkout(props) {
   const { cart_ar, totalPrice, store_short_id } = useSelector((state) => state.clientReducer);
   const nav = useNavigate();
   const dispatch = useDispatch();
-  const [displayLightBox, setDisplayLightBox] = useState();
+  const [displayLightBox, setDisplayLightBox] = useState(true);
   const [address, setAddress] = useState(checkAddressLocal());
 
   const disabledBtn = () => {
@@ -33,15 +33,20 @@ function Checkout(props) {
   };
 
   useEffect(() => {
-    setAddress(checkAddressLocal());
-  }, [localStorage[ADDRESS]]);
+    if(address){
+      saveAddressLocal(address)
+    }
+    else{
+      localStorage.removeItem(ADDRESS);
+    }
+  },[address]);
+
   useEffect(() => {
     if (cart_ar.length > 0 && address) {
       doApiAddToCheckout();
     }
   }, [cart_ar]);
 
-  console.log(address);
   const dellAll = () => {
     if (window.confirm('Are you sure you want to delete all ?')) {
       dispatch(resetAll());
@@ -57,7 +62,7 @@ function Checkout(props) {
       total_price: totalPrice,
       products_ar: cart_ar,
       store_short_id: store_short_id,
-      destination: checkAddressLocal()
+      destination: address
     };
     console.log(body);
     let resp = await doApiMethod(url, 'POST', body);
