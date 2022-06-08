@@ -3,6 +3,7 @@ export const VISITED_PRODUCT = 'visitedProduct';
 export const SHIPMARKET_TOKEN = 'tok';
 export const CART = 'cart_shop';
 export const ADDRESS = 'address';
+export const STORE_SHORT_IDS= "store_short_ids"
 
 export const saveCartLocal = (_cart_ar) => {
   localStorage.setItem(CART, JSON.stringify(_cart_ar));
@@ -40,6 +41,20 @@ export const checkTokenLocal = () => {
 export const deleteToken = () => {
   localStorage.removeItem(SHIPMARKET_TOKEN);
 };
+
+//save an array of all users' stores shorts id
+export const saveStoresIdsLocall = (store_short_ids) => { 
+  localStorage.setItem(STORE_SHORT_IDS, JSON.stringify(store_short_ids))
+}
+
+//certify that the user own the store
+export const checklocallStoreIds = (_shortId) => { 
+  if(localStorage[STORE_SHORT_IDS]){
+    return JSON.parse(localStorage[STORE_SHORT_IDS]).includes(_shortId)
+  }
+  else return null
+}
+
 
 export const addProdVisitedToLocal = (_short_id) => {
   // if there local of products local_ar equal to the data in local if not equal to new array

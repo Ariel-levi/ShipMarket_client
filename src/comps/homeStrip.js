@@ -1,6 +1,6 @@
 import React from "react";
 import "./css/homeStrip.css";
-import { motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 
 function HomeStrip(props) {
   let image = props.image;

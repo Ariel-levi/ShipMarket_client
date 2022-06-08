@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 import { API_URL, doApiGet } from '../services/apiService';
 import './cssDelivery/delivery.css';
 import { GoLocation } from 'react-icons/go';
-import { Icon } from 'leaflet';
 
 function OrdersMap(props) {
   const [orders_ar, setOrders_ar] = useState([]);

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { API_URL, doApiMethod } from "../services/apiService";
 import "./css/register.css";
-import { motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 
 function Register(props) {
   let nav = useNavigate();

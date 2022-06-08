@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion/dist/framer-motion';
+import { motion } from 'framer-motion';
 import { API_URL, doApiGet } from '../../services/apiService';
 import AuthClientComp from '../general_comps/authClientComp';
 import { GrDeliver } from 'react-icons/gr';
