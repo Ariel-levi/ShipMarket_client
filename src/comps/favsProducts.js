@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { API_URL, doApiGet } from "../services/apiService";
 import AuthClientComp from "./general_comps/authClientComp";
 import LottieAnimation from "./general_comps/lottieAnimation";
-import { motion } from "framer-motion/dist/framer-motion";
+import { motion } from "framer-motion";
 import { BsStar } from "react-icons/bs";
 import { BiConfused } from "react-icons/bi";
 import Product from "./product";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchFavs } from "../redux/actions/favs_action";
+import {  useSelector } from "react-redux";
 
 function FavsProducts(props) {
   let [ar, setAr] = useState([]);

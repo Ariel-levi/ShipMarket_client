@@ -20,14 +20,13 @@ export const doApiGet = async (_url, _idStore = null) => {
   }
 };
 
-export const doApiMethod = async (_url, _method, _body, _idStore = null) => {
+export const doApiMethod = async (_url, _method, _body) => {
   try {
     let data = await axios({
       method: _method,
       url: _url,
       data: JSON.stringify(_body),
       headers: {
-        'id-Store': _idStore,
         'x-api-key': localStorage['tok'],
         'content-type': 'application/json'
       }

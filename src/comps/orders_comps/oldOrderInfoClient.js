@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion/dist/framer-motion';
+import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom';
 import { API_URL, doApiGet } from '../../services/apiService';
 import { ImInfo } from 'react-icons/im';
