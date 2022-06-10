@@ -1,18 +1,18 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { API_URL, doApiMethod } from "../services/apiService";
-import "./css/login.css";
-import { BsShop } from "react-icons/bs";
-import { motion } from "framer-motion";
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { API_URL, doApiMethod } from '../services/apiService';
+import './css/login.css';
+import { BsShop } from 'react-icons/bs';
+import { motion } from 'framer-motion';
 
 function Login(props) {
   let nav = useNavigate();
   let {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const onSubForm = (data) => {
@@ -20,33 +20,29 @@ function Login(props) {
   };
 
   const doApi = async (_dataBody) => {
-    let url = API_URL + "/users/login";
+    let url = API_URL + '/users/login';
     try {
-      let resp = await doApiMethod(url, "POST", _dataBody);
+      let resp = await doApiMethod(url, 'POST', _dataBody);
       // console.log(resp.data);
       if (resp.data.token) {
-        localStorage.setItem("tok", resp.data.token);
+        localStorage.setItem('tok', resp.data.token);
         // send user to home
-        nav("/");
+        nav('/');
         window.location.reload();
-        // toast.info("Welcome ");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2000);
       } else {
-        toast.error("There some error come back later...");
+        toast.error('There some error come back later...');
       }
     } catch (err) {
       toast.error(err.response.data.err);
     }
   };
 
-  let emailRef = register("email", {
+  let emailRef = register('email', {
     required: true,
-    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
   });
 
-  let passwordRef = register("password", { required: true, minLength: 3 });
+  let passwordRef = register('password', { required: true, minLength: 3 });
 
   return (
     <div
@@ -59,8 +55,7 @@ function Login(props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.7 }}
-        onSubmit={handleSubmit(onSubForm)}
-      >
+        onSubmit={handleSubmit(onSubForm)}>
         <h2 className="text-center">Login Form</h2>
         <div className="illustration">
           <BsShop />
@@ -73,11 +68,7 @@ function Login(props) {
             name="email"
             placeholder="Email"
           />
-          {errors.email ? (
-            <small className="text-danger d-block">* Email invalid</small>
-          ) : (
-            ""
-          )}
+          {errors.email ? <small className="text-danger d-block">* Email invalid</small> : ''}
         </div>
         <div className="form-group">
           <input
@@ -88,11 +79,9 @@ function Login(props) {
             placeholder="Password"
           />
           {errors.password ? (
-            <small className="text-danger d-block">
-              * Enter valid password, min 3 chars
-            </small>
+            <small className="text-danger d-block">* Enter valid password, min 3 chars</small>
           ) : (
-            ""
+            ''
           )}
         </div>
         <div className="form-group">
