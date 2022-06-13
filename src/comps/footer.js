@@ -1,7 +1,7 @@
-import React from "react";
-import "./css/footer.css";
-import { BsFacebook, BsTwitter, BsSnapchat, BsInstagram } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './css/footer.css';
+import { BsFacebook, BsTwitter, BsSnapchat, BsInstagram } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 function Footer(props) {
   const dt = new Date();
@@ -25,10 +25,13 @@ function Footer(props) {
         </div>
         <ul className="list-inline">
           <li className="list-inline-item animaLinkSM">
-            <Link to="/storeAdmin">My Stores</Link>
+            <Link to="/createStore">Create Store</Link>
           </li>
           <li className="list-inline-item animaLinkSM">
-            <Link to="/createStore">Create Store</Link>
+            <Link to="/storeAdmin">My Stores Panel</Link>
+          </li>
+          <li className="list-inline-item animaLinkSM">
+            <Link to="/delivery">Delivery Panel</Link>
           </li>
         </ul>
         <p className="copyright">ShipMarket Delivery © {dt.getFullYear()}</p>

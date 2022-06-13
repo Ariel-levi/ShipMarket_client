@@ -18,7 +18,7 @@ function Checkout(props) {
   const { cart_ar, totalPrice, store_short_id } = useSelector((state) => state.clientReducer);
   const nav = useNavigate();
   const dispatch = useDispatch();
-  const [displayLightBox, setDisplayLightBox] = useState(true);
+  const [displayLightBox, setDisplayLightBox] = useState(false);
   const [address, setAddress] = useState(checkAddressLocal());
 
   const disabledBtn = () => {
@@ -33,13 +33,12 @@ function Checkout(props) {
   };
 
   useEffect(() => {
-    if(address){
-      saveAddressLocal(address)
-    }
-    else{
+    if (address) {
+      saveAddressLocal(address);
+    } else {
       localStorage.removeItem(ADDRESS);
     }
-  },[address]);
+  }, [address]);
 
   useEffect(() => {
     if (cart_ar.length > 0 && address) {
@@ -114,12 +113,10 @@ function Checkout(props) {
         <div className="container">
           <div className="py-3">
             <h3> Delivery details</h3>
-            <button
-              className="btn  text-start py-3 shadow"
-              onClick={() => setDisplayLightBox(true)}>
+            <button className="btn text-start py-3 shadow" onClick={() => setDisplayLightBox(true)}>
               <MdOutlineDeliveryDining className="mx-3" />
               {address ? 'Delivery to ' + address.label : ' Please enter a delivery address'}
-              <GrNext className="mx-5" />
+              <GrNext className="ms-4 me-2" />
             </button>
           </div>
           <div className="content">
