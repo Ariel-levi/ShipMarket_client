@@ -25,7 +25,7 @@ function Cart(props) {
               return <CartItem key={item._id} i={i} item={item} />;
             })}
           </div>
-
+          {cart_ar.length == 0 ? <h3 className="display-5">No Products Dound</h3> : ''}
           <div className="my-3">
             <small className="h3">Total:</small>
             <span className="h2 text-success"> ₪ {totalPrice}</span>

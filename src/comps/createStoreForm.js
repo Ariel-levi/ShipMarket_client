@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import './css/register.css';
 import ImagesSearch from './general_comps/imagesSearch';
 import AddAddress from './orders_comps/addAddress';
-import { GrFormNext, GrNext } from 'react-icons/gr';
 
 function CreateStoreForm(props) {
   // for disabled the send btn for avoid multi click on him
@@ -17,8 +16,7 @@ function CreateStoreForm(props) {
   const [imageSearch, setImageSearch] = useState('');
   const [displayLightBox, setDisplayLightBox] = useState(false);
   const [address, setAddress] = useState('');
-  const [addressName, setAddressName] = useState(null);
-  let addressInputRef = useRef();
+
   let imageInputRef = useRef();
 
   useEffect(() => {
