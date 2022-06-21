@@ -42,7 +42,7 @@ function CartItem(props) {
             +
           </button>
           <span className="mx-2" style={{ fontSize: '1.2em' }}>
-            {item.amount}
+            {item.qty}
           </span>
           {/* reduce button */}
           <button
