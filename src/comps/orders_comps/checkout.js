@@ -4,7 +4,7 @@ import AuthClientComp from '../general_comps/authClientComp';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckoutItem from './checkoutItem';
 import { MdOutlineDeliveryDining, MdOutlineRemoveShoppingCart } from 'react-icons/md';
-import { GrFormNext, GrNext } from 'react-icons/gr';
+import { GrNext } from 'react-icons/gr';
 import { resetAll } from '../../redux/actions/cart_action';
 import { PayPalButton } from 'react-paypal-button-v2';
 import { motion } from 'framer-motion';
@@ -23,7 +23,7 @@ function Checkout(props) {
 
   const disabledBtn = () => {
     //  disable paypal btns
-    if (cart_ar.length == 0 || !address) {
+    if (cart_ar.length === 0 || !address) {
       return {
         opacity: '0.6',
         pointerEvents: 'none'
