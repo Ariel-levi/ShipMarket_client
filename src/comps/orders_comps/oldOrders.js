@@ -20,7 +20,6 @@ function OldOrders(props) {
 
   const doApi = async () => {
     let url = API_URL + '/orders/userOrder';
-    console.log('reach');
     let resp = await doApiGet(url);
     console.log(resp.data);
     let temp_ar = resp.data.filter((item) => item.status != 'pending');

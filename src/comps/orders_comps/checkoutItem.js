@@ -1,11 +1,7 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import {
-  addCart,
-  deleteCartSingle,
-  reduceOneCart,
-} from "../../redux/actions/cart_action";
-import { BsEraser } from "react-icons/bs";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { addCart, deleteCartSingle, reduceOneCart } from '../../redux/actions/cart_action';
+import { BsEraser } from 'react-icons/bs';
 
 function CheckoutItem(props) {
   const dispatch = useDispatch();
@@ -40,18 +36,16 @@ function CheckoutItem(props) {
                 {/* add button */}
                 <button
                   className="btn btn-outline-success btn-item"
-                  onClick={() => dispatch(addCart(item))}
-                >
+                  onClick={() => dispatch(addCart(item))}>
                   +
                 </button>
-                <span className="p-1 mx-2" style={{ fontSize: "1.3em" }}>
-                  {item.amount}
+                <span className="p-1 mx-2" style={{ fontSize: '1.3em' }}>
+                  {item.qty}
                 </span>
                 {/* reduce button */}
                 <button
                   className="btn btn-outline-danger btn-item"
-                  onClick={() => dispatch(reduceOneCart(item._id))}
-                >
+                  onClick={() => dispatch(reduceOneCart(item._id))}>
                   -
                 </button>
               </div>
@@ -63,8 +57,7 @@ function CheckoutItem(props) {
                   onClick={() => {
                     dellItem(item.name);
                   }}
-                  className="btn btn-outline-danger"
-                >
+                  className="btn btn-outline-danger">
                   <BsEraser />
                 </button>
               </div>
