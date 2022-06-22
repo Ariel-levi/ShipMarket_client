@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BsCardImage } from 'react-icons/bs';
+import { ImLocation } from 'react-icons/im';
 import { API_URL, doApiMethod } from './../services/apiService';
 import { toast } from 'react-toastify';
 import './css/register.css';
@@ -126,7 +127,7 @@ function CreateStoreForm(props) {
                   setDisplayLightBox(true);
                   e.preventDefault();
                 }}>
-                Get address <BsCardImage className="mx-2" />
+                Get address <ImLocation className="mx-2" />
               </button>
 
               <input

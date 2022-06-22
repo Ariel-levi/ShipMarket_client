@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API_URL, doApiMethod } from '../services/apiService';
 import './css/register.css';
 import { motion } from 'framer-motion';
+import { ImLocation } from 'react-icons/im';
+import AddAddress from './orders_comps/addAddress';
 
 function Register(props) {
+  const [displayLightBox, setDisplayLightBox] = useState(false);
+  const [address, setAddress] = useState('');
+
   let nav = useNavigate();
   let {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    setValue
   } = useForm();
 
+  useEffect(() => {
+    setValue('address', address?.label);
+  }, [address]);
+
   const onSubForm = (data) => {
+    if (address) {
+      data.address = JSON.stringify(address);
+    }
+    console.log(data);
     doApi(data);
   };
 
@@ -22,12 +36,14 @@ function Register(props) {
     let url = API_URL + '/users/';
     try {
       let resp = await doApiMethod(url, 'POST', _dataBody);
-      if (resp.data.userDeails._id) {
-        toast.success('You sign up');
+      console.log(resp.data);
+      if (resp.data.emailStatus === 'ok') {
+        toast.success('You sign up 🎉');
         toast.info(resp.data.msg);
         nav('/login');
       }
     } catch (err) {
+      console.log(err.response.data);
       if (err.response.data.code == 11000) {
         toast.error('Email already in system , try log in');
       } else {
@@ -56,6 +72,15 @@ function Register(props) {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.7 }}
         className="register-photo">
+        {/* search address comp */}
+        {displayLightBox && (
+          <AddAddress
+            setDisplayLightBox={setDisplayLightBox}
+            address={address}
+            setAddress={setAddress}
+            addCurrentLocation={false}
+          />
+        )}
         <div className="form-container">
           <div
             className="image-holder"
@@ -102,12 +127,23 @@ function Register(props) {
                 ''
               )}
             </div>
+            {/* address */}
             <div className="form-group mb-3">
+              <button
+                className="btn animaLinkSM mb-2"
+                onClick={(e) => {
+                  setDisplayLightBox(true);
+                  e.preventDefault();
+                }}>
+                Get address <ImLocation className="mx-2" />
+              </button>
+
               <input
                 {...addressRef}
+                readOnly
+                defaultValue={address?.label}
                 className="form-control"
                 type="address"
-                name="address"
                 placeholder="Address"
               />
               {errors.address ? (
