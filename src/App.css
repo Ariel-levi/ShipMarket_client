@@ -40,18 +40,18 @@ body {
 ::-webkit-sc
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: rgb(237, 242, 247); 
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(121, 121, 121); 
+  background: rgb(203, 213, 224); 
   border-radius: 30px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(167, 167, 167); 
+  background: rgb(160, 174, 192); 
 }
 
 /* =========================== */

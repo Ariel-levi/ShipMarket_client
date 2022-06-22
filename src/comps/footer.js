@@ -31,6 +31,9 @@ function Footer(props) {
             <Link to="/storeAdmin">My Stores Panel</Link>
           </li>
           <li className="list-inline-item animaLinkSM">
+            <Link to="/applyAsDriver">Apply For Driver Job</Link>
+          </li>
+          <li className="list-inline-item animaLinkSM">
             <Link to="/delivery">Delivery Panel</Link>
           </li>
         </ul>

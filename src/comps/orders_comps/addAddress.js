@@ -50,7 +50,6 @@ function AddAddress(props) {
     setAddress(selected);
     props.setDisplayLightBox(false);
   };
-  // const
 
   return (
     <div className="light_box">
@@ -58,9 +57,7 @@ function AddAddress(props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.7 }}
-        className="container mt-5"
-        // style={{ height: '85vh }}
-      >
+        className="container mt-5">
         <div className="container border inside_box text-start" style={{ height: '70vh' }}>
           <button
             onClick={() => {
@@ -90,7 +87,6 @@ function AddAddress(props) {
           {results.length > 0 && (
             <div className="border shadow">
               {results.map((item, i) => {
-                console.log(results);
                 return (
                   <div
                     className=" p-2 text-start list"

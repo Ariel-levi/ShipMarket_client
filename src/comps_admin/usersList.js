@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useRef } from "react";
-import AuthAdminComp from "../misc_comps/authAdminComp";
-import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
-import { MdOutlineDeliveryDining, MdAdminPanelSettings } from "react-icons/md";
-import { FaUserAlt } from "react-icons/fa";
-import { FiGitPullRequest } from "react-icons/fi";
-import { BsShop, BsEraser } from "react-icons/bs";
-import LottieAnimation from "../comps/general_comps/lottieAnimation";
-import PageLinks from "../misc_comps/pageLinks";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState, useRef } from 'react';
+import AuthAdminComp from '../misc_comps/authAdminComp';
+import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
+import { MdOutlineDeliveryDining, MdAdminPanelSettings } from 'react-icons/md';
+import { FaUserAlt } from 'react-icons/fa';
+import { FiGitPullRequest } from 'react-icons/fi';
+import { BsShop, BsEraser } from 'react-icons/bs';
+import LottieAnimation from '../comps/general_comps/lottieAnimation';
+import PageLinks from '../misc_comps/pageLinks';
+import { useLocation } from 'react-router-dom';
 
 function UsersList(props) {
   let [ar, setAr] = useState([]);
   let [numPage, setPageNum] = useState(1);
   const location = useLocation();
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState('');
   const [loading, setLoading] = useState(true);
   let selectRef = useRef();
 
@@ -24,15 +24,16 @@ function UsersList(props) {
   //fetch users list
   const doApi = async () => {
     const urlParams = new URLSearchParams(window.location.search);
-    let pageQuery = urlParams.get("page") || 1;
+    let pageQuery = urlParams.get('page') || 1;
     setPageNum(pageQuery);
     let url = API_URL + `/users/usersList?page=${pageQuery}&role=${role}`;
     try {
       let resp = await doApiGet(url);
+      console.log(resp.data);
       setAr(resp.data);
       setLoading(false);
     } catch (err) {
-      alert("there problem come back later");
+      alert('there problem come back later');
       if (err.response) {
         console.log(err.response.data);
       }
@@ -41,15 +42,15 @@ function UsersList(props) {
 
   // delete user
   const delUser = async (_idDel) => {
-    if (window.confirm("Are you sure you want to delete the user?")) {
+    if (window.confirm('Are you sure you want to delete the user?')) {
       let url = API_URL + `/users/delete/${_idDel}`;
       try {
-        let resp = await doApiMethod(url, "DELETE", {});
+        let resp = await doApiMethod(url, 'DELETE', {});
         if (resp.data.deletedCount) {
           doApi();
         }
       } catch (err) {
-        alert("There was a problem with deleting the user ");
+        alert('There was a problem with deleting the user ');
         if (err.response) {
           console.log(err.response.data);
         }
@@ -62,13 +63,13 @@ function UsersList(props) {
     let newRole = e.target.value;
     let url = API_URL + `/users/changeRole/${_userId}/${newRole}`;
     try {
-      let resp = await doApiMethod(url, "PATCH", {});
+      let resp = await doApiMethod(url, 'PATCH', {});
       if (resp.data.modifiedCount) {
         setLoading(true);
         doApi();
       }
     } catch (err) {
-      alert("there problem come back later");
+      alert('there problem come back later');
       if (err.response) {
         console.log(err.response.data);
       }
@@ -86,11 +87,7 @@ function UsersList(props) {
       <h1 className="display-4">Users List</h1>
       {/* filter users list by role */}
       <div className="my-5 col-md-3 position-absolute top-0 end-0">
-        <select
-          ref={selectRef}
-          onChange={onSelectOption}
-          className="form-select"
-        >
+        <select ref={selectRef} onChange={onSelectOption} className="form-select">
           <option value="">All users</option>
           <option value="system_admin">System Admin</option>
           <option value="admin">Store admins</option>
@@ -117,38 +114,27 @@ function UsersList(props) {
                 <tr key={item._id}>
                   <td>{i + 1 + 10 * (numPage - 1)}</td>
                   <td>
-                    {item.role === "system_admin" ? (
-                      <MdAdminPanelSettings />
-                    ) : (
-                      ""
-                    )}
-                    {item.role === "admin" ? <BsShop /> : ""}
-                    {item.role === "apply_for_delivery" ? (
-                      <FiGitPullRequest />
-                    ) : (
-                      ""
-                    )}
-                    {item.role === "deliver" ? <MdOutlineDeliveryDining /> : ""}
-                    {item.role === "user" ? <FaUserAlt /> : ""}
-                    {" " + item.name}
+                    {item.role === 'system_admin' ? <MdAdminPanelSettings /> : ''}
+                    {item.role === 'admin' ? <BsShop /> : ''}
+                    {item.role === 'apply_for_delivery' ? <FiGitPullRequest /> : ''}
+                    {item.role === 'deliver' ? <MdOutlineDeliveryDining /> : ''}
+                    {item.role === 'user' ? <FaUserAlt /> : ''}
+                    {' ' + item.name}
                   </td>
                   <td>{item.email}</td>
-                  <td>{item.address}</td>
+                  <td>{item.address?.label}</td>
                   <td className="d-flex justify-content-center">
                     <select
                       defaultValue={item.role}
                       onChange={(e) => {
                         changeRole(e, item._id);
                       }}
-                      className="form-select"
-                    >
+                      className="form-select">
                       <option value="system_admin">System Admin</option>
                       <option value="admin">Admin</option>
                       <option value="deliver">deliver</option>
                       <option value="user">User</option>
-                      <option value="apply_for_delivery">
-                        Apply for delivery
-                      </option>
+                      <option value="apply_for_delivery">Apply for delivery</option>
                     </select>
                   </td>
                   <td>
@@ -157,8 +143,7 @@ function UsersList(props) {
                         delUser(item._id);
                       }}
                       className="btn btn-outline-danger mx-2"
-                      title="Delete"
-                    >
+                      title="Delete">
                       <BsEraser />
                     </button>
                   </td>
@@ -168,18 +153,16 @@ function UsersList(props) {
           </tbody>
         </table>
       ) : (
-        ""
+        ''
       )}
-      {loading ? <LottieAnimation /> : ""}
+      {loading ? <LottieAnimation /> : ''}
       {!loading && ar.length === 0 ? (
-        <h2 className="display-4 text-danger text-center mt-5">
-          No users found
-        </h2>
+        <h2 className="display-4 text-danger text-center mt-5">No users found</h2>
       ) : (
         <PageLinks
           perPage="10"
-          apiUrlAmount={API_URL + "/users/amount"}
-          urlLinkTo={"/admin/users"}
+          apiUrlAmount={API_URL + '/users/amount'}
+          urlLinkTo={'/admin/users'}
           clsCss="btn me-2 mt-4 pageLinks"
         />
       )}
