@@ -12,7 +12,7 @@ import { resetAll, ShowCart } from '../redux/actions/cart_action';
 import { useDispatch, useSelector } from 'react-redux';
 
 function StoreInfo(props) {
-  const [shop, setShop] = useState([]);
+  const [shop, setShop] = useState({});
   const [storeProducts, setStoreProducts] = useState([]);
   let params = useParams();
   let nav = useNavigate();
@@ -33,8 +33,9 @@ function StoreInfo(props) {
   const doApi = async () => {
     let url = API_URL + '/stores/single/' + params.id;
     let resp = await doApiGet(url);
+    console.log(resp.data);
     setShop(resp.data);
-    // console.table(resp.data);
+    console.table(resp.data);
 
     let urlProducts = API_URL + '/products/storeProducts/' + params.id;
     let resp2 = await doApiGet(urlProducts);
@@ -43,7 +44,7 @@ function StoreInfo(props) {
   };
   return (
     <React.Fragment>
-      {shop.length === 0 ? (
+      {!shop ? (
         <LottieAnimation />
       ) : (
         <React.Fragment>
@@ -96,7 +97,7 @@ function StoreInfo(props) {
                 <p className="animaLink">
                   Address <MdOutlineLocationCity className="mx-2" />
                 </p>
-                <p className="text_info">{shop.address.label}</p>
+                <p className="text_info">{shop.address?.label}</p>
               </div>
             </div>
           </div>
