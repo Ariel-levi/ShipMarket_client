@@ -21,7 +21,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">SipMarket</h3>
+  <h3 align="center">SHipMarket</h3>
 
   <p align="center">
     A delivery food platform usage for customers deliveries and store owners
@@ -70,7 +70,7 @@ Out project is a delivery food platform in wich users can buy food, open a store
 
 The platform consist of four panels: 1. customers 2. stores owners 3. deliveries 4. admin
 
-### Main features
+## Main features
 
     General
 
