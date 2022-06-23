@@ -1,61 +1,117 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import RoutingMachine from './routingMachine';
+import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
+import { useNavigate, useParams } from 'react-router-dom';
+import RoutingCard from './routingCard';
+import LottieAnimation from '../comps/general_comps/lottieAnimation';
+import { toast } from 'react-toastify';
+import { MdOutlineDeliveryDining } from 'react-icons/md';
+import { BsChevronRight } from 'react-icons/bs';
 
 function MapRouting(props) {
-  // המיקום שלי ו- עיריית פתח תקווה זה הדיפולת
-  const [startPos, setStartPos] = useState([0, 0]);
-  const [middlePos, setmiddlePos] = useState([32.0864256, 34.8848128]);
-  // המיקום שהמשתמש הביא
-  const [endDestinationPos, setEndDestinationPos] = useState([32.0906375, 34.8823783]);
-
-  // let inputRef = useRef();
-  // const provider = new OpenStreetMapProvider();
+  const [myLocation, setMyLocation] = useState([0, 0]);
+  const [storeStop, setStoreStop] = useState([0, 0]);
+  const [clientEnd, setClientEnd] = useState([0, 0]);
+  const [orderInfo, setOrderInfo] = useState([]);
+  const [routingTime, setRoutingTime] = useState('');
+  const [loading, setLoading] = useState(true);
+  const params = useParams();
+  const nav = useNavigate();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        let location = [pos.coords.latitude, pos.coords.longitude];
-        console.log('location', location);
-        setStartPos(location);
+        let locate = [pos.coords.latitude, pos.coords.longitude];
+        setMyLocation(locate);
       },
       (err) => {
         console.log(err);
-        alert('there problem with the position');
+        if (err.code === 1) {
+          toast.error('User denied Geolocation');
+        }
+        console.log('there problem with the position');
       }
     );
-    console.log(
-      `to the store https://www.waze.com/he/live-map/directions?navigate=yes&to=ll.${middlePos[0]},${middlePos[1]}&from=ll.${startPos[0]},${startPos[1]}`
-    );
-    console.log(
-      `to the client https://www.waze.com/he/live-map/directions?navigate=yes&to=ll.${endDestinationPos[0]},${endDestinationPos[1]}&from=ll.${startPos[0]},${startPos[1]}`
-    );
+    doApi();
   }, []);
 
-  return (
-    <div className="container mt-5">
-      <h2 className="display-5 mb-4 animaLinkSM">Order Details</h2>
-      {/* https://www.waze.com/ul?ll={40.75889500}%2C-{73.98513100}&navigate=yes&zoom=17 */}
-      {/* <a
-        className="map_btn"
-        href={`https://www.waze.com/ul?ll=${endDestinationPos[0]},${endDestinationPos[1]}&navigate=yes&zoom=17`}
-        onClick={() => {
-          console.log(
-            `https://www.waze.com/ul?ll=${endDestinationPos[0]},${endDestinationPos[1]}&navigate=yes&zoom=17`
-          );
-        }}>
-        Waze
-      </a> */}
+  const doApi = async () => {
+    let url = API_URL + '/orders/deliveryInfo/' + params.id;
+    try {
+      let resp = await doApiGet(url);
+      console.log(resp.data);
+      setOrderInfo(resp.data);
+      setStoreStop([resp.data.store.address.y, resp.data.store.address.x]);
+      setClientEnd([resp.data.order.destination.y, resp.data.order.destination.x]);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-      <MapContainer className="map" center={startPos} zoom={18} scrollWheelZoom={true}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution="ShipMarket"
-        />
-        {/* comp for Route */}
-        <RoutingMachine start={startPos} stop={middlePos} end={endDestinationPos} />
-      </MapContainer>
+  const takeDelivery = async (_idOrder) => {
+    let url = API_URL + '/orders/shipping/takingOrder';
+    try {
+      let resp = await doApiMethod(url, 'PATCH', { orderId: _idOrder });
+      // console.log(resp.data);
+      if (resp.data.modifiedCount === 1) {
+        toast.info('You took the Shipment !!!');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <div className="container my-5">
+      <div className="text-center">
+        <h2 className="display-4 mb-4 animaLinkSM">Order Details</h2>
+        <button
+          style={{ background: 'none' }}
+          className="position-absolute top-0 end-0 animaLinkSM "
+          onClick={() => {
+            nav(-1);
+          }}>
+          Back <BsChevronRight className="mx-2" />
+        </button>
+      </div>
+      {loading && <LottieAnimation />}
+      {!loading && orderInfo.order.status === 'shipped' && (
+        <h2 className="text-center display-4 text-danger">
+          The shipment has already been taken ...
+          <MdOutlineDeliveryDining className="me-2" />
+        </h2>
+      )}
+      {!loading && orderInfo.order.status === 'paid' && (
+        <RoutingCard orderInfo={orderInfo} routingTime={routingTime} />
+      )}
+      {!loading && orderInfo.order.status === 'paid' && (
+        <React.Fragment>
+          <MapContainer className="map" center={myLocation} zoom={17} scrollWheelZoom={true}>
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution="ShipMarket"
+            />
+            {/* comp for Routing */}
+            <RoutingMachine
+              start={myLocation}
+              stop={storeStop}
+              end={clientEnd}
+              setRoutingTime={setRoutingTime}
+            />
+          </MapContainer>
+          <div className="container text-center">
+            <button
+              onClick={() => {
+                takeDelivery(orderInfo.order._id);
+              }}
+              className="btn btn-outline-primary rounded-pill col-6 my-4">
+              Take Delivery <MdOutlineDeliveryDining size="1.5em" className="me-2" />
+            </button>
+          </div>
+        </React.Fragment>
+      )}
     </div>
   );
 }
