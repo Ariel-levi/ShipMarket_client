@@ -1,26 +1,12 @@
 import React from 'react';
-import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 // icons
 import { AiOutlineClose } from 'react-icons/ai';
-import { BsFillBasket2Fill } from 'react-icons/bs';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
-import { API_URL, doApiMethod } from '../services/apiService';
 
 function PopupMap(props) {
-  let item = props.popupInfo;
-
-  const takeDelivery = async (_idOrder) => {
-    let url = API_URL + '/orders/shipping/takingOrder';
-    try {
-      let resp = await doApiMethod(url, 'PATCH', { orderId: _idOrder });
-      // console.log(resp.data);
-      if (resp.data.modifiedCount === 1) {
-        toast.info('You took the Shipment !!!');
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const item = props.popupInfo;
+  const nav = useNavigate();
 
   function shortString(text, count) {
     return text.slice(0, count) + (text.length > count ? '...' : '');
@@ -54,7 +40,13 @@ function PopupMap(props) {
                     <div className="d-flex justify-content-between">
                       <MdOutlineDeliveryDining color="green" size="1.5em" className="me-2" />
                       {shortString(String(order.destination.label), 30)}
-                      <button className="btn btn-outline-primary ms-2">ShowRoute</button>
+                      <button
+                        onClick={() => {
+                          nav('/delivery/takeDelivery/' + order._id);
+                        }}
+                        className="btn btn-outline-primary ms-2">
+                        ShowRoute
+                      </button>
                     </div>
                     <div className="small">
                       {order.date_created.replace(/T/, ' ').substr(0, 16)}
@@ -65,15 +57,6 @@ function PopupMap(props) {
             </ul>
             <hr />
             <div className="small">Orders {item.orders.length}</div>
-            {/* {item.order.date_created.replace(/T/, ' ').replace(/\..+/, '')} */}
-            {/* 
-            <button
-              onClick={() => {
-                takeDelivery(item.order._id);
-              }}
-              className="btn btn-outline-primary float-end">
-              Take Delivery
-            </button> */}
           </div>
         </div>
       </div>

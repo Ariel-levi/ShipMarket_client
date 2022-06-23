@@ -106,7 +106,7 @@ function AppRoutes(props) {
         {/* delivery routes */}
         <Route path="/delivery" element={<LayoutDelivery />}>
           <Route index element={<HomeDelivery />} />
-          <Route path="/delivery/takeDelivery" element={<MapRouting />} />
+          <Route path="/delivery/takeDelivery/:id" element={<MapRouting />} />
           {/* <Route path="/delivery/openOrders" element={<OpenOrders />} /> */}
         </Route>
       </Routes>
