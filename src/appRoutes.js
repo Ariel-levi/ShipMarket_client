@@ -36,6 +36,7 @@ import CreateStoreFrom from './comps/createStoreForm';
 import Checkout from './comps/orders_comps/checkout';
 import OldOrders from './comps/orders_comps/oldOrders';
 import OldOrderInfoClient from './comps/orders_comps/oldOrderInfoClient';
+import WelcomePage from './comps/general_comps/welcomePage';
 // store Admin imports
 import LayoutStore from './comps_storeAdmin/layoutStore';
 import MyStore from './comps_storeAdmin/myStore';
@@ -89,9 +90,10 @@ function AppRoutes(props) {
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/createStore" element={<CreateStoreFrom />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/createStore" element={<CreateStoreFrom />} />
           <Route path="/allStore" element={<AllStores />} />
           <Route path="/store/:id" element={<StoreInfo />} />
           <Route path="/searchStore/:searchQ" element={<SearchStore />} />

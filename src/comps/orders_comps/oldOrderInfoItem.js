@@ -14,7 +14,11 @@ function OldOrderInfoItem(props) {
           </div>
         </div>
         <div className="col-md-3">
-          <img className="img-fluid mx-auto d-block image" src={item.img_url} />
+          <img
+            style={{ height: '120px', width: '200px' }}
+            className="img-fluid mx-auto d-block"
+            src={item.img_url}
+          />
         </div>
         <div className="col-md-7">
           <div className="info">
