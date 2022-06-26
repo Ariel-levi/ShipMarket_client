@@ -44,7 +44,7 @@ function OldOrderInfoClient(props) {
                   {/* start product */}
                   {productsAr.length == 0 ? (
                     <h2 className="text-center mt-5">
-                      You don't have Orders yet
+                      You have not ordered yet...
                       {/* <GrDeliver className="mx-2" /> */}
                     </h2>
                   ) : (
@@ -65,7 +65,11 @@ function OldOrderInfoClient(props) {
                         Order Info <ImInfo className="mx-2" />
                       </h3>
                       <div className="summary-item">
-                        <span className="text">Status of order</span>
+                        <span className="text">Order Number</span>
+                        <span className="price">{orderInfo?.short_id}</span>
+                      </div>
+                      <div className="summary-item">
+                        <span className="text">Status</span>
                         <span className="price">{orderInfo.status}</span>
                       </div>
                       <div className="summary-item">
@@ -73,11 +77,11 @@ function OldOrderInfoClient(props) {
                         <span className="price">{orderDate}</span>
                       </div>
                       <div className="summary-item">
-                        <span className="text">Items amount</span>
+                        <span className="text">Items</span>
                         <span className="price">{productsAr.length}</span>
                       </div>
                       <div className="summary-item">
-                        <span className="text">Total price order</span>
+                        <span className="text">Total price</span>
                         <span className="price">₪ {orderInfo.total_price}</span>
                       </div>
                       <div className="summary-item">

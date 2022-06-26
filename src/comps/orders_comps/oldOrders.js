@@ -52,7 +52,7 @@ function OldOrders(props) {
                   {/* start product */}
                   {ar.length == 0 ? (
                     <h2 className="text-center mt-5">
-                      You don't have Orders yet
+                      You have not ordered yet
                       <GrDeliver className="mx-2" />
                     </h2>
                   ) : (
@@ -72,11 +72,11 @@ function OldOrders(props) {
                 <div className="summary">
                   <h3>All My Orders</h3>
                   <div className="summary-item">
-                    <span className="text">Number of Orders</span>
+                    <span className="text">Orders</span>
                     <span className="price">{ar.length}</span>
                   </div>
                   <div className="summary-item">
-                    <span className="text">Total of All Orders</span>
+                    <span className="text">Total price</span>
                     <span className="price">₪ {allTotal}</span>
                   </div>
                 </div>

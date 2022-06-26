@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import '../css/checkout.css';
 import AddAddress from './addAddress';
 import { ADDRESS, checkAddressLocal, saveAddressLocal } from './../../services/localService';
+import { joinSocket } from '../../redux/actions/socket_action';
 
 function Checkout(props) {
   const { cart_ar, totalPrice, store_short_id } = useSelector((state) => state.clientReducer);
@@ -66,10 +67,16 @@ function Checkout(props) {
     console.log(body);
     let resp = await doApiMethod(url, 'POST', body);
     console.log(resp.data);
+    if (resp.data._id) {
+      //if new order was added
+      //join to a socket roon in order to get shippment status form the deliver
+      dispatch(joinSocket(resp.data.short_id));
+    }
   };
 
   // paypal pay
   const onCommit = async (_data) => {
+    console.log(_data);
     let url = API_URL + '/orders/orderPaid/';
     let paypalObject = {
       tokenId: _data.facilitatorAccessToken,
