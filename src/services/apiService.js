@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-// export const API_URL = "https://wolt-back-end.herokuapp.com";
 export const API_URL = process.env.REACT_APP_API_URL;
-// export const API_URL = 'http://localhost:3002';
 export const PEXELS_API_KEY = process.env.REACT_APP_PEXELS_API_KEY;
 
 export const doApiGet = async (_url, _idStore = null) => {
