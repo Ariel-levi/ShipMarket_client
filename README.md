@@ -79,39 +79,35 @@ The platform consist of four panels: 1. customers 2. stores owners 3. deliveries
   * in server and client side
   * using jwt
 
-Customers
+### Customers
+- Favorites items
+  * saved in the database
+  * using redux-thunk
+- Cart  
+  * using redux
+- Checkout
+  * payment by react PayPal-js
+- Search address
+  * autocomplete search
+  * using leaflet geosearch
+  * debounce the search requests by hook
 
-        - Favorites items
-            * saved in the database
-            * using redux-thunk
-        - Cart
-            * using redux
-        - Checkout
-            * payment by react PayPal-js
-        - Search address
-            * autocomplete search
-            * using leaflet geosearch
-            * debounce the search requests by hook
+### Stores owners
+- Create a new store
+  * pending until activation by admin
+- Edit, Delete exsistent store
+- Add, Edit and Delete product
 
-    Stores owners
+### Delivers
+- Display all orders ready for shipment on the map
+- Taking an order
+  * customer recive a message his order has been shipped
+  * using socket.io
+- Setting a route to the customer address with stop at the store
 
-        - Create a new store
-            * pending until activation by admin
-        - Edit, Delete exsistent store
-        - Add, Edit and Delete product
-
-    Delivery
-
-        - Display all orders ready for shipment on the map
-        - Taking an order
-            * customer recive a message his order has been shipped
-            * using socket.io
-        - Setting a route to the customer address with stop at the store
-
-    Admin
-
-        - Access to tha all informaion
-        - Add, Edit and Delete users, stores, prducts and orders
+#### Admin
+- Access to tha all informaion
+- Add, Edit and Delete users, stores, prducts and orders
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
