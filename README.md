@@ -73,7 +73,7 @@ The platform consist of four panels: 1. customers 2. stores owners 3. deliveries
 ## Main features
 General
 - Register/ Login
-* create token
+  * create token
         - Authentications for each panen
             * in server and client side
             * using jwt
