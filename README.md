@@ -68,7 +68,11 @@
 
 Our project is a delivery food platform in wich users can buy food, open a store or apllying for delivery position.
 
-The platform consist of four panels: 1. customers 2. stores owners 3. deliveries 4. admin
+The platform consist of four panels: 
+1. customers
+2. stores owners 
+3. deliveries
+4. admin
 
 ## Main features
 
