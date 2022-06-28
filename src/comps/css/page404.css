@@ -1,16 +1,14 @@
-
-.animation_deliver {
-  height: 400px;
-  max-width: 500px;
-  margin: 0 auto;
-
+.animation_courier {
+    height: 400px;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .text {
-  font-size: 5em;
-  font-weight: bold;
+    font-size: 5em;
+    font-weight: bold;
 }
 
 p {
-  font-size: 2em;
+    font-size: 2em;
 }

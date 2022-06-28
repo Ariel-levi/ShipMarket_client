@@ -48,10 +48,10 @@ import ProductInfoAdminStore from './comps_storeAdmin/productInfoAdminStore';
 import AddProductStoreAdmin from './comps_storeAdmin/addProductStoreAdmin';
 // Driver imports
 import ApplyingDriverForm from './comps/applyingDriverForm';
-import LayoutDelivery from './comps_delivery/layoutDelivery';
-import HomeDelivery from './comps_delivery/homeDelivery';
-import MapRouting from './comps_delivery/mapRouting';
-// import OpenOrders from "./comps_delivery/openOrders";
+import LayoutCourier from './comps_courier/layoutCourier';
+import HomeCourier from './comps_courier/homeCourier';
+import MapRouting from './comps_courier/mapRouting';
+// import OpenOrders from "./comps_Courier/openOrders";
 
 function AppRoutes(props) {
   return (
@@ -105,11 +105,11 @@ function AppRoutes(props) {
           {/* * - for any url that not in another route go to 404 */}
           <Route path="/*" element={<Page404 />} />
         </Route>
-        {/* delivery routes */}
-        <Route path="/delivery" element={<LayoutDelivery />}>
-          <Route index element={<HomeDelivery />} />
-          <Route path="/delivery/takeDelivery/:id" element={<MapRouting />} />
-          {/* <Route path="/delivery/openOrders" element={<OpenOrders />} /> */}
+        {/* Courier routes */}
+        <Route path="/courier" element={<LayoutCourier />}>
+          <Route index element={<HomeCourier />} />
+          <Route path="/courier/takeDelivery/:id" element={<MapRouting />} />
+          {/* <Route path="/Courier/openOrders" element={<OpenOrders />} /> */}
         </Route>
       </Routes>
       {/* theme='colored' make the toast message bg to be red,green... */}

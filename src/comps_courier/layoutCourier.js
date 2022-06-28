@@ -1,16 +1,16 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import HeaderDelivery from './headerDelivery';
+import HeaderCourier from './headerCourier';
 
-function LayoutDelivery(props) {
+function LayoutCourier(props) {
   return (
     <div>
       <React.Fragment>
-        <HeaderDelivery />
+        <HeaderCourier />
         <Outlet />
       </React.Fragment>
     </div>
   );
 }
 
-export default LayoutDelivery;
+export default LayoutCourier;

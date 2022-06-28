@@ -92,8 +92,8 @@ function UsersList(props) {
           <option value="system_admin">System Admin</option>
           <option value="admin">Store admins</option>
           <option value="user">Clients</option>
-          <option value="deliver">delivers</option>
-          <option value="apply_for_delivery">Applicant for delivers</option>
+          <option value="courier">Courier</option>
+          <option value="apply_for_courier">Applicant for couriers</option>
         </select>
       </div>
       {ar.length > 0 ? (
@@ -116,8 +116,8 @@ function UsersList(props) {
                   <td>
                     {item.role === 'system_admin' ? <MdAdminPanelSettings /> : ''}
                     {item.role === 'admin' ? <BsShop /> : ''}
-                    {item.role === 'apply_for_delivery' ? <FiGitPullRequest /> : ''}
-                    {item.role === 'deliver' ? <MdOutlineDeliveryDining /> : ''}
+                    {item.role === 'apply_for_courier' ? <FiGitPullRequest /> : ''}
+                    {item.role === 'courier' ? <MdOutlineDeliveryDining /> : ''}
                     {item.role === 'user' ? <FaUserAlt /> : ''}
                     {' ' + item.name}
                   </td>
@@ -132,9 +132,9 @@ function UsersList(props) {
                       className="form-select">
                       <option value="system_admin">System Admin</option>
                       <option value="admin">Admin</option>
-                      <option value="deliver">deliver</option>
+                      <option value="courier">Courier</option>
                       <option value="user">User</option>
-                      <option value="apply_for_delivery">Apply for delivery</option>
+                      <option value="apply_for_courier">Apply for courier</option>
                     </select>
                   </td>
                   <td>
