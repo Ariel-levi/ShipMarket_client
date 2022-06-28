@@ -66,19 +66,20 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Out project is a delivery food platform in wich users can buy food, open a store or apllying for delivery position.
+Our project is a delivery food platform in wich users can buy food, open a store or apllying for delivery position.
 
 The platform consist of four panels: 1. customers 2. stores owners 3. deliveries 4. admin
 
 ## Main features
 
-### General
-- Register/ Login * create token
+#### General
+- Register/ Login 
+  * create token
 - Authentications for each panen
   * in server and client side
   * using jwt
 
-### Customers
+#### Customers
 - Favorites items
   * saved in the database
   * using redux-thunk
@@ -91,13 +92,13 @@ The platform consist of four panels: 1. customers 2. stores owners 3. deliveries
   * using leaflet geosearch
   * debounce the search requests by hook
 
-### Stores owners
+#### Stores owners
 - Create a new store
   * pending until activation by admin
 - Edit, Delete exsistent store
 - Add, Edit and Delete product
 
-### Delivers
+#### Delivers
 - Display all orders ready for shipment on the map
 - Taking an order
   * customer recive a message his order has been shipped
