@@ -71,10 +71,9 @@ Out project is a delivery food platform in wich users can buy food, open a store
 The platform consist of four panels: 1. customers 2. stores owners 3. deliveries 4. admin
 
 ## Main features
+General
+- Register/ Login
 
-    General
-
-        - Register/ Login
             * create token
         - Authentications for each panen
             * in server and client side
@@ -166,9 +165,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-- [] Add customers services chat
-- [] To price any shipment by the estimate sipment time
-- [] Add financial reports to the stores owners and to the deliveries
+- [ ] Add customers services chat
+- [ ] To price any shipment by the estimate sipment time
+- [ ] Add financial reports to the stores owners and to the deliveries
 
 See the [open issues](https://github.com/Ariel-levi/ShipMarket_FrontEnd/issues) for a full list of proposed features (and known issues).
 
