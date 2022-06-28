@@ -8,12 +8,12 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-<div align="center>
+<span align="center>
 [![Contributors][contributors-shield]][contributors-url]
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn - Nati Ronen][linkedin-shield]][linkedin-nati-url]
 [![LinkedIn - Ariel Levi][linkedin-shield]][linkedin-ariel-url]
-</div>
+</span>
 
 <!-- PROJECT LOGO -->
 <br />
