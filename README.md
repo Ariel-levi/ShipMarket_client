@@ -71,14 +71,15 @@ Out project is a delivery food platform in wich users can buy food, open a store
 The platform consist of four panels: 1. customers 2. stores owners 3. deliveries 4. admin
 
 ## Main features
+
 General
 - Register/ Login
   * create token
-        - Authentications for each panen
-            * in server and client side
-            * using jwt
+- Authentications for each panen
+  * in server and client side
+  * using jwt
 
-     Customers
+Customers
 
         - Favorites items
             * saved in the database
