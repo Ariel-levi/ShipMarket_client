@@ -82,7 +82,7 @@ function RoutingCard(props) {
                   <FaLocationArrow color="#82E0AA" size="2em" />
                 </div>
                 <div className="text-end">
-                  <h3 className="fst-italic fs-3">Cliten Destination</h3>
+                  <h3 className="fst-italic fs-3">Clitent Destination</h3>
                   <span className="fst-italic fs-6">
                     {shortString(String(item.order.destination.label), 30)}
                   </span>

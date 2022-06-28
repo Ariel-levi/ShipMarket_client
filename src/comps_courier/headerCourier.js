@@ -6,7 +6,7 @@ import { BiHomeAlt } from 'react-icons/bi';
 import { GoListUnordered } from 'react-icons/go';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 
-function HeaderDelivery(props) {
+function HeaderCourier(props) {
   let [login, setLogin] = useState('');
   let location = useLocation();
 
@@ -36,7 +36,7 @@ function HeaderDelivery(props) {
             aria-labelledby="offcanvasNavbarLabel">
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-                Delivery Panel <MdOutlineDeliveryDining className="ms-2" />
+                courier Panel <MdOutlineDeliveryDining className="ms-2" />
               </h5>
               <button
                 type="button"
@@ -55,12 +55,12 @@ function HeaderDelivery(props) {
                 ) : (
                   <React.Fragment>
                     <li>
-                      <Link className="nav-link" to="/Delivery/">
+                      <Link className="nav-link" to="/">
                         Home <BiHomeAlt className="ms-1" />
                       </Link>
                     </li>
                     <li>
-                      <Link className="nav-link" to="/Delivery/openOrders">
+                      <Link className="nav-link" to="/courier/openOrders">
                         Open orders <GoListUnordered className="ms-1" />
                       </Link>
                     </li>
@@ -75,4 +75,4 @@ function HeaderDelivery(props) {
   );
 }
 
-export default HeaderDelivery;
+export default HeaderCourier;

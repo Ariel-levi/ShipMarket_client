@@ -34,7 +34,7 @@ function Footer(props) {
             <Link to="/applyAsDriver">Apply For Driver Job</Link>
           </li>
           <li className="list-inline-item animaLinkSM">
-            <Link to="/delivery">Delivery Panel</Link>
+            <Link to="/courier">Courier Panel</Link>
           </li>
         </ul>
         <p className="copyright">ShipMarket Delivery © {dt.getFullYear()}</p>
