@@ -17,11 +17,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
 
-  <h3 align="center">SHipMarket</h3>
+  <h3 align="center">ShipMarket</h3>
 
   <p align="center">
     A delivery food platform usage for customers deliveries and store owners
@@ -192,8 +189,8 @@ Don't forget to give the project a star! Thanks again!
 
 ## Contact
 
-Ariel Levi - ariellevi19981998@gmail.com
-Nati Ronen - ronennt@gmail.com
+- Ariel Levi - ariellevi19981998@gmail.com
+- Nati Ronen - ronennt@gmail.com
 
 Project Link: [https://github.com/Ariel-levi/ShipMarket_FrontEnd](https://github.com/Ariel-levi/ShipMarket_FrontEnd)
 
