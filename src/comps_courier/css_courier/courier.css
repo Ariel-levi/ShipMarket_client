@@ -8,3 +8,10 @@
     overflow: scroll;
     max-height: 200px;
 }
+
+.table-scrollbar {
+    /* width: auto; */
+    /* height: 100px; */
+    /* overflow-y: scroll; */
+    /* scrollbar-width: thin; */
+}

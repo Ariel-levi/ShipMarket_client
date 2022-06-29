@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import RoutingMachine from './routingMachine';
 import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import RoutingCard from './routingCard';
 import LottieAnimation from '../comps/general_comps/lottieAnimation';
 import { toast } from 'react-toastify';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { BsChevronRight } from 'react-icons/bs';
+import { BiLike } from 'react-icons/bi';
 import io from 'socket.io-client';
 import './css_courier/courier.css';
+import OrderItemsInfo from './orderItemsInfo';
 
-function MapRouting(props) {
+function DeliveryInfo(props) {
   const [myLocation, setMyLocation] = useState([0, 0]);
   const [storeStop, setStoreStop] = useState([0, 0]);
   const [clientEnd, setClientEnd] = useState([0, 0]);
@@ -20,8 +22,7 @@ function MapRouting(props) {
   const [loading, setLoading] = useState(true);
   const params = useParams();
   const nav = useNavigate();
-
-  // const socket = io.connect(API_URL);
+  const location = useLocation();
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -38,6 +39,7 @@ function MapRouting(props) {
       }
     );
     doApi();
+    console.log('Deliver id: ', location.state ? location.state : 'No Id');
   }, []);
 
   const doApi = async () => {
@@ -54,16 +56,24 @@ function MapRouting(props) {
     }
   };
 
-  const takeDelivery = async (_orderId, _orderShortId) => {
-    const socket = io.connect(API_URL);
-    toast.info('You took the Shipment !!!');
+  const checkDelivery = (_CourierId) => {
+    if (_CourierId === location.state) {
+      return true;
+    }
+    return false;
+  };
+
+  const orderComplete = async (_orderId, _orderShortId) => {
+    // const socket = io.connect(API_URL);
+    toast.info('The Order is Completed !!!');
     console.log(_orderId);
-    let url = API_URL + '/orders/shipping/takingOrder';
+    // let url = API_URL + '/orders/shipping/takingOrder';
+    let url = API_URL + '/orders/shipping/orderStatus';
     try {
-      let resp = await doApiMethod(url, 'PATCH', { orderId: _orderId });
-      // console.log(resp.data);
+      let resp = await doApiMethod(url, 'PATCH', { orderId: _orderId, status: 'complete' });
+      console.log(resp.data);
       if (resp.data.modifiedCount === 1) {
-        socket.emit('taking_order', _orderShortId);
+        //  socket.emit('taking_order', _orderShortId);
         nav('/courier/myOrders');
       }
     } catch (err) {
@@ -85,17 +95,22 @@ function MapRouting(props) {
         </button>
       </div>
       {loading && <LottieAnimation />}
-      {!loading && orderInfo.order.status === 'shipped' && (
-        <h2 className="text-center display-4 text-danger">
-          The shipment has already been taken... <MdOutlineDeliveryDining className="me-2" />
+      {!loading &&
+        orderInfo.order.status === 'shipped' &&
+        !checkDelivery(orderInfo.order.driver_id) && (
+          <h2 className="text-center display-4 text-danger">
+            The shipment has already been taken... <MdOutlineDeliveryDining className="me-2" />
+          </h2>
+        )}
+      {!loading && orderInfo.order.status === 'complete' && (
+        <h2 className="text-center display-4 text-success">
+          The shipment is Complete ... <MdOutlineDeliveryDining className="me-2" />
         </h2>
       )}
-      {!loading && orderInfo.order.status === 'paid' && (
-        <RoutingCard orderInfo={orderInfo} routingTime={routingTime} />
-      )}
-      {!loading && orderInfo.order.status === 'paid' && (
+      {!loading && checkDelivery(orderInfo.order.driver_id) && (
         <React.Fragment>
-          <MapContainer className="map" center={myLocation} zoom={10} scrollWheelZoom={true}>
+          <RoutingCard orderInfo={orderInfo} routingTime={routingTime} />
+          <MapContainer className="map mb-5" center={myLocation} zoom={10} scrollWheelZoom={true}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution="ShipMarket"
@@ -108,19 +123,23 @@ function MapRouting(props) {
               setRoutingTime={setRoutingTime}
             />
           </MapContainer>
-          <div className="container text-center">
-            <button
-              onClick={() => {
-                takeDelivery(orderInfo.order._id, orderInfo.order.short_id);
-              }}
-              className="btn btn-outline-primary rounded-pill col-6 my-4">
-              Take Delivery <MdOutlineDeliveryDining size="1.5em" className="me-2" />
-            </button>
-          </div>
+          {/* show orders item + info */}
+          <OrderItemsInfo orderInfo={orderInfo} />
+          {orderInfo.order.status !== 'complete' && (
+            <div className="container text-center">
+              <button
+                onClick={() => {
+                  orderComplete(orderInfo.order._id, orderInfo.order.short_id);
+                }}
+                className="btn btn-outline-success rounded-pill col-6 my-4">
+                Order Complete <BiLike size="1.5em" className="me-2" />
+              </button>
+            </div>
+          )}
         </React.Fragment>
       )}
     </div>
   );
 }
 
-export default MapRouting;
+export default DeliveryInfo;
