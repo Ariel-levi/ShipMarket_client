@@ -1,20 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { checkTokenLocal } from "../services/localService";
-import { MdStorefront, MdOutlineLogout, MdOutlineLogin } from "react-icons/md";
-import { BiHomeAlt } from "react-icons/bi";
-import { RiUserAddLine } from "react-icons/ri";
-import { AiOutlineStar } from "react-icons/ai";
-import {
-  BsChevronDown,
-  BsClockHistory,
-  BsInfoCircle,
-  BsBagCheck,
-} from "react-icons/bs";
-import "./css/header.css";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { checkTokenLocal } from '../services/localService';
+import { MdStorefront, MdOutlineLogout, MdOutlineLogin } from 'react-icons/md';
+import { BiHomeAlt } from 'react-icons/bi';
+import { RiUserAddLine } from 'react-icons/ri';
+import { AiOutlineStar } from 'react-icons/ai';
+import { BsChevronDown, BsClockHistory, BsInfoCircle, BsBagCheck } from 'react-icons/bs';
+import './css/header.css';
 
 function Header(props) {
-  const [login, setLogin] = useState("");
+  const [login, setLogin] = useState('');
   const location = useLocation();
 
   useEffect(() => {
@@ -33,16 +28,14 @@ function Header(props) {
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasNavbar"
-            aria-controls="offcanvasNavbar"
-          >
+            aria-controls="offcanvasNavbar">
             <span className="navbar-toggler-icon"></span>
           </button>
           <div
             className="offcanvas offcanvas-end"
             tabIndex="-1"
             id="offcanvasNavbar"
-            aria-labelledby="offcanvasNavbarLabel"
-          >
+            aria-labelledby="offcanvasNavbarLabel">
             <div className="offcanvas-header">
               <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
                 User Panel
@@ -51,22 +44,18 @@ function Header(props) {
                 type="button"
                 className="btn-close"
                 data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              ></button>
+                aria-label="Close"></button>
             </div>
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-start flex-grow-1 ps-5">
                 {login ? (
                   <React.Fragment>
-                    <li>
-                      <Link
-                        className="nav-link rounded text-danger"
-                        to="/logout"
-                      >
+                    <li data-bs-dismiss="offcanvas">
+                      <Link className="nav-link rounded text-danger" to="/logout">
                         Log out <MdOutlineLogout className="ms-1" />
                       </Link>
                     </li>
-                    <li>
+                    <li data-bs-dismiss="offcanvas">
                       <Link className="nav-link" to="/favs">
                         Favorites <AiOutlineStar className="ms-1" />
                       </Link>
@@ -78,23 +67,19 @@ function Header(props) {
                         id="navbarDropdown"
                         role="button"
                         data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
+                        aria-expanded="false">
                         Checkout <BsChevronDown className="ms-1" />
                       </a>
-                      <ul
-                        className="dropdown-menu"
-                        aria-labelledby="navbarDropdown"
-                      >
-                        <li>
+                      <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li data-bs-dismiss="offcanvas">
                           <Link className="dropdown-item" to="/checkout">
                             Checkout <BsBagCheck className="ms-1" />
                           </Link>
                         </li>
-                        <li>
+                        <li data-bs-dismiss="offcanvas">
                           <hr className="dropdown-divider" />
                         </li>
-                        <li>
+                        <li data-bs-dismiss="offcanvas">
                           <Link to="/oldOrders" className="dropdown-item">
                             Old Orders <BsClockHistory className="ms-1" />
                           </Link>
@@ -104,29 +89,29 @@ function Header(props) {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-                    <li>
+                    <li data-bs-dismiss="offcanvas">
                       <Link className="nav-link text-primary" to="/login">
                         Login <MdOutlineLogin className="ms-1" />
                       </Link>
                     </li>
-                    <li>
+                    <li data-bs-dismiss="offcanvas">
                       <Link className="nav-link text-success" to="/register">
                         Register <RiUserAddLine className="ms-1" />
                       </Link>
                     </li>
                   </React.Fragment>
                 )}
-                <li>
+                <li data-bs-dismiss="offcanvas">
                   <Link className="nav-link" to="/">
                     Home <BiHomeAlt className="ms-1" />
                   </Link>
                 </li>
-                <li>
+                <li data-bs-dismiss="offcanvas">
                   <Link className="nav-link" to="/about">
                     About <BsInfoCircle className="ms-1" />
                   </Link>
                 </li>
-                <li>
+                <li data-bs-dismiss="offcanvas">
                   <Link className="nav-link" to="/allStore">
                     Stores <MdStorefront className="ms-1" />
                   </Link>
