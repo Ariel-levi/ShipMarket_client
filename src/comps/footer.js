@@ -25,16 +25,16 @@ function Footer(props) {
         </div>
         <ul className="list-inline">
           <li className="list-inline-item animaLinkSM">
-            <Link to="/createStore">Create Store</Link>
+            <Link to="/createStore">Create store</Link>
           </li>
           <li className="list-inline-item animaLinkSM">
-            <Link to="/storeAdmin">My Stores Panel</Link>
+            <Link to="/storeAdmin">My stores</Link>
           </li>
           <li className="list-inline-item animaLinkSM">
-            <Link to="/applyAsDriver">Apply For Driver Job</Link>
+            <Link to="/applyAsDriver">Apply for a courier position</Link>
           </li>
           <li className="list-inline-item animaLinkSM">
-            <Link to="/courier">Courier Panel</Link>
+            <Link to="/courier">Couriers section</Link>
           </li>
         </ul>
         <p className="copyright">ShipMarket Delivery © {dt.getFullYear()}</p>
