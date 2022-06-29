@@ -112,7 +112,7 @@ function MapRouting(props) {
                 takeDelivery(orderInfo.order._id, orderInfo.order.short_id);
               }}
               className="btn btn-outline-primary rounded-pill col-6 my-4">
-              Take Delivery <MdOutlineDeliveryDining size="1.5em" className="me-2" />
+              Take the delivery <MdOutlineDeliveryDining size="1.5em" className="me-2" />
             </button>
           </div>
         </React.Fragment>

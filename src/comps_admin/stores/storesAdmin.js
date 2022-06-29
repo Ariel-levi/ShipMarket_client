@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import AuthAdminComp from "../../misc_comps/authAdminComp";
-import LottieAnimation from "../../comps/general_comps/lottieAnimation";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
-import { BsPen, BsEraser } from "react-icons/bs";
-import { MdAddBusiness } from "react-icons/md";
-import { toast } from "react-toastify";
-import PageLinks from "../../misc_comps/pageLinks";
+import React, { useState, useEffect, useRef } from 'react';
+import AuthAdminComp from '../../misc_comps/authAdminComp';
+import LottieAnimation from '../../comps/general_comps/lottieAnimation';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { API_URL, doApiGet, doApiMethod } from '../../services/apiService';
+import { BsPen, BsEraser } from 'react-icons/bs';
+import { MdAddBusiness } from 'react-icons/md';
+import { toast } from 'react-toastify';
+import PageLinks from '../../misc_comps/pageLinks';
 
 function StoresAdmin(props) {
   const [ar, setAr] = useState([]);
   const [ownerAr, setOwnerAr] = useState([]);
   const [numPage, setPageNum] = useState(1);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(true);
 
   const nav = useNavigate();
@@ -24,15 +24,15 @@ function StoresAdmin(props) {
   }, [location, status]);
 
   useEffect(() => {
-    nav("/admin/stores");
+    nav('/admin/stores');
   }, [status]);
 
   const doApi = async () => {
     // get stores page number
     const urlParams = new URLSearchParams(window.location.search);
-    let pageQuery = urlParams.get("page") || 1;
+    let pageQuery = urlParams.get('page') || 1;
     setPageNum(pageQuery);
-    let url = API_URL + "/stores?page=" + pageQuery + "&status=" + status;
+    let url = API_URL + '/stores?page=' + pageQuery + '&status=' + status;
     try {
       let resp = await doApiGet(url);
       setAr(resp.data);
@@ -44,7 +44,7 @@ function StoresAdmin(props) {
     }
 
     // get owner name
-    let ownerUrl = API_URL + "/users/usersList";
+    let ownerUrl = API_URL + '/users/usersList';
     try {
       let resp = await doApiGet(ownerUrl);
       let temp_ar = resp.data.map((item) => {
@@ -53,7 +53,7 @@ function StoresAdmin(props) {
       setOwnerAr(temp_ar);
       // console.log(temp_ar);
     } catch (err) {
-      alert("there problem come back later");
+      alert('there problem come back later');
       if (err.response) {
         console.log(err.response.data);
       }
@@ -61,34 +61,34 @@ function StoresAdmin(props) {
   };
 
   const delStore = async (_idDel) => {
-    if (window.confirm("Are you sure you want to delete?")) {
+    if (window.confirm('Are you sure you want to delete?')) {
       try {
-        let url = API_URL + "/stores/" + _idDel;
-        let resp = await doApiMethod(url, "DELETE", {});
+        let url = API_URL + '/stores/' + _idDel;
+        let resp = await doApiMethod(url, 'DELETE', {});
         // console.log(resp.data);
         if (resp.data.deletedCount) {
-          toast.info("Stores delted !");
+          toast.info('Stores delted !');
         }
         // to show the new list without the Store that we deleted
         doApi();
       } catch (err) {
         console.log(err.response);
-        alert("there problem , try again later");
+        alert('there problem , try again later');
       }
     }
   };
 
   const updateStatus = async (_id, _name) => {
-    let url = API_URL + "/stores/updateStatus/" + _id;
-    let resp = await doApiMethod(url, "PATCH", {});
+    let url = API_URL + '/stores/updateStatus/' + _id;
+    let resp = await doApiMethod(url, 'PATCH', {});
     console.log(resp.data);
 
-    if (resp.data.emailStatus === "ok") {
-      toast.success("Email sended to the Store Admin");
+    if (resp.data.emailStatus === 'ok') {
+      toast.success('Email sended to the Store Admin');
     } else {
-      toast.error("The email failed to reach the Store Owner");
+      toast.error('The email failed to reach the Store Owner');
     }
-    toast.info("Store " + _name + " is " + resp.data.data.status);
+    toast.info('Store ' + _name + ' is ' + resp.data.data.status);
     doApi();
   };
 
@@ -100,17 +100,13 @@ function StoresAdmin(props) {
   return (
     <div className="container">
       <AuthAdminComp />
-      <h1 className="display-4">Stores in System</h1>
+      <h1 className="display-4">Stores List</h1>
       <div className="container my-4">
         <Link className="btn btn-outline-success" to="/admin/addStore">
           Add Store <MdAddBusiness />
         </Link>
         <div className="mb-5 col-md-3 position-absolute top-0 end-0">
-          <select
-            ref={selectRef}
-            onChange={onSelectOption}
-            className="form-select"
-          >
+          <select ref={selectRef} onChange={onSelectOption} className="form-select">
             <option value="">All</option>
             <option value="active">Active</option>
             <option value="pending">Pending</option>
@@ -137,13 +133,13 @@ function StoresAdmin(props) {
                 <td>{item.name}</td>
                 <td>
                   {ownerAr.map((owner) => {
-                    return owner._id == item.admin_id ? owner.email : "";
+                    return owner._id == item.admin_id ? owner.email : '';
                   })}
                 </td>
                 <td>
                   <img
-                    src={item.img_url || "/images/no_image.png"}
-                    alt={item.name + " image"}
+                    src={item.img_url || '/images/no_image.png'}
+                    alt={item.name + ' image'}
                     height="50"
                     width="90"
                   />
@@ -152,12 +148,7 @@ function StoresAdmin(props) {
                 <td>
                   <button
                     onClick={() => updateStatus(item._id, item.name)}
-                    className={
-                      item.status == "active"
-                        ? "btn btn-primary"
-                        : "btn btn-danger"
-                    }
-                  >
+                    className={item.status == 'active' ? 'btn btn-primary' : 'btn btn-danger'}>
                     {item.status}
                   </button>
                 </td>
@@ -167,17 +158,15 @@ function StoresAdmin(props) {
                       delStore(item._id);
                     }}
                     className="btn btn-outline-danger mx-2"
-                    title="Delete"
-                  >
+                    title="Delete">
                     <BsEraser />
                   </button>
                   <button
                     onClick={() => {
-                      nav("/admin/editStore/" + item._id);
+                      nav('/admin/editStore/' + item._id);
                     }}
                     className="btn btn-outline-secondary"
-                    title="Edit"
-                  >
+                    title="Edit">
                     <BsPen />
                   </button>
                 </td>
@@ -186,16 +175,12 @@ function StoresAdmin(props) {
           })}
         </tbody>
       </table>
-      {ar.length === 0 && !loading ? (
-        <h2 className="text-center my-5">No Stores fund</h2>
-      ) : (
-        ""
-      )}
-      {loading ? <LottieAnimation /> : ""}
+      {ar.length === 0 && !loading ? <h2 className="text-center my-5">No Stores fund</h2> : ''}
+      {loading ? <LottieAnimation /> : ''}
       <PageLinks
         perPage="5"
-        apiUrlAmount={API_URL + "/stores/amount?status=" + status}
-        urlLinkTo={"/admin/stores"}
+        apiUrlAmount={API_URL + '/stores/amount?status=' + status}
+        urlLinkTo={'/admin/stores'}
         clsCss="btn me-2 mt-4 pageLinks"
       />
     </div>
