@@ -8,6 +8,7 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn - Nati Ronen][linkedin-shield]][linkedin-nati-url]
@@ -16,21 +17,21 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-<a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="public\images\logo\1.jpeg" alt="Logo" width="80" height="80">
+<a href="https://github.com/Ariel-levi/ShipMarket_client">
+    <img src="public\images\logo\1.jpeg" alt="Logo" width="400" >
   </a>
 
   <h3 align="center">ShipMarket</h3>
 
   <p align="center">
-    A delivery food platform usage for customers deliveries and store owners
+    A food delivery platform for creating stores, ordering food and managing deliveries.
     <br />
-    <a href="https://github.com/Ariel-levi/ShipMarket_FrontEnd"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Ariel-levi/ShipMarket_client"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Ariel-levi/ShipMarket_FrontEnd/issues">Report Bug</a>
+    <a href="https://github.com/Ariel-levi/ShipMarket_client/issues">Report Bug</a>
     ·
-    <a href="https://github.com/Ariel-levi/ShipMarket_FrontEnd/issues">Request Feature</a>
+    <a href="https://github.com/Ariel-levi/ShipMarket_client/issues">Request Feature</a>
   </p>
 </div>
 
@@ -63,56 +64,16 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="public\images\screenshots\homePage_shipMarket_screenShot.png" alt="Logo" width="700" >
 
-Our project is a delivery food platform in wich users can buy food, open a store or apllying for delivery position.
+Our project is a delivery food platform in wich users can buy food, open a store or apllying for a courier position.
 
-The platform consist of four panels: 
+The platform consist of four panels:
+
 1. customers
-2. stores owners 
-3. deliveries
+2. stores owners
+3. couriers
 4. admin
-
-## Main features
-
-#### General
-- Register/ Login 
-  * create token
-- Authentications for each panen
-  * in server and client side
-  * using jwt
-
-#### Customers
-- Favorites items
-  * saved in the database
-  * using redux-thunk
-- Cart  
-  * using redux
-- Checkout
-  * payment by react PayPal-js
-- Search address
-  * autocomplete search
-  * using leaflet geosearch
-  * debounce the search requests by hook
-
-#### Stores owners
-- Create a new store
-  * pending until activation by admin
-- Edit, Delete exsistent store
-- Add, Edit and Delete product
-
-#### Delivers
-- Display all orders ready for shipment on the map
-- Taking an order
-  * customer recive a message his order has been shipped
-  * using socket.io
-- Setting a route to the customer address with stop at the store
-
-#### Admin
-- Access to tha all informaion
-- Add, Edit and Delete users, stores, prducts and orders
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
@@ -135,9 +96,9 @@ To get a local copy up and running follow these simple example steps.
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Clone the repo
+1. Clone the client repo
    ```sh
-   git clone https://github.com/Ariel-levi/ShipMarket_FrontEnd.git
+   git clone https://github.com/Ariel-levi/ShipMarket_client.git
    ```
 2. Install NPM packages
    ```sh
@@ -145,7 +106,15 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
 3. Enter your API in `\src\services\apiService.js`
    ```js
-   const API_KEY = "ENTER YOUR API";
+   const API_KEY = "ENTER YOUR API"; //the defaut port is 3002;
+   ```
+4. Clone the server repo
+   ```sh
+   git clone https://github.com/Ariel-levi/ShipMarket_server.git
+   ```
+5. Install NPM packages
+   ```sh
+   npm install
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -154,21 +123,74 @@ _Below is an example of how you can instruct your audience on installing and set
 
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+#### General
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+- Register/ Login
+
+  - create token
+
+  <img src="public\images\screenshots\register_screenshot.png" alt="Logo" width="600" >
+
+- Authentications for each panen
+  - in server and client side
+  - using jwt
+
+#### Customers
+
+- Favorites items
+  - saved in the database
+  - using redux-thunk
+- Cart - using redux
+
+  <img src="public\images\screenshots\cart_screenshot.png" alt="Logo" width="700" >
+
+- Checkout - payment by react PayPal-js
+
+  <img src="public\images\screenshots\checkout_screenshot.png" alt="Logo" width="700" >
+
+- Search address
+  - autocomplete search
+  - using leaflet geosearch
+  - debounce the search requests by hook
+
+#### Stores owners
+
+- Create a new store - pending until activation by admin
+- Edit, Delete exsistent store
+- Add, Edit and Delete product
+
+  <img src="public\images\screenshots\my_stores_screenshot.png" alt="Logo" width="700" >
+
+#### Couriers
+
+- Display all orders ready for shipment on the map
+
+  <img src="public\images\screenshots\orders_on_map_screenshot.png" alt="Logo" width="700" >
+
+- Setting a route to the customer address with stop at the store
+
+  <img src="public\images\screenshots\route_screenshot.png" alt="Logo" width="800" >
+
+- Taking an order
+  - customer recive a message his order has been shipped
+  - using socket.io
+
+#### Admin
+
+- Access to tha all informaion
+- Add, Edit and Delete users, stores, prducts and orders
+
+  <img src="public\images\screenshots\admin_screenshot.png" alt="Logo" width="800" >
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-<!-- ROADMAP -->
 
 ## Roadmap
 
 - [ ] Add customers services chat
 - [ ] To price any shipment by the estimate sipment time
-- [ ] Add financial reports to the stores owners and to the deliveries
+- [ ] Add financial reports to the stores owners and to the couriers
 
-See the [open issues](https://github.com/Ariel-levi/ShipMarket_FrontEnd/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/Ariel-levi/ShipMarket_client/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -191,10 +213,13 @@ Don't forget to give the project a star! Thanks again!
 
 ## Contact
 
-- Ariel Levi - ariellevi19981998@gmail.com
-- Nati Ronen - ronennt@gmail.com
+Ariel Levi - ariellevi19981998@gmail.com
 
-Project Link: [https://github.com/Ariel-levi/ShipMarket_FrontEnd](https://github.com/Ariel-levi/ShipMarket_FrontEnd)
+Nati Ronen - ronennt@gmail.com
+
+Client side Link: [https://github.com/Ariel-levi/ShipMarket_client](https://github.com/Ariel-levi/ShipMarket_client)
+
+Server side Link: [https://github.com/Ariel-levi/ShipMarket_server](https://github.com/Ariel-levi/ShipMarket_server)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -222,6 +247,5 @@ Project Link: [https://github.com/Ariel-levi/ShipMarket_FrontEnd](https://github
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
 [issues-url]: https://github.com/othneildrew/Best-README-Template/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-nati-url]: www.linkedin.com/in/nati-ronen
+[linkedin-nati-url]: https://www.linkedin.com/in/nati-ronen
 [linkedin-ariel-url]: https://www.linkedin.com/in/ariel-levi1998/
-[product-screenshot]: images/screenshot.png
