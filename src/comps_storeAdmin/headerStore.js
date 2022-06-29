@@ -20,6 +20,7 @@ function HeaderStore(props) {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div
+            style={{ maxWidth: '80vw' }}
             className="offcanvas offcanvas-end"
             tabIndex="-1"
             id="offcanvasNavbar"
