@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { API_URL, doApiGet } from '../services/apiService';
 
-function AuthDeliverComp(props) {
+function AuthCourierComp(props) {
   let nav = useNavigate();
 
   useEffect(() => {
@@ -11,7 +11,7 @@ function AuthDeliverComp(props) {
     if (localStorage['tok']) {
       doApi();
     } else {
-      toast.error('You must be Deliver to be here! or you need to login again');
+      toast.error('You must be a courier to be here! or you need to login again');
       nav('/');
     }
   }, []);
@@ -22,14 +22,14 @@ function AuthDeliverComp(props) {
       let resp = await doApiGet(url);
       // console.log(resp.data);
       // check if the token
-      if (resp.data.role !== 'deliver' && resp.data.role !== 'system_admin') {
-        toast.error('You must be Deliver to be here! or you need to login again');
+      if (resp.data.role !== 'courier' && resp.data.role !== 'system_admin') {
+        toast.error('You must be a courier to be here! or you need to login again');
         nav('/logout');
       }
     } catch (err) {
       // if there not token at all
       console.log(err.response);
-      alert('You must be Deliver to be here! or you need to login again');
+      alert('You must be courier to be here! or you need to login again');
       nav('/logout');
       // if token invalid for super_admin
     }
@@ -37,4 +37,4 @@ function AuthDeliverComp(props) {
   return <React.Fragment></React.Fragment>;
 }
 
-export default AuthDeliverComp;
+export default AuthCourierComp;

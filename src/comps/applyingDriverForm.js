@@ -19,7 +19,7 @@ function ApplyingDriverForm(props) {
   }, []);
 
   const onClickApply = async () => {
-    let url = API_URL + '/users/applyingForDelivery';
+    let url = API_URL + '/users/applyingForCourier';
     try {
       let resp = await doApiMethod(url, 'PATCH', {});
       console.log(resp);
@@ -37,7 +37,7 @@ function ApplyingDriverForm(props) {
     <React.Fragment>
       <AuthClientComp />
       <div style={{ minHeight: '70vh' }} className="container">
-        <div className="mt-4 animation_deliver">
+        <div className="mt-4 animation_courier">
           <div ref={animaRef}></div>
         </div>
         <div className="text-center">

@@ -69,7 +69,7 @@ function Checkout(props) {
     console.log(resp.data);
     if (resp.data._id) {
       //if new order was added
-      //join to a socket roon in order to get shippment status form the deliver
+      //join to a socket roon in order to get shippment status form the courier
       dispatch(joinSocket(resp.data.short_id));
     }
   };

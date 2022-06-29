@@ -8,7 +8,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-
 [![Contributors][contributors-shield]][contributors-url]
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn - Nati Ronen][linkedin-shield]][linkedin-nati-url]
@@ -17,11 +16,11 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+<a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="public\images\logo\1.jpeg" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">SHipMarket</h3>
+  <h3 align="center">ShipMarket</h3>
 
   <p align="center">
     A delivery food platform usage for customers deliveries and store owners
@@ -66,53 +65,52 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Out project is a delivery food platform in wich users can buy food, open a store or apllying for delivery position.
+Our project is a delivery food platform in wich users can buy food, open a store or apllying for delivery position.
 
-The platform consist of four panels: 1. customers 2. stores owners 3. deliveries 4. admin
+The platform consist of four panels: 
+1. customers
+2. stores owners 
+3. deliveries
+4. admin
 
 ## Main features
 
-    General
+#### General
+- Register/ Login 
+  * create token
+- Authentications for each panen
+  * in server and client side
+  * using jwt
 
-        - Register/ Login
-            * create token
-        - Authentications for each panen
-            * in server and client side
-            * using jwt
+#### Customers
+- Favorites items
+  * saved in the database
+  * using redux-thunk
+- Cart  
+  * using redux
+- Checkout
+  * payment by react PayPal-js
+- Search address
+  * autocomplete search
+  * using leaflet geosearch
+  * debounce the search requests by hook
 
-     Customers
+#### Stores owners
+- Create a new store
+  * pending until activation by admin
+- Edit, Delete exsistent store
+- Add, Edit and Delete product
 
-        - Favorites items
-            * saved in the database
-            * using redux-thunk
-        - Cart
-            * using redux
-        - Checkout
-            * payment by react PayPal-js
-        - Search address
-            * autocomplete search
-            * using leaflet geosearch
-            * debounce the search requests by hook
+#### Delivers
+- Display all orders ready for shipment on the map
+- Taking an order
+  * customer recive a message his order has been shipped
+  * using socket.io
+- Setting a route to the customer address with stop at the store
 
-    Stores owners
-
-        - Create a new store
-            * pending until activation by admin
-        - Edit, Delete exsistent store
-        - Add, Edit and Delete product
-
-    Delivery
-
-        - Display all orders ready for shipment on the map
-        - Taking an order
-            * customer recive a message his order has been shipped
-            * using socket.io
-        - Setting a route to the customer address with stop at the store
-
-    Admin
-
-        - Access to tha all informaion
-        - Add, Edit and Delete users, stores, prducts and orders
+#### Admin
+- Access to tha all informaion
+- Add, Edit and Delete users, stores, prducts and orders
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -145,7 +143,7 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    npm install
    ```
-3. Enter your API in `config.js`
+3. Enter your API in `\src\services\apiService.js`
    ```js
    const API_KEY = "ENTER YOUR API";
    ```
@@ -166,9 +164,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 ## Roadmap
 
-- [] Add customers services chat
-- [] To price any shipment by the estimate sipment time
-- [] Add financial reports to the stores owners and to the deliveries
+- [ ] Add customers services chat
+- [ ] To price any shipment by the estimate sipment time
+- [ ] Add financial reports to the stores owners and to the deliveries
 
 See the [open issues](https://github.com/Ariel-levi/ShipMarket_FrontEnd/issues) for a full list of proposed features (and known issues).
 
@@ -193,8 +191,8 @@ Don't forget to give the project a star! Thanks again!
 
 ## Contact
 
-Ariel Levi - ariellevi19981998@gmail.com
-Nati Ronen - ronennt@gmail.com
+- Ariel Levi - ariellevi19981998@gmail.com
+- Nati Ronen - ronennt@gmail.com
 
 Project Link: [https://github.com/Ariel-levi/ShipMarket_FrontEnd](https://github.com/Ariel-levi/ShipMarket_FrontEnd)
 

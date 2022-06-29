@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet';
 import { API_URL, doApiGet } from '../services/apiService';
-import './cssDelivery/delivery.css';
+import './css_courier/courier.css';
 import { GoLocation } from 'react-icons/go';
 
 function OrdersMap(props) {

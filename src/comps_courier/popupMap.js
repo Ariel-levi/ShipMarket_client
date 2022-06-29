@@ -42,7 +42,7 @@ function PopupMap(props) {
                       {shortString(String(order.destination.label), 30)}
                       <button
                         onClick={() => {
-                          nav('/delivery/takeDelivery/' + order._id);
+                          nav('/courier/takeDelivery/' + order._id);
                         }}
                         className="btn btn-outline-primary ms-2">
                         ShowRoute

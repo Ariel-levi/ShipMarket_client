@@ -46,7 +46,7 @@ function Map(props) {
     <div className="container my-5">
       {popupOpen && <PopupMap popupInfo={popupInfo} setPopupOpen={setPopupOpen} />}
       {/* zoom={18} / 12  */}
-      <MapContainer whenCreated={setMap} center={currLocation} zoom={18} scrollWheelZoom={true}>
+      <MapContainer whenCreated={setMap} center={currLocation} zoom={12} scrollWheelZoom={true}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="ShipMarket"
@@ -63,6 +63,7 @@ function Map(props) {
                 }
               }}>
               <Tooltip>{item.store.address.label}</Tooltip>
+              sadfjkl
             </Marker>
           );
         })}
