@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Tooltip } from 'react-leaflet';
 import { API_URL, doApiGet } from '../services/apiService';
 import PopupMap from './popupMap';
+import './css_courier/courier.css';
 
 function Map(props) {
   const [stores_ar, setStores_ar] = useState([]);
@@ -63,7 +64,6 @@ function Map(props) {
                 }
               }}>
               <Tooltip>{item.store.address.label}</Tooltip>
-              sadfjkl
             </Marker>
           );
         })}
