@@ -247,5 +247,5 @@ Server side Link: [https://github.com/Ariel-levi/ShipMarket_server](https://gith
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
 [issues-url]: https://github.com/othneildrew/Best-README-Template/issues
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-nati-url]: www.linkedin.com/in/nati-ronen
+[linkedin-nati-url]: https://www.linkedin.com/in/nati-ronen
 [linkedin-ariel-url]: https://www.linkedin.com/in/ariel-levi1998/
