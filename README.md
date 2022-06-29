@@ -64,7 +64,7 @@
 
 ## About The Project
 
-<img src="public\images\screenshots\homePage_shipMarket_screenShot.png" alt="Logo" width="500" >
+<img src="public\images\screenshots\homePage_shipMarket_screenShot.png" alt="Logo" width="700" >
 
 Our project is a delivery food platform in wich users can buy food, open a store or apllying for a courier position.
 
@@ -129,7 +129,7 @@ _Below is an example of how you can instruct your audience on installing and set
 
   - create token
 
-  <img src="public\images\screenshots\register_screenshot.png" alt="Logo" width="300" >
+  <img src="public\images\screenshots\register_screenshot.png" alt="Logo" width="600" >
 
 - Authentications for each panen
   - in server and client side
@@ -142,11 +142,11 @@ _Below is an example of how you can instruct your audience on installing and set
   - using redux-thunk
 - Cart - using redux
 
-  <img src="public\images\screenshots\cart_screenshot.png" alt="Logo" width="300" >
+  <img src="public\images\screenshots\cart_screenshot.png" alt="Logo" width="700" >
 
 - Checkout - payment by react PayPal-js
 
-  <img src="public\images\screenshots\checkout_screenshot.png" alt="Logo" width="300" >
+  <img src="public\images\screenshots\checkout_screenshot.png" alt="Logo" width="700" >
 
 - Search address
   - autocomplete search
@@ -159,17 +159,17 @@ _Below is an example of how you can instruct your audience on installing and set
 - Edit, Delete exsistent store
 - Add, Edit and Delete product
 
-  <img src="public\images\screenshots\my_stores_screenshot.png" alt="Logo" width="400" >
+  <img src="public\images\screenshots\my_stores_screenshot.png" alt="Logo" width="700" >
 
 #### Couriers
 
 - Display all orders ready for shipment on the map
 
-  <img src="public\images\screenshots\orders_on_map_screenshot.png" alt="Logo" width="500" >
+  <img src="public\images\screenshots\orders_on_map_screenshot.png" alt="Logo" width="700" >
 
 - Setting a route to the customer address with stop at the store
 
-  <img src="public\images\screenshots\route_screenshot.png" alt="Logo" width="600" >
+  <img src="public\images\screenshots\route_screenshot.png" alt="Logo" width="800" >
 
 - Taking an order
   - customer recive a message his order has been shipped
@@ -180,7 +180,7 @@ _Below is an example of how you can instruct your audience on installing and set
 - Access to tha all informaion
 - Add, Edit and Delete users, stores, prducts and orders
 
-  <img src="public\images\screenshots\admin_screenshot.png" alt="Logo" width="300" >
+  <img src="public\images\screenshots\admin_screenshot.png" alt="Logo" width="800" >
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
