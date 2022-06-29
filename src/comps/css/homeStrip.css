@@ -7,13 +7,12 @@
 }
 
 .h1 {
-  font-size: 5em;
+  font-size: 6vw;
   font-weight: bold;
 }
 
 .h4 {
-  /* font-weight: bold; */
-  font-size: 2.5em;
+  font-size: 4vw;
   color: #eee;
 }
 
