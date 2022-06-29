@@ -47,19 +47,19 @@ function HeaderCourier(props) {
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-start flex-grow-1 ps-5">
                 {!login ? (
-                  <li>
+                  <li data-bs-dismiss="offcanvas">
                     <Link to="/" className="nav-link">
                       Go Home <BiHomeAlt className="ms-1" />
                     </Link>
                   </li>
                 ) : (
                   <React.Fragment>
-                    <li>
+                    <li data-bs-dismiss="offcanvas">
                       <Link className="nav-link" to="/">
                         Home <BiHomeAlt className="ms-1" />
                       </Link>
                     </li>
-                    <li>
+                    <li data-bs-dismiss="offcanvas">
                       <Link className="nav-link" to="/courier/openOrders">
                         Open orders <GoListUnordered className="ms-1" />
                       </Link>
