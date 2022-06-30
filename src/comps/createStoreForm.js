@@ -8,7 +8,7 @@ import { API_URL, doApiMethod } from './../services/apiService';
 import { toast } from 'react-toastify';
 import './css/register.css';
 import ImagesSearch from './general_comps/imagesSearch';
-import AddAddress from './orders_comps/addAddress';
+import AddAddress from '../misc_comps/addAddress';
 
 function CreateStoreForm(props) {
   // for disabled the send btn for avoid multi click on him
@@ -132,14 +132,11 @@ function CreateStoreForm(props) {
 
               <input
                 {...addressRef}
-                // ref={addressInputRef}
                 readOnly
                 defaultValue={address?.label}
                 className="form-control"
                 type="address"
                 placeholder="add address"
-                // onChange={() => setValue('address', address?.label)}
-                // value={addressName}
               />
               {errors.address ? (
                 <small className="text-danger d-block">* Address invalid</small>

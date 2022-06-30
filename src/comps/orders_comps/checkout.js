@@ -11,9 +11,9 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '../css/checkout.css';
-import AddAddress from './addAddress';
 import { ADDRESS, checkAddressLocal, saveAddressLocal } from './../../services/localService';
 import { joinSocket } from '../../redux/actions/socket_action';
+import AddAddress from '../../misc_comps/addAddress';
 
 function Checkout(props) {
   const { cart_ar, totalPrice, store_short_id } = useSelector((state) => state.clientReducer);

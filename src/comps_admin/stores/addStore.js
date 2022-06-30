@@ -9,7 +9,7 @@ import { BsCardImage } from 'react-icons/bs';
 import { ImLocation } from 'react-icons/im';
 import '../css/formStore.css';
 import ImagesSearch from '../../comps/general_comps/imagesSearch';
-import AddAddress from '../../comps/orders_comps/addAddress';
+import AddAddress from '../../misc_comps/addAddress';
 
 function AddStore(props) {
   // for disabled the send btn for avoid multi click on him
