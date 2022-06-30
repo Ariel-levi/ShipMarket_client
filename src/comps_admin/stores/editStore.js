@@ -10,7 +10,7 @@ import { ImLocation } from 'react-icons/im';
 import LottieAnimation from '../../comps/general_comps/lottieAnimation';
 import '../css/formStore.css';
 import ImagesSearch from '../../comps/general_comps/imagesSearch';
-import AddAddress from '../../comps/orders_comps/addAddress';
+import AddAddress from '../../misc_comps/addAddress';
 
 function EditStore(props) {
   const [store, setStore] = useState({});

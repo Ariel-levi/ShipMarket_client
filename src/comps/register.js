@@ -6,7 +6,7 @@ import { API_URL, doApiMethod } from '../services/apiService';
 import './css/register.css';
 import { motion } from 'framer-motion';
 import { ImLocation } from 'react-icons/im';
-import AddAddress from './orders_comps/addAddress';
+import AddAddress from '../misc_comps/addAddress';
 
 function Register(props) {
   const [displayLightBox, setDisplayLightBox] = useState(false);
