@@ -20,6 +20,7 @@ import CategoriesAdmin from './comps_admin/categories/categoriesAdmin';
 import AddCategory from './comps_admin/categories/addCategory';
 import EditCategory from './comps_admin/categories/editCategory';
 import OrdersAdmin from './comps_admin/orders/ordersAdmin';
+import OrderInfoAdmin from './comps_admin/orders/orderInfoAdmin';
 // user imports
 import Page404 from './comps/general_comps/page404';
 import Home from './comps/home';
@@ -75,6 +76,7 @@ function AppRoutes(props) {
           <Route path="/admin/addCategory" element={<AddCategory />} />
           <Route path="/admin/editCategory/:id" element={<EditCategory />} />
           <Route path="/admin/orders" element={<OrdersAdmin />} />
+          <Route path="/admin/orders/:id" element={<OrderInfoAdmin />} />
         </Route>
         {/* Store Admin */}
         <Route path="/storeAdmin" element={<LayoutStore />}>

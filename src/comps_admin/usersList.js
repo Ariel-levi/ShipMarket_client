@@ -10,12 +10,12 @@ import PageLinks from '../misc_comps/pageLinks';
 import { useLocation } from 'react-router-dom';
 
 function UsersList(props) {
-  let [ar, setAr] = useState([]);
-  let [numPage, setPageNum] = useState(1);
+  const [ar, setAr] = useState([]);
+  const [numPage, setPageNum] = useState(1);
   const location = useLocation();
   const [role, setRole] = useState('');
   const [loading, setLoading] = useState(true);
-  let selectRef = useRef();
+  const selectRef = useRef();
 
   useEffect(() => {
     doApi();
