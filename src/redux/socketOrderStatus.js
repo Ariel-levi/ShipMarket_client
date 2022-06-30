@@ -28,6 +28,10 @@ function SocketOrderStatus(props) {
         toast.success(data.msg);
         console.log('listening');
       });
+      socket.on('order_completed', (data) => {
+        toast.success(data.msg);
+        console.log('listening');
+      });
     }
   }, [orderIds]);
   return <></>;

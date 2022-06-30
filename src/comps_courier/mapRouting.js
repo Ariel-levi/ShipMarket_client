@@ -55,15 +55,15 @@ function MapRouting(props) {
   };
 
   const takeDelivery = async (_orderId, _orderShortId) => {
-    const socket = io.connect(API_URL);
-    toast.info('You took the Shipment !!!');
     console.log(_orderId);
     let url = API_URL + '/orders/shipping/takingOrder';
     try {
       let resp = await doApiMethod(url, 'PATCH', { orderId: _orderId });
       // console.log(resp.data);
       if (resp.data.modifiedCount === 1) {
+        const socket = io.connect(API_URL);
         socket.emit('taking_order', _orderShortId);
+        toast.info('You took the Shipment !!!');
         nav('/courier/myOrders');
       }
     } catch (err) {
