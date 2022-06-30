@@ -51,7 +51,8 @@ import ApplyingDriverForm from './comps/applyingDriverForm';
 import LayoutCourier from './comps_courier/layoutCourier';
 import HomeCourier from './comps_courier/homeCourier';
 import MapRouting from './comps_courier/mapRouting';
-// import OpenOrders from "./comps_Courier/openOrders";
+import MyOrders from './comps_courier/myOrders';
+import DeliveryInfo from './comps_courier/deliveryInfo';
 
 function AppRoutes(props) {
   return (
@@ -109,7 +110,8 @@ function AppRoutes(props) {
         <Route path="/courier" element={<LayoutCourier />}>
           <Route index element={<HomeCourier />} />
           <Route path="/courier/takeDelivery/:id" element={<MapRouting />} />
-          {/* <Route path="/Courier/openOrders" element={<OpenOrders />} /> */}
+          <Route path="/courier/myOrders" element={<MyOrders />} />
+          <Route path="/courier/deliveryInfo/:id" element={<DeliveryInfo />} />
         </Route>
       </Routes>
       {/* theme='colored' make the toast message bg to be red,green... */}

@@ -5,6 +5,7 @@ import { checkTokenLocal } from '../services/localService';
 import { BiHomeAlt } from 'react-icons/bi';
 import { GoListUnordered } from 'react-icons/go';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
+import { FaMapMarkedAlt } from 'react-icons/fa';
 
 function HeaderCourier(props) {
   let [login, setLogin] = useState('');
@@ -61,8 +62,13 @@ function HeaderCourier(props) {
                       </Link>
                     </li>
                     <li data-bs-dismiss="offcanvas">
-                      <Link className="nav-link" to="/courier/openOrders">
-                        Open orders <GoListUnordered className="ms-1" />
+                      <Link className="nav-link" to="/courier">
+                        Take Order <FaMapMarkedAlt className="ms-1" />
+                      </Link>
+                    </li>
+                    <li data-bs-dismiss="offcanvas">
+                      <Link className="nav-link" to="/courier/myOrders">
+                        My Orders <GoListUnordered className="ms-1" />
                       </Link>
                     </li>
                   </React.Fragment>
