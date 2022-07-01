@@ -24,7 +24,7 @@ function ImagesSearch(props) {
     let search = searchRef.current.value;
     setImages([]);
     {
-      search ? doApi(search) : toast.error('You need to enter something 😒');
+      search ? doApi(search) : toast.error('Please enter a search term');
     }
   };
 

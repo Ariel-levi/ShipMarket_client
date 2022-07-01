@@ -44,7 +44,7 @@ function MyStore(props) {
         let resp = await doApiMethod(url, 'DELETE', {}, _idDel);
         // console.log(resp.data);
         if (resp.data.deletedCount) {
-          toast.info('Stores delted !');
+          toast.info('Stores deleted');
         }
         // to show the new list without the Store that we deleted
         doApi();

@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import AuthAdminComp from "../../misc_comps/authAdminComp";
-import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
-import { IoDuplicateOutline } from "react-icons/io5";
-import { BsCardImage } from "react-icons/bs";
-import "../css/formStore.css";
-import ImagesSearch from "../../comps/general_comps/imagesSearch";
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import AuthAdminComp from '../../misc_comps/authAdminComp';
+import { API_URL, doApiGet, doApiMethod } from '../../services/apiService';
+import { IoDuplicateOutline } from 'react-icons/io5';
+import { BsCardImage } from 'react-icons/bs';
+import '../css/formStore.css';
+import ImagesSearch from '../../comps/general_comps/imagesSearch';
 
 function AddCategory(props) {
   const [ar, setAr] = useState([]);
   const [btnSend, setBtnSend] = useState(false);
   const [openImageSearch, setOpenImageSearch] = useState(false);
-  const [imageSearch, setImageSearch] = useState("");
+  const [imageSearch, setImageSearch] = useState('');
 
   useEffect(() => {
     doApi();
@@ -21,7 +21,7 @@ function AddCategory(props) {
 
   const doApi = async () => {
     // get all stores for the [store_short_id]
-    let url = API_URL + "/stores?perPage=100";
+    let url = API_URL + '/stores?perPage=100';
     try {
       let resp2 = await doApiGet(url);
       // console.log(resp2.data);
@@ -37,26 +37,26 @@ function AddCategory(props) {
   let {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
-  let nameRef = register("name", {
+  let nameRef = register('name', {
     required: true,
     minLength: 2,
-    maxLength: 150,
+    maxLength: 150
   });
-  let url_nameRef = register("url_name", {
+  let url_nameRef = register('url_name', {
     required: true,
     minLength: 2,
-    maxLength: 150,
+    maxLength: 150
   });
-  let img_urlRef = register("img_url", {
+  let img_urlRef = register('img_url', {
     required: false,
     minLength: 3,
-    maxLength: 500,
+    maxLength: 500
   });
-  let store_short_idRef = register("store_short_id", {
-    required: true,
+  let store_short_idRef = register('store_short_id', {
+    required: true
   });
 
   const onSubForm = (formData) => {
@@ -68,19 +68,19 @@ function AddCategory(props) {
   };
 
   const doFormApi = async (formData) => {
-    let url = API_URL + "/categories";
+    let url = API_URL + '/categories';
     try {
-      let resp = await doApiMethod(url, "POST", formData);
+      let resp = await doApiMethod(url, 'POST', formData);
       // console.log(resp.data);
       if (resp.data._id) {
-        toast.success("Category Created");
+        toast.success('Category was created ');
         // back to the list of categories in the admin panel
-        nav("/admin/categories");
+        nav('/admin/categories');
       }
     } catch (err) {
       console.log(err.response);
-      alert("There problem try again later");
-      nav("/admin/categories");
+      alert("It's not you, it's us. Please try again");
+      nav('/admin/categories');
     }
   };
 
@@ -88,12 +88,9 @@ function AddCategory(props) {
     <div className="container">
       <AuthAdminComp />
       {openImageSearch ? (
-        <ImagesSearch
-          setOpenImageSearch={setOpenImageSearch}
-          setImageSearch={setImageSearch}
-        />
+        <ImagesSearch setOpenImageSearch={setOpenImageSearch} setImageSearch={setImageSearch} />
       ) : (
-        ""
+        ''
       )}
       <div className="store-form">
         <form onSubmit={handleSubmit(onSubForm)}>
@@ -110,11 +107,9 @@ function AddCategory(props) {
               placeholder="Category Name *"
             />
             {errors.name ? (
-              <small className="text-danger d-block">
-                * Enter valid name, min 2 chars
-              </small>
+              <small className="text-danger d-block">* Enter valid name, min 2 chars</small>
             ) : (
-              ""
+              ''
             )}
           </div>
           <div className="form-group">
@@ -125,11 +120,9 @@ function AddCategory(props) {
               placeholder="Category Url Name *"
             />
             {errors.url_name ? (
-              <small className="text-danger d-block">
-                * Enter valid name, min 2 chars
-              </small>
+              <small className="text-danger d-block">* Enter valid name, min 2 chars</small>
             ) : (
-              ""
+              ''
             )}
           </div>
           <div className="form-group">
@@ -138,8 +131,7 @@ function AddCategory(props) {
               onClick={(e) => {
                 setOpenImageSearch(true);
                 e.preventDefault();
-              }}
-            >
+              }}>
               Get image from Pexels <BsCardImage className="mx-2" />
             </button>
             {/* <input
@@ -156,18 +148,13 @@ function AddCategory(props) {
               placeholder="Add Image"
             />
             {errors.img_url ? (
-              <small className="text-danger d-block">
-                * Enter valid image, min 3 chars
-              </small>
+              <small className="text-danger d-block">* Enter valid image, min 3 chars</small>
             ) : (
-              ""
+              ''
             )}
           </div>
           <div className="form-group">
-            <select
-              {...store_short_idRef}
-              className="form-control form-select item"
-            >
+            <select {...store_short_idRef} className="form-control form-select item">
               <option value="">* Select Store</option>
               {ar.map((item) => {
                 return (
@@ -180,14 +167,11 @@ function AddCategory(props) {
             {errors.store_short_id ? (
               <small className="text-danger d-block">* Select option</small>
             ) : (
-              ""
+              ''
             )}
           </div>
           <div className="form-group">
-            <button
-              className="btn btn-block create-account mx-3"
-              disabled={btnSend}
-            >
+            <button className="btn btn-block create-account mx-3" disabled={btnSend}>
               Create Category
             </button>
             <button
@@ -195,8 +179,7 @@ function AddCategory(props) {
               onClick={(e) => {
                 e.preventDefault();
                 nav(-1);
-              }}
-            >
+              }}>
               Back
             </button>
           </div>

@@ -45,9 +45,9 @@ function Register(props) {
     } catch (err) {
       console.log(err.response.data);
       if (err.response.data.code == 11000) {
-        toast.error('Email already in system , try log in');
+        toast.error('Email already exist ,try to log in');
       } else {
-        alert('There problem , try come back later');
+        alert("It's not you, it's us. Please try again");
       }
     }
   };

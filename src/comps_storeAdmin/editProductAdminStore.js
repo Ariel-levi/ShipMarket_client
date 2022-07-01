@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import { FaRegEdit } from "react-icons/fa";
-import { BsCardImage } from "react-icons/bs";
-import LottieAnimation from "../comps/general_comps/lottieAnimation";
-import { API_URL, doApiGet, doApiMethod } from "../services/apiService";
-import ImagesSearch from "../comps/general_comps/imagesSearch";
-import AuthClientComp from "../comps/general_comps/authClientComp";
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { FaRegEdit } from 'react-icons/fa';
+import { BsCardImage } from 'react-icons/bs';
+import LottieAnimation from '../comps/general_comps/lottieAnimation';
+import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
+import ImagesSearch from '../comps/general_comps/imagesSearch';
+import AuthClientComp from '../comps/general_comps/authClientComp';
 
 function EditProductAdminStore(props) {
   const [product, setProduct] = useState({});
   const [openImageSearch, setOpenImageSearch] = useState(false);
-  const [imageSearch, setImageSearch] = useState("");
+  const [imageSearch, setImageSearch] = useState('');
   let params = useParams();
   let nav = useNavigate();
 
@@ -23,35 +23,35 @@ function EditProductAdminStore(props) {
   let {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
-  let nameRef = register("name", {
+  let nameRef = register('name', {
     required: true,
     minLength: 2,
-    maxLength: 150,
+    maxLength: 150
   });
-  let priceRef = register("price", { required: true, minLength: 1 });
-  let infoRef = register("info", { required: true, minLength: 5 });
-  let store_short_idRef = register("store_short_id", {
+  let priceRef = register('price', { required: true, minLength: 1 });
+  let infoRef = register('info', { required: true, minLength: 5 });
+  let store_short_idRef = register('store_short_id', {
     required: true,
     minLength: 5,
-    maxLength: 99,
+    maxLength: 99
   });
-  let cat_short_idRef = register("cat_short_id", {
+  let cat_short_idRef = register('cat_short_id', {
     required: true,
     minLength: 5,
-    maxLength: 99,
+    maxLength: 99
   });
-  let img_urlRef = register("img_url", {
+  let img_urlRef = register('img_url', {
     required: false,
     minLength: 3,
-    maxLength: 500,
+    maxLength: 500
   });
-  let qtyRef = register("qty", {
+  let qtyRef = register('qty', {
     required: false,
     minLength: 1,
-    maxLength: 99999,
+    maxLength: 99999
   });
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function EditProductAdminStore(props) {
   }, []);
 
   const doApi = async () => {
-    let urlProduct = API_URL + "/products/single/" + params.id;
+    let urlProduct = API_URL + '/products/single/' + params.id;
     let resp2 = await doApiGet(urlProduct);
     setProduct(resp2.data);
     setImageSearch(resp2.data.img_url);
@@ -73,20 +73,20 @@ function EditProductAdminStore(props) {
   };
 
   const doFormApi = async (formData) => {
-    let url = API_URL + "/products/" + product._id;
+    let url = API_URL + '/products/' + product._id;
 
     try {
-      let resp = await doApiMethod(url, "PUT", formData, storeInfo._id);
+      let resp = await doApiMethod(url, 'PUT', formData, storeInfo._id);
       if (resp.data.modifiedCount) {
-        toast.success("Product Updated");
+        toast.success('Product Updated');
         nav(-1);
       } else {
-        toast.warning("you didn't change nothing");
+        toast.warning('Nothing to update');
       }
     } catch (err) {
       console.log(err.response);
-      alert("There problem try again later");
-      nav("/storeAdmin");
+      alert('Failed to update the product, please try again');
+      nav('/storeAdmin');
     }
   };
 
@@ -94,12 +94,9 @@ function EditProductAdminStore(props) {
     <div className="container">
       <AuthClientComp />
       {openImageSearch ? (
-        <ImagesSearch
-          setOpenImageSearch={setOpenImageSearch}
-          setImageSearch={setImageSearch}
-        />
+        <ImagesSearch setOpenImageSearch={setOpenImageSearch} setImageSearch={setImageSearch} />
       ) : (
-        ""
+        ''
       )}
       <h1 className="text-center mt-3">Edit Product</h1>
       <div className="store-form">
@@ -108,9 +105,8 @@ function EditProductAdminStore(props) {
             <div
               className="form-icon edit_img"
               style={{
-                backgroundImage: `url(${product.img_url})`,
-              }}
-            >
+                backgroundImage: `url(${product.img_url})`
+              }}>
               <span>
                 <FaRegEdit />
               </span>
@@ -125,11 +121,9 @@ function EditProductAdminStore(props) {
                 placeholder="product Name"
               />
               {errors.name ? (
-                <small className="text-danger d-block">
-                  * Enter valid name, min 2 chars
-                </small>
+                <small className="text-danger d-block">* Enter valid name, min 2 chars</small>
               ) : (
-                ""
+                ''
               )}
             </div>
             <div className="form-group">
@@ -142,11 +136,9 @@ function EditProductAdminStore(props) {
                 placeholder="Price"
               />
               {errors.price ? (
-                <small className="text-danger d-block">
-                  * Enter valid price, min 1
-                </small>
+                <small className="text-danger d-block">* Enter valid price, min 1</small>
               ) : (
-                ""
+                ''
               )}
             </div>
             <div className="form-group">
@@ -155,8 +147,7 @@ function EditProductAdminStore(props) {
                 onClick={(e) => {
                   setOpenImageSearch(true);
                   e.preventDefault();
-                }}
-              >
+                }}>
                 Get image from Pexels <BsCardImage className="mx-2" />
               </button>
               <input
@@ -167,11 +158,9 @@ function EditProductAdminStore(props) {
                 placeholder="Add Image"
               />
               {errors.img_url ? (
-                <small className="text-danger d-block">
-                  * Enter valid image, min 3 chars
-                </small>
+                <small className="text-danger d-block">* Enter valid image, min 3 chars</small>
               ) : (
-                ""
+                ''
               )}
             </div>
             <div className="form-group">
@@ -193,11 +182,9 @@ function EditProductAdminStore(props) {
                 placeholder="Qty"
               />
               {errors.qty ? (
-                <small className="text-danger d-block">
-                  * Enter valid qty, min 1
-                </small>
+                <small className="text-danger d-block">* Enter valid qty, min 1</small>
               ) : (
-                ""
+                ''
               )}
             </div>
             <div className="form-group">
@@ -210,11 +197,9 @@ function EditProductAdminStore(props) {
                 placeholder="Cat Short Id"
               />
               {errors.store_short_id ? (
-                <small className="text-danger d-block">
-                  * Enter valid qty, min 5 max 99
-                </small>
+                <small className="text-danger d-block">* Enter valid qty, min 5 max 99</small>
               ) : (
-                ""
+                ''
               )}
             </div>
             <div className="form-group">
@@ -227,11 +212,9 @@ function EditProductAdminStore(props) {
                 placeholder="Store Short Id"
               />
               {errors.store_short_id ? (
-                <small className="text-danger d-block">
-                  * Enter valid qty, min 5 max 99
-                </small>
+                <small className="text-danger d-block">* Enter valid qty, min 5 max 99</small>
               ) : (
-                ""
+                ''
               )}
             </div>
             <div className="form-group">
@@ -241,27 +224,21 @@ function EditProductAdminStore(props) {
                 defaultValue={product.info}
                 className="form-control item"
                 placeholder="product Info"
-                style={{ width: "100%", height: "150px" }}
-              ></textarea>
+                style={{ width: '100%', height: '150px' }}></textarea>
               {errors.info ? (
-                <small className="text-danger d-block">
-                  * Enter valid info, min 5 chars
-                </small>
+                <small className="text-danger d-block">* Enter valid info, min 5 chars</small>
               ) : (
-                ""
+                ''
               )}
             </div>
             <div className="form-group">
-              <button className="btn btn-block create-account mx-3">
-                Edit
-              </button>
+              <button className="btn btn-block create-account mx-3">Edit</button>
               <button
                 className="btn btn-block create-account"
                 onClick={(e) => {
                   e.preventDefault();
                   nav(-1);
-                }}
-              >
+                }}>
                 Back
               </button>
             </div>

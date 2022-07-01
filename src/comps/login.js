@@ -26,11 +26,11 @@ function Login(props) {
       // console.log(resp.data);
       if (resp.data.token) {
         localStorage.setItem('tok', resp.data.token);
-        // send user to home
+        // send user to home page
         nav('/');
         window.location.reload();
       } else {
-        toast.error('There some error come back later...');
+        toast.error('Something went wrong. Please try again');
       }
     } catch (err) {
       toast.error(err.response.data.err);

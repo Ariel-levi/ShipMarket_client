@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import AuthAdminComp from "../../misc_comps/authAdminComp";
-import LottieAnimation from "../../comps/general_comps/lottieAnimation";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
-import { BsPen, BsEraser } from "react-icons/bs";
-import { IoDuplicateOutline } from "react-icons/io5";
-import { toast } from "react-toastify";
-import PageLinks from "../../misc_comps/pageLinks";
+import React, { useState, useEffect } from 'react';
+import AuthAdminComp from '../../misc_comps/authAdminComp';
+import LottieAnimation from '../../comps/general_comps/lottieAnimation';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { API_URL, doApiGet, doApiMethod } from '../../services/apiService';
+import { BsPen, BsEraser } from 'react-icons/bs';
+import { IoDuplicateOutline } from 'react-icons/io5';
+import { toast } from 'react-toastify';
+import PageLinks from '../../misc_comps/pageLinks';
 
 function CategoriesAdmin(props) {
   let [ar, setAr] = useState([]);
@@ -22,15 +22,15 @@ function CategoriesAdmin(props) {
   const doApi = async () => {
     // get categories page number
     const urlParams = new URLSearchParams(window.location.search);
-    let pageQuery = urlParams.get("page") || 1;
+    let pageQuery = urlParams.get('page') || 1;
     setPageNum(pageQuery);
-    let urlCategory = API_URL + "/categories?page=" + pageQuery;
+    let urlCategory = API_URL + '/categories?page=' + pageQuery;
     let resp2 = await doApiGet(urlCategory);
     // console.log(resp2.data);
     setAr(resp2.data);
 
     // get Store name
-    let ownerUrl = API_URL + "/stores?perPage=100";
+    let ownerUrl = API_URL + '/stores?perPage=100';
     try {
       let resp = await doApiGet(ownerUrl);
       let temp_ar = resp.data.map((item) => {
@@ -38,7 +38,7 @@ function CategoriesAdmin(props) {
       });
       setOwnerAr(temp_ar);
     } catch (err) {
-      alert("there problem come back later");
+      alert('there problem come back later');
       if (err.response) {
         console.log(err.response.data);
       }
@@ -46,19 +46,19 @@ function CategoriesAdmin(props) {
   };
 
   const delStore = async (_idDel) => {
-    if (window.confirm("Are you sure you want to delete?")) {
+    if (window.confirm('Are you sure you want to delete?')) {
       try {
-        let url = API_URL + "/categories/" + _idDel;
-        let resp = await doApiMethod(url, "DELETE", {});
+        let url = API_URL + '/categories/' + _idDel;
+        let resp = await doApiMethod(url, 'DELETE', {});
         // console.log(resp.data);
         if (resp.data.deletedCount) {
-          toast.info("Category delted !");
+          toast.info('Category deleted');
         }
         // to show the new list without the Category that we deleted
         doApi();
       } catch (err) {
         console.log(err.response);
-        alert("there problem , try again later");
+        alert('there problem , try again later');
       }
     }
   };
@@ -89,15 +89,13 @@ function CategoriesAdmin(props) {
                 <td>{item.name}</td>
                 <td>
                   {ownerAr.map((owner) => {
-                    return owner.short_id == item.store_short_id
-                      ? owner.name
-                      : "";
+                    return owner.short_id == item.store_short_id ? owner.name : '';
                   })}
                 </td>
                 <td>
                   <img
-                    src={item.img_url || "/images/no_image.png"}
-                    alt={item.name + " image"}
+                    src={item.img_url || '/images/no_image.png'}
+                    alt={item.name + ' image'}
                     height="50"
                     width="90"
                   />
@@ -109,17 +107,15 @@ function CategoriesAdmin(props) {
                       delStore(item._id);
                     }}
                     className="btn btn-outline-danger mx-2"
-                    title="Delete"
-                  >
+                    title="Delete">
                     <BsEraser />
                   </button>
                   <button
                     onClick={() => {
-                      nav("/admin/editCategory/" + item._id);
+                      nav('/admin/editCategory/' + item._id);
                     }}
                     className="btn btn-outline-secondary"
-                    title="Edit"
-                  >
+                    title="Edit">
                     <BsPen />
                   </button>
                 </td>
@@ -137,11 +133,11 @@ function CategoriesAdmin(props) {
       */}
       <PageLinks
         perPage="5"
-        apiUrlAmount={API_URL + "/categories/amount"}
-        urlLinkTo={"/admin/categories"}
+        apiUrlAmount={API_URL + '/categories/amount'}
+        urlLinkTo={'/admin/categories'}
         clsCss="btn me-2 mt-4 pageLinks"
       />
-      {ar.length === 0 ? <LottieAnimation /> : ""}
+      {ar.length === 0 ? <LottieAnimation /> : ''}
     </div>
   );
 }

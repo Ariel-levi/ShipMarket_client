@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { API_URL, doApiMethod } from "../services/apiService";
-import "./css/adminLogin.css";
-import { BsFillShieldLockFill } from "react-icons/bs";
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { API_URL, doApiMethod } from '../services/apiService';
+import './css/adminLogin.css';
+import { BsFillShieldLockFill } from 'react-icons/bs';
 
 function LoginAdmin(props) {
   let nav = useNavigate();
   let {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const onSubForm = (data) => {
@@ -20,23 +20,23 @@ function LoginAdmin(props) {
   };
 
   useEffect(() => {
-    if (localStorage["tok"]) {
-      nav("/admin/home");
+    if (localStorage['tok']) {
+      nav('/admin/home');
     }
   }, []);
 
   const doApi = async (_dataBody) => {
-    let url = API_URL + "/users/login";
+    let url = API_URL + '/users/login';
     try {
-      let resp = await doApiMethod(url, "POST", _dataBody);
+      let resp = await doApiMethod(url, 'POST', _dataBody);
       // console.log(resp.data);
       if (resp.data.token) {
-        localStorage.setItem("tok", resp.data.token);
+        localStorage.setItem('tok', resp.data.token);
         // send user to home admin
-        nav("/admin/home");
-        toast.info("Welcome back to admin panel!");
+        nav('/admin/home');
+        toast.info('Welcome back to admin section');
       } else {
-        toast.error("There some error come back later...");
+        toast.error('Something went wrong. Please try again');
       }
     } catch (err) {
       toast.error(err.response.data.err);
@@ -45,18 +45,15 @@ function LoginAdmin(props) {
     }
   };
 
-  let emailRef = register("email", {
+  let emailRef = register('email', {
     required: true,
-    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
   });
 
-  let passwordRef = register("password", { required: true, minLength: 3 });
+  let passwordRef = register('password', { required: true, minLength: 3 });
 
   return (
-    <div
-      className="login-dark"
-      style={{ backgroundImage: `url("/images/adminBG.jpg")` }}
-    >
+    <div className="login-dark" style={{ backgroundImage: `url("/images/adminBG.jpg")` }}>
       <form onSubmit={handleSubmit(onSubForm)}>
         <h2 className="text-center">Admin Login</h2>
         <div className="illustration">
@@ -70,11 +67,7 @@ function LoginAdmin(props) {
             name="email"
             placeholder="Email"
           />
-          {errors.email ? (
-            <small className="text-danger d-block">* Email invalid</small>
-          ) : (
-            ""
-          )}
+          {errors.email ? <small className="text-danger d-block">* Email invalid</small> : ''}
         </div>
         <div className="form-group">
           <input
@@ -85,11 +78,9 @@ function LoginAdmin(props) {
             placeholder="Password"
           />
           {errors.password ? (
-            <small className="text-danger d-block">
-              * Enter valid password, min 3 chars
-            </small>
+            <small className="text-danger d-block">* Enter valid password, min 3 chars</small>
           ) : (
-            ""
+            ''
           )}
         </div>
         <div className="form-group">
