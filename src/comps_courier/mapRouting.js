@@ -34,7 +34,7 @@ function MapRouting(props) {
         if (err.code === 1) {
           toast.error('User denied Geolocation');
         }
-        console.log('there problem with the position');
+        console.log('Something went wrong');
       }
     );
     doApi();
@@ -63,7 +63,7 @@ function MapRouting(props) {
       if (resp.data.modifiedCount === 1) {
         const socket = io.connect(API_URL);
         socket.emit('taking_order', _orderShortId);
-        toast.info('You took the Shipment !!!');
+        toast.info('You took the shipment');
         nav('/courier/myOrders');
       }
     } catch (err) {

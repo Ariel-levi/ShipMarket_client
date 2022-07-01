@@ -15,13 +15,13 @@ function OrderItem(props) {
         let resp = await doApiMethod(url, 'DELETE', {});
         // console.log(resp.data);
         if (resp.data.deletedCount) {
-          toast.info('Order delted !');
+          toast.info('Order deleted');
         }
         // to show the new list without the order that we deleted
         props.doApi();
       } catch (err) {
         console.log(err.response);
-        alert('there problem , try again later');
+        toast.error("It's not you, it's us. Please try again");
       }
     }
   };

@@ -43,7 +43,7 @@ function ProductsAdmin(props) {
         let resp = await doApiMethod(url, 'DELETE', {});
         // console.log(resp.data);
         if (resp.data.deletedCount) {
-          toast.info('Product delted !');
+          toast.info('Product deleted');
         }
         // to show the new list without the product that we deleted
         doApi();

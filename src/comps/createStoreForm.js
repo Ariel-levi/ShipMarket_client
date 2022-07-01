@@ -49,13 +49,15 @@ function CreateStoreForm(props) {
       if (resp.data._id) {
         setBtnSend(true);
         nav('/');
-        toast.success('store requests sent successfully, and pending for admin approval');
+        toast.success(
+          'Store creating requests has been sent successfully. Please whait for admin approval'
+        );
       }
     } catch (err) {
       if (err.response.data.code == 11000) {
         toast.error(err.response.data.message);
       } else {
-        alert('There problem, come back later');
+        toast.error("It's not you, it's us. Please try again");
       }
     }
   };

@@ -80,7 +80,7 @@ function EditStoreAdmin(props) {
         // back to the list of stores
         nav('/storeAdmin');
       } else {
-        toast.warning("you didn't change nothing");
+        toast.warning('Nothing to apdate');
       }
     } catch (err) {
       console.log(err.response);

@@ -35,7 +35,7 @@ function DeliveryInfo(props) {
         if (err.code === 1) {
           toast.error('User denied Geolocation');
         }
-        console.log('there problem with the position');
+        console.log('Something went wrong');
       }
     );
     doApi();
@@ -64,7 +64,7 @@ function DeliveryInfo(props) {
   };
 
   const orderComplete = async (_orderId, _orderShortId) => {
-    toast.info('The Order is Completed !!!');
+    toast.success('Order completed');
     console.log(_orderId);
     let url = API_URL + '/orders/shipping/orderStatus';
     try {

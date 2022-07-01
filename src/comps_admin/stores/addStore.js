@@ -65,7 +65,7 @@ function AddStore(props) {
       }
     } catch (err) {
       console.log(err.response);
-      alert('There problem try again later');
+      toast.error("It's not you, it's us. Please try again");
       nav('/admin/stores');
     }
   };

@@ -9,10 +9,6 @@ function Logout(props) {
     localStorage.removeItem('tok');
     nav('/');
     window.location.reload();
-    // toast.info("You log out from system, see you later");
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 2000);
   }, []);
 
   return <div>Please wait... you log out.</div>;

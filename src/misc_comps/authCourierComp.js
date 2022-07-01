@@ -11,8 +11,8 @@ function AuthCourierComp(props) {
     if (localStorage['tok']) {
       doApi();
     } else {
-      toast.error('You must be a courier to be here! or you need to login again');
-      nav('/');
+      toast.error('Please log in');
+      nav('/login');
     }
   }, []);
 
@@ -23,13 +23,13 @@ function AuthCourierComp(props) {
       // console.log(resp.data);
       // check if the token
       if (resp.data.role !== 'courier' && resp.data.role !== 'system_admin') {
-        toast.error('You must be a courier to be here! or you need to login again');
+        toast.error('Unathorized user');
         nav('/logout');
       }
     } catch (err) {
       // if there not token at all
       console.log(err.response);
-      alert('You must be courier to be here! or you need to login again');
+      toast.error('Something went wrong. Please log in and try again.');
       nav('/logout');
       // if token invalid for super_admin
     }

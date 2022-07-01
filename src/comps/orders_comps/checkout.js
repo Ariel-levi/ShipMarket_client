@@ -85,7 +85,7 @@ function Checkout(props) {
     };
     let resp = await doApiMethod(url, 'PATCH', paypalObject);
     if (resp.data.modifiedCount == 1) {
-      toast.success('Your order completed');
+      toast.success('Your order completed successfully');
       dispatch(resetAll());
       nav('/oldOrders');
     }
@@ -186,7 +186,7 @@ function Checkout(props) {
                         }
                       }}
                       onCancel={(err) => {
-                        toast.error('The process end before the payment, try again');
+                        toast.error('Process end before payment. Please try again');
                       }}
                     />
                   </div>

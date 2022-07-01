@@ -24,13 +24,13 @@ function ApplyingDriverForm(props) {
       let resp = await doApiMethod(url, 'PATCH', {});
       console.log(resp);
       if (resp.data.modifiedCount === 1) {
-        toast.success('your applied successfully');
+        toast.success('Application sent successfully');
       } else {
-        toast.error('you already applied');
+        toast.error('You had already applied');
       }
     } catch (error) {
       console.log(error);
-      toast.error('something went wrong');
+      toast.error("It's not you, it's us. Please try again");
     }
   };
   return (
