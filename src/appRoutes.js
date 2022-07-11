@@ -40,7 +40,6 @@ import OldOrderInfoClient from './comps/orders_comps/oldOrderInfoClient';
 import WelcomePage from './comps/general_comps/welcomePage';
 // store Admin imports
 import LayoutStore from './comps_storeAdmin/layoutStore';
-import MyStore from './comps_storeAdmin/myStore';
 import EditStoreAdmin from './comps_storeAdmin/editStoreAdmin';
 import MoreStore from './comps_storeAdmin/moreStore';
 import ProductsStoreAdmin from './comps_storeAdmin/productsStoreAdmin';
@@ -54,6 +53,7 @@ import HomeCourier from './comps_courier/homeCourier';
 import MapRouting from './comps_courier/mapRouting';
 import MyOrders from './comps_courier/myOrders';
 import DeliveryInfo from './comps_courier/deliveryInfo';
+import MyStores from './comps_storeAdmin/myStores';
 
 function AppRoutes(props) {
   return (
@@ -80,7 +80,7 @@ function AppRoutes(props) {
         </Route>
         {/* Store Admin */}
         <Route path="/storeAdmin" element={<LayoutStore />}>
-          <Route index element={<MyStore />} />
+          <Route index element={<MyStores />} />
           <Route path="/storeAdmin/editStore/:id" element={<EditStoreAdmin />} />
           <Route path="/storeAdmin/more/:id" element={<MoreStore />} />
           <Route path="/storeAdmin/products/:id" element={<ProductsStoreAdmin />} />
@@ -105,6 +105,7 @@ function AppRoutes(props) {
           <Route path="/oldOrders" element={<OldOrders />} />
           <Route path="/oldOrders/:idOrder" element={<OldOrderInfoClient />} />
           <Route path="/applyAsDriver" element={<ApplyingDriverForm />} />
+          <Route path="/myStores" element={<MyStores />} />
           {/* * - for any url that not in another route go to 404 */}
           <Route path="/*" element={<Page404 />} />
         </Route>

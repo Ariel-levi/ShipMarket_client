@@ -35,7 +35,7 @@ function OrdersAdmin(props) {
   return (
     <div className="container">
       <AuthAdminComp />
-      <h2 className="display-4">All my orders</h2>
+      <h2 className="display-4">Orders List</h2>
       {/* filter orders by the status */}
       <div className="my-5 col-md-3 position-absolute top-0 end-0">
         <select ref={selectRef} onChange={onSelectOption} className="form-select">

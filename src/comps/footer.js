@@ -28,7 +28,7 @@ function Footer(props) {
             <Link to="/createStore">Create store</Link>
           </li>
           <li className="list-inline-item animaLinkSM">
-            <Link to="/storeAdmin">My stores</Link>
+            <Link to="/myStores">My stores</Link>
           </li>
           <li className="list-inline-item animaLinkSM">
             <Link to="/applyAsDriver">Apply for a courier position</Link>

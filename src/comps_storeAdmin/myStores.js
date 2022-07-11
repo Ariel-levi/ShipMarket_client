@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { motion, AnimatePresence } from 'framer-motion';
 import { saveStoresIdsLocall } from '../services/localService';
 
-function MyStore(props) {
+function MyStores(props) {
   const [ar, setAr] = useState([]);
   const [arSort, setArSort] = useState([]);
   const nav = useNavigate();
@@ -107,4 +107,4 @@ function MyStore(props) {
   );
 }
 
-export default MyStore;
+export default MyStores;
