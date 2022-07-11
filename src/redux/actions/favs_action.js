@@ -1,54 +1,54 @@
-import { toast } from "react-toastify";
-import { API_URL, doApiGet, doApiMethod } from "../../services/apiService";
+import { toast } from 'react-toastify';
+import { API_URL, doApiGet, doApiMethod } from '../../services/apiService';
 
-export const FETCH_FAVS_REQUEST = "FETCH_FAVS_REQUEST";
-export const FETCH_FAVS_SUCCESS = "FETCH_FAVS_SUCCESS";
-export const FETCH_FAVS_FAILIER = "FETCH_FAVS_FAILIER";
+export const FETCH_FAVS_REQUEST = 'FETCH_FAVS_REQUEST';
+export const FETCH_FAVS_SUCCESS = 'FETCH_FAVS_SUCCESS';
+export const FETCH_FAVS_FAILIER = 'FETCH_FAVS_FAILIER';
 
 const fetchFavsRequst = () => {
   return {
-    type: FETCH_FAVS_REQUEST,
+    type: FETCH_FAVS_REQUEST
   };
 };
 const fetchFavsSuccess = (items) => {
   return {
     type: FETCH_FAVS_SUCCESS,
-    payload: items,
+    payload: items
   };
 };
 
 const fetchFavsFailure = (err) => {
   return {
     type: FETCH_FAVS_FAILIER,
-    payload: err,
+    payload: err
   };
 };
 
 export const addRemoveFavs = (_short_id) => async (dispatch, getState) => {
-  if (localStorage["tok"]) {
-    let url = API_URL + "/favs/add_remove/" + _short_id;
+  if (localStorage['tok']) {
+    let url = API_URL + '/favs/add_remove/' + _short_id;
     try {
-      let resp = await doApiMethod(url, "PATCH", {});
+      let resp = await doApiMethod(url, 'PATCH', {});
       if (resp.data.modifiedCount) {
         console.log(resp.data);
         if (resp.data.inFavs) {
-          toast.success("added to favorites");
+          toast.success('Product added to favorites');
         } else {
-          toast.warning("removed from favorites");
+          toast.warning('Product removed from favorites');
         }
         dispatch(fetchFavs());
       }
     } catch (error) {
       console.log(error.response);
-      toast.info("There ate errors, try again");
+      toast.error('Something went wrong. Please try again');
     }
   }
 };
 
 export const fetchFavs = () => async (dispatch, getState) => {
-  if (localStorage["tok"]) {
+  if (localStorage['tok']) {
     fetchFavsRequst(); // set loading to true
-    let url = API_URL + "/favs";
+    let url = API_URL + '/favs';
     try {
       let resp = await doApiGet(url);
       if (resp.data.favs_ar) {
@@ -59,5 +59,4 @@ export const fetchFavs = () => async (dispatch, getState) => {
       dispatch(fetchFavsFailure(error));
     }
   }
-  //   else toast.error("you must be logged in to add a favourite");
 };

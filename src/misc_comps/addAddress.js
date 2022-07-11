@@ -1,64 +1,55 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
-import { motion } from 'framer-motion/dist/framer-motion';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { AiOutlineClose } from 'react-icons/ai';
-import { GrLocation, GrLocationPin } from 'react-icons/gr';
-import { ADDRESS, checkAddressLocal, saveAddressLocal } from '../services/localService';
-import { useDebounce } from '../hooks/useDebounce';
+import { IoLocationOutline } from 'react-icons/io5';
+
 import './css/light_box.css';
+import { useDebounce } from '../hooks/useDebounce';
+import { useSearchAddress } from '../hooks/useSearchAddress';
 
 function AddAddress(props) {
-  const address = props.address;
-  const setAddress = props.setAddress;
-
+  const [selected, setSelected] = useState();
   const [searchTerm, setSearchTerm] = useState('');
-  const [results, setResults] = useState([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-  const [selected, setSelected] = useState(address);
-  const provider = new OpenStreetMapProvider();
-  let inputRef = useRef();
+  const debounceSearchTerm = useDebounce(searchTerm, 1000);
+  const [results, setResults, isSearching] = useSearchAddress(debounceSearchTerm);
+  const address = props?.address;
+  const setAddress = props?.setAddress;
 
   useEffect(() => {
-    updateInput();
+    updateInput(address);
   }, []);
 
-  useEffect(() => {
-    if (debouncedSearchTerm) {
-      setIsSearching(true);
-      doApi();
-    } else {
-      setIsSearching(false);
-      setResults([]);
+  const disabledBtn = () => {
+    //  disable done btns
+    if (!selected) {
+      return {
+        opacity: '0.6',
+        pointerEvents: 'none'
+      };
     }
-  }, [debouncedSearchTerm]);
-
-  const doApi = async () => {
-    let tempRes = await provider.search({ query: debouncedSearchTerm });
-    tempRes = tempRes.filter((item) => item.raw.osm_type === 'way' && item.raw.type !== 'town');
-    if (tempRes.length > 0) {
-      setResults(tempRes);
-      console.log(tempRes);
-      setIsSearching(false);
-    }
+    return {};
   };
 
   const onSuggestHandler = (_address) => {
-    setAddress(_address);
     setResults([]);
-    // updateInput();
+    setSelected(_address);
+    updateInput(_address);
   };
 
   const onChangeClick = () => {
-    // setAddress(null);
+    setSearchTerm('');
     setResults([]);
-    // updateInput();
-    inputRef.current.value = null;
-    // document.getElementById('input').value = undefined;
+    setSelected(null);
+    updateInput(null);
   };
 
-  const updateInput = () => {
-    inputRef.current.value = selected?.label || undefined;
+  const updateInput = (_address) => {
+    document.getElementById('input').value = _address?.label || null;
+  };
+
+  const onDoneClick = () => {
+    setAddress(selected);
+    props.setDisplayLightBox(false);
   };
 
   return (
@@ -67,29 +58,28 @@ function AddAddress(props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.7 }}
-        className="container mt-5"
-        style={{ minHeight: '85vh' }}>
-        <div className="container border inside_box text-start">
+        className="container mt-5">
+        <div className="container border inside_box text-start" style={{ height: '70vh' }}>
           <button
             onClick={() => {
               props.setDisplayLightBox(false);
             }}
-            className="btn btn-outline-danger  close_button">
+            className="btn btn-outline-danger close_button">
             <AiOutlineClose />
           </button>
           <h4 className="text-center">Select address</h4>
           <hr />
 
-          <div className="border p-2 rounded d-flex align-items-center justify-content-between">
+          <div className="border p-2 rounded d-flex align-items-center form-control">
             <input
-              ref={inputRef}
+              id="input"
               type="text"
+              className="w-100"
               placeholder="search address"
               onChange={(e) => setSearchTerm(e.target.value)}
-              value={selected ? selected.label : undefined}
             />
-            {selected && (
-              <button className="btn text-info" onClick={onChangeClick}>
+            {(address || selected) && (
+              <button className="btn text-info text-end" onClick={onChangeClick}>
                 Change
               </button>
             )}
@@ -99,19 +89,33 @@ function AddAddress(props) {
             <div className="border shadow">
               {results.map((item, i) => {
                 return (
-                  <div>
-                    <div
-                      className=" p-2 text-start list"
-                      key={item.raw.place_id}
-                      onClick={() => onSuggestHandler(item)}>
-                      <GrLocationPin />
-                      {' ' + item.label}
-                    </div>
-                    <hr />
+                  <div
+                    className=" p-2 text-start list"
+                    key={item.raw.place_id}
+                    onClick={() => onSuggestHandler(item)}>
+                    <IoLocationOutline />
+                    {' ' + item.label}
+                    <hr className="m-0" />
                   </div>
                 );
               })}
             </div>
+          )}
+          {results.length === 0 && (
+            <button
+              className="btn btn-info form-control w-75"
+              style={{
+                position: 'absolute',
+                bottom: '20px',
+                left: 0,
+                right: 0,
+                margin: 'auto',
+                width: '100px',
+                ...disabledBtn()
+              }}
+              onClick={onDoneClick}>
+              Done
+            </button>
           )}
         </div>
       </motion.div>

@@ -67,13 +67,13 @@ function StoresAdmin(props) {
         let resp = await doApiMethod(url, 'DELETE', {});
         // console.log(resp.data);
         if (resp.data.deletedCount) {
-          toast.info('Stores delted !');
+          toast.info('Stores deleted !');
         }
         // to show the new list without the Store that we deleted
         doApi();
       } catch (err) {
         console.log(err.response);
-        alert('there problem , try again later');
+        toast.error("It's not you, it's us. Please try again");
       }
     }
   };
@@ -84,9 +84,9 @@ function StoresAdmin(props) {
     console.log(resp.data);
 
     if (resp.data.emailStatus === 'ok') {
-      toast.success('Email sended to the Store Admin');
+      toast.success('Email sent to the store owner');
     } else {
-      toast.error('The email failed to reach the Store Owner');
+      toast.error('Email failed to reach the store owner');
     }
     toast.info('Store ' + _name + ' is ' + resp.data.data.status);
     doApi();

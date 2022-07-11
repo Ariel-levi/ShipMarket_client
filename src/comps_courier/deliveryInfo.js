@@ -35,7 +35,7 @@ function DeliveryInfo(props) {
         if (err.code === 1) {
           toast.error('User denied Geolocation');
         }
-        console.log('there problem with the position');
+        console.log('Something went wrong');
       }
     );
     doApi();
@@ -64,16 +64,15 @@ function DeliveryInfo(props) {
   };
 
   const orderComplete = async (_orderId, _orderShortId) => {
-    // const socket = io.connect(API_URL);
-    toast.info('The Order is Completed !!!');
+    toast.success('Order completed');
     console.log(_orderId);
-    // let url = API_URL + '/orders/shipping/takingOrder';
     let url = API_URL + '/orders/shipping/orderStatus';
     try {
       let resp = await doApiMethod(url, 'PATCH', { orderId: _orderId, status: 'complete' });
       console.log(resp.data);
       if (resp.data.modifiedCount === 1) {
-        //  socket.emit('taking_order', _orderShortId);
+        const socket = io.connect(API_URL);
+        socket.emit('order_completed', _orderShortId);
         nav('/courier/myOrders');
       }
     } catch (err) {

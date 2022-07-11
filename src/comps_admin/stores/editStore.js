@@ -10,7 +10,7 @@ import { ImLocation } from 'react-icons/im';
 import LottieAnimation from '../../comps/general_comps/lottieAnimation';
 import '../css/formStore.css';
 import ImagesSearch from '../../comps/general_comps/imagesSearch';
-import AddAddress from '../../comps/orders_comps/addAddress';
+import AddAddress from '../../misc_comps/addAddress';
 
 function EditStore(props) {
   const [store, setStore] = useState({});
@@ -73,15 +73,15 @@ function EditStore(props) {
       let resp = await doApiMethod(url, 'PUT', formData);
       // console.log(resp.data);
       if (resp.data.modifiedCount) {
-        toast.success('store updated');
+        toast.success('Store updated');
         // back to the list of stores in the admin panel
         nav('/admin/stores');
       } else {
-        toast.warning("you didn't change nothing");
+        toast.warning('Nothing to updated');
       }
     } catch (err) {
       console.log(err.response);
-      alert('There problem try again later');
+      toast.error("It's not you, it's us. Please try again");
       nav('/admin/stores');
     }
   };

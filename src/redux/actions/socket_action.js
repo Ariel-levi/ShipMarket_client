@@ -31,7 +31,8 @@ export const fetchOrders = () => async (dispatch, getState) => {
     try {
       let resp = await doApiGet(url);
       if (resp.data.length > 0) {
-        let shortIds = resp.data.map((item) => item.short_id);
+        let openOrders = resp.data.filter((item) => ['paid', 'shipped'].includes(item.status));
+        let shortIds = openOrders.map((item) => item.short_id);
         dispatch(fetchOrdersSuccess(shortIds));
       }
     } catch (error) {

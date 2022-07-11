@@ -11,9 +11,9 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import '../css/checkout.css';
-import AddAddress from './addAddress';
 import { ADDRESS, checkAddressLocal, saveAddressLocal } from './../../services/localService';
 import { joinSocket } from '../../redux/actions/socket_action';
+import AddAddress from '../../misc_comps/addAddress';
 
 function Checkout(props) {
   const { cart_ar, totalPrice, store_short_id } = useSelector((state) => state.clientReducer);
@@ -85,7 +85,7 @@ function Checkout(props) {
     };
     let resp = await doApiMethod(url, 'PATCH', paypalObject);
     if (resp.data.modifiedCount == 1) {
-      toast.success('Your order completed');
+      toast.success('Your order completed successfully');
       dispatch(resetAll());
       nav('/oldOrders');
     }
@@ -186,7 +186,7 @@ function Checkout(props) {
                         }
                       }}
                       onCancel={(err) => {
-                        toast.error('The process end before the payment, try again');
+                        toast.error('Process end before payment. Please try again');
                       }}
                     />
                   </div>

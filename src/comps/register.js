@@ -6,7 +6,7 @@ import { API_URL, doApiMethod } from '../services/apiService';
 import './css/register.css';
 import { motion } from 'framer-motion';
 import { ImLocation } from 'react-icons/im';
-import AddAddress from './orders_comps/addAddress';
+import AddAddress from '../misc_comps/addAddress';
 
 function Register(props) {
   const [displayLightBox, setDisplayLightBox] = useState(false);
@@ -45,9 +45,9 @@ function Register(props) {
     } catch (err) {
       console.log(err.response.data);
       if (err.response.data.code == 11000) {
-        toast.error('Email already in system , try log in');
+        toast.error('Email already exist ,try to log in');
       } else {
-        alert('There problem , try come back later');
+        alert("It's not you, it's us. Please try again");
       }
     }
   };
