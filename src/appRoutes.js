@@ -38,15 +38,6 @@ import Checkout from './comps/orders_comps/checkout';
 import OldOrders from './comps/orders_comps/oldOrders';
 import OldOrderInfoClient from './comps/orders_comps/oldOrderInfoClient';
 import WelcomePage from './comps/general_comps/welcomePage';
-// store Admin imports
-import LayoutStore from './comps_storeAdmin/layoutStore';
-import MyStore from './comps_storeAdmin/myStore';
-import EditStoreAdmin from './comps_storeAdmin/editStoreAdmin';
-import MoreStore from './comps_storeAdmin/moreStore';
-import ProductsStoreAdmin from './comps_storeAdmin/productsStoreAdmin';
-import EditProductAdminStore from './comps_storeAdmin/editProductAdminStore';
-import ProductInfoAdminStore from './comps_storeAdmin/productInfoAdminStore';
-import AddProductStoreAdmin from './comps_storeAdmin/addProductStoreAdmin';
 // Driver imports
 import ApplyingDriverForm from './comps/applyingDriverForm';
 import LayoutCourier from './comps_courier/layoutCourier';
@@ -54,6 +45,20 @@ import HomeCourier from './comps_courier/homeCourier';
 import MapRouting from './comps_courier/mapRouting';
 import MyOrders from './comps_courier/myOrders';
 import DeliveryInfo from './comps_courier/deliveryInfo';
+// store Admin imports
+import LayoutStore from './comps_storeAdmin/layoutStore';
+import MyStore from './comps_storeAdmin/myStore';
+import StoreHome from './comps_storeAdmin/storeHome';
+import EditStoreAdmin from './comps_storeAdmin/editStoreAdmin';
+import MoreStore from './comps_storeAdmin/moreStore';
+import ProductsStoreAdmin from './comps_storeAdmin/products/productsStoreAdmin';
+import EditProductAdminStore from './comps_storeAdmin/products/editProductAdminStore';
+import ProductInfoAdminStore from './comps_storeAdmin/products/productInfoAdminStore';
+import AddProductStoreAdmin from './comps_storeAdmin/products/addProductStoreAdmin';
+import CategoriesAdminStore from './comps_storeAdmin/categories/categoriesAdminStore';
+import OrdersStoreAdmin from './comps_storeAdmin/orders/ordersStoreAdmin';
+import OrderItemInfoAdminStore from './comps_storeAdmin/orders/orderItemInfoAdminStore';
+import OrdersPanelAdminStore from './comps_storeAdmin/orders_panel/ordersPanelAdminStore';
 
 function AppRoutes(props) {
   return (
@@ -81,12 +86,17 @@ function AppRoutes(props) {
         {/* Store Admin */}
         <Route path="/storeAdmin" element={<LayoutStore />}>
           <Route index element={<MyStore />} />
+          <Route path="/storeAdmin/:id" element={<StoreHome />} />
           <Route path="/storeAdmin/editStore/:id" element={<EditStoreAdmin />} />
           <Route path="/storeAdmin/more/:id" element={<MoreStore />} />
           <Route path="/storeAdmin/products/:id" element={<ProductsStoreAdmin />} />
           <Route path="/storeAdmin/products/edit/:id" element={<EditProductAdminStore />} />
           <Route path="/storeAdmin/products/info/:id" element={<ProductInfoAdminStore />} />
           <Route path="/storeAdmin/products/addProduct" element={<AddProductStoreAdmin />} />
+          <Route path="/storeAdmin/categories/:id" element={<CategoriesAdminStore />} />
+          <Route path="/storeAdmin/orders/:id" element={<OrdersStoreAdmin />} />
+          <Route path="/storeAdmin/orderInfo/:id" element={<OrderItemInfoAdminStore />} />
+          <Route path="/storeAdmin/ordersPanel/:id" element={<OrdersPanelAdminStore />} />
         </Route>
         {/* For regular user client path */}
         <Route path="/" element={<Layout />}>
