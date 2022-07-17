@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BsCardImage } from 'react-icons/bs';
-import ImagesSearch from '../comps/general_comps/imagesSearch';
-import AuthClientComp from '../comps/general_comps/authClientComp';
+import { API_URL, doApiMethod } from '../../services/apiService';
+import ImagesSearch from '../../comps/general_comps/imagesSearch';
+import AuthClientComp from '../../comps/general_comps/authClientComp';
 
 function AddProductStoreAdmin(props) {
   const [btnSend, setBtnSend] = useState(false);

@@ -1,11 +1,5 @@
-/* @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
-body {
-	background: #f9f9f9;
-	font-family: "roboto", sans-serif;
-} */
 
 .main-content {
-	/* padding-top: 100px; */
 	padding-bottom: 100px;
 }
 
@@ -22,6 +16,7 @@ body {
 	background: #eee;
   /* part of children element that out of the border of parent element will hide */
   overflow: hidden;
+  cursor: pointer;
 }
 
 .payment-card__type img {

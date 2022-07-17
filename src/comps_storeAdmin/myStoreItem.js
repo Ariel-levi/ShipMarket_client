@@ -22,7 +22,11 @@ function MyStoreItem(props) {
       className="col-md-4 col-sm-6 mb-4">
       <AuthStoreAdminComp store_short_id={item.short_id} />
       <div className="payment-card rounded-lg shadow bg-white text-center h-100">
-        <div className="payment-card__type px-4 py-5 d-flex justify-content-center align-items-center">
+        <div
+          onClick={() => {
+            nav('/storeAdmin/' + item._id);
+          }}
+          className="payment-card__type px-4 py-5 d-flex justify-content-center align-items-center">
           <div
             style={item.status == 'pending' ? statusColor : {}}
             className="status_tag text-uppercase text-center">
@@ -45,14 +49,6 @@ function MyStoreItem(props) {
               Info <BsFillInfoCircleFill size="1.5em" color="#34495E" />
             </button>
             <div>
-              <Link
-                to={'/storeAdmin/products/' + item._id}
-                state={{ item }}
-                className="mx-2"
-                style={{ background: 'none' }}
-                title="Products">
-                <BsColumns size="1.5em" color="#16A085" />
-              </Link>
               <Link
                 to={'/storeAdmin/editStore/' + item._id}
                 className="mx-2"

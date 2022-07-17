@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import LottieAnimation from '../comps/general_comps/lottieAnimation';
-import { dateCreated } from '../misc_comps/dateCreated';
-import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BsPen, BsEraser, BsInfoCircle } from 'react-icons/bs';
-import { IoMdArrowRoundBack } from 'react-icons/io';
 import { MdAddShoppingCart } from 'react-icons/md';
 import { toast } from 'react-toastify';
-import AuthClientComp from '../comps/general_comps/authClientComp';
+import LottieAnimation from '../../comps/general_comps/lottieAnimation';
+import { dateCreated } from '../../misc_comps/dateCreated';
+import { API_URL, doApiGet, doApiMethod } from '../../services/apiService';
+import AuthClientComp from '../../comps/general_comps/authClientComp';
 
 function ProductsStoreAdmin(props) {
   const [products, setProducts] = useState([]);
   const [storeInfo, setStoreInfo] = useState([]);
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
   let params = useParams();
   let nav = useNavigate();
 
   useEffect(() => {
-    // get the store info from the link state by location
-    setStoreInfo(location.state.item);
     doApi();
   }, []);
 
   const doApi = async () => {
-    let url = API_URL + '/products/storeProducts/' + params.id;
+    let productsUrl = API_URL + '/products/storeProducts/' + params.id;
+    let storeUrl = API_URL + '/stores/single/' + params.id;
     try {
-      let resp = await doApiGet(url);
+      let resp = await doApiGet(productsUrl);
       // console.log(resp.data);
       setProducts(resp.data);
+
+      let resp2 = await doApiGet(storeUrl);
+      // console.log(resp2.data);
+      setStoreInfo(resp2.data);
+
       setLoading(false);
     } catch (err) {
       if (err.response) {
@@ -58,14 +60,7 @@ function ProductsStoreAdmin(props) {
   return (
     <div className="container">
       <AuthClientComp />
-      <h1>{storeInfo.name} Products</h1>
-      <button
-        onClick={() => {
-          nav(-1);
-        }}
-        className="btn btn-outline-dark me-2">
-        Back <IoMdArrowRoundBack />
-      </button>
+      <h1 className="display-5">{storeInfo.name} Products</h1>
       <Link
         className="btn btn-outline-success my-3"
         to="/storeAdmin/products/addProduct"
