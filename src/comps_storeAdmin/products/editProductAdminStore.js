@@ -4,10 +4,10 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaRegEdit } from 'react-icons/fa';
 import { BsCardImage } from 'react-icons/bs';
-import LottieAnimation from '../comps/general_comps/lottieAnimation';
-import { API_URL, doApiGet, doApiMethod } from '../services/apiService';
-import ImagesSearch from '../comps/general_comps/imagesSearch';
-import AuthClientComp from '../comps/general_comps/authClientComp';
+import LottieAnimation from '../../comps/general_comps/lottieAnimation';
+import { API_URL, doApiGet, doApiMethod } from '../../services/apiService';
+import ImagesSearch from '../../comps/general_comps/imagesSearch';
+import AuthClientComp from '../../comps/general_comps/authClientComp';
 
 function EditProductAdminStore(props) {
   const [product, setProduct] = useState({});
@@ -86,7 +86,7 @@ function EditProductAdminStore(props) {
     } catch (err) {
       console.log(err.response);
       alert('Failed to update the product, please try again');
-      nav('/storeAdmin');
+      nav(-1);
     }
   };
 

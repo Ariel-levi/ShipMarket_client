@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import LottieAnimation from "../comps/general_comps/lottieAnimation";
-import { API_URL, doApiGet } from "../services/apiService";
-import { BsInfoCircle, BsCardImage } from "react-icons/bs";
-import "../comps_admin/css/formStore.css";
-import AuthClientComp from "../comps/general_comps/authClientComp";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { BsInfoCircle, BsCardImage } from 'react-icons/bs';
+import LottieAnimation from '../../comps/general_comps/lottieAnimation';
+import { API_URL, doApiGet } from '../../services/apiService';
+import '../../comps_admin/css/formStore.css';
+import AuthClientComp from '../../comps/general_comps/authClientComp';
 
 function ProductInfoAdminStore(props) {
   let [product, setProduct] = useState({});
@@ -16,7 +16,7 @@ function ProductInfoAdminStore(props) {
   }, []);
 
   const doApi = async () => {
-    let url = API_URL + "/products/single/" + params.id;
+    let url = API_URL + '/products/single/' + params.id;
     let resp = await doApiGet(url);
     // console.log(resp.data);
     setProduct(resp.data);
@@ -32,9 +32,8 @@ function ProductInfoAdminStore(props) {
             <div
               className="form-icon edit_img"
               style={{
-                backgroundImage: `url(${product.img_url})`,
-              }}
-            >
+                backgroundImage: `url(${product.img_url})`
+              }}>
               <span>
                 <BsInfoCircle />
               </span>
@@ -73,7 +72,7 @@ function ProductInfoAdminStore(props) {
                 />
               </div>
             ) : (
-              ""
+              ''
             )}
             {product.condition ? (
               <div className="form-group">
@@ -87,7 +86,7 @@ function ProductInfoAdminStore(props) {
                 />
               </div>
             ) : (
-              ""
+              ''
             )}
             {product.qty ? (
               <div className="form-group">
@@ -101,7 +100,7 @@ function ProductInfoAdminStore(props) {
                 />
               </div>
             ) : (
-              ""
+              ''
             )}
             <div className="form-group">
               <p className="small">Cat Short Id</p>
@@ -130,8 +129,7 @@ function ProductInfoAdminStore(props) {
                 defaultValue={product.info}
                 className="form-control item"
                 placeholder="product Info"
-                style={{ width: "100%", height: "150px" }}
-              ></textarea>
+                style={{ width: '100%', height: '150px' }}></textarea>
             </div>
             <div className="form-group">
               <button
@@ -139,8 +137,7 @@ function ProductInfoAdminStore(props) {
                 onClick={(e) => {
                   e.preventDefault();
                   nav(-1);
-                }}
-              >
+                }}>
                 Back
               </button>
             </div>

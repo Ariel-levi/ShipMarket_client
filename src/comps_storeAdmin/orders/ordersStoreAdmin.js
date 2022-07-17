@@ -1,25 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import LottieAnimation from '../../comps/general_comps/lottieAnimation';
-import AuthAdminComp from '../../misc_comps/authAdminComp';
 import { API_URL, doApiGet } from '../../services/apiService';
-import OrderItem from './orderItem';
+import OrderItemStoreAdmin from './orderItemStoreAdmin';
 
-function OrdersAdmin(props) {
+function OrdersStoreAdmin(props) {
   const [ar, setAr] = useState([]);
+  const [tempAr, setTempAr] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [status, setStatus] = useState('');
   const selectRef = useRef();
+  const params = useParams();
 
   useEffect(() => {
     doApi();
-  }, [status]);
+  }, []);
 
   const doApi = async () => {
-    let ordersUrl = API_URL + `/orders/allOrders?perPage=9999&status=${status}`;
+    let ordersUrl = API_URL + `/orders/storeOrders/` + params.id;
     try {
       let respOrders = await doApiGet(ordersUrl);
+      // console.log(respOrders.data);
       let filterPending = respOrders.data.filter((order) => order.status !== 'pending');
       setAr(filterPending);
+      setTempAr(filterPending);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -28,12 +31,18 @@ function OrdersAdmin(props) {
 
   const onSelectOption = () => {
     let status_val = selectRef.current.value;
-    setStatus(status_val);
+    if (status_val !== '') {
+      let temp_ar = ar.filter((order) => order.status === status_val);
+      setTempAr(temp_ar);
+    } else {
+      setTempAr(ar);
+    }
   };
 
   return (
     <div className="container">
-      <AuthAdminComp />
+      {/* <AuthAdminComp /> */}
+      <orderItemAdminStore />
       <h2 className="display-4">All my orders</h2>
       {/* filter orders by the status */}
       <div className="my-5 col-md-3 position-absolute top-0 end-0">
@@ -44,8 +53,8 @@ function OrdersAdmin(props) {
           <option value="complete">Complete</option>
         </select>
       </div>
-      {ar.length === 0 && !loading ? (
-        <h2 className="display-4 text-center mt-5">No Orders in the system</h2>
+      {tempAr.length === 0 && !loading ? (
+        <h2 className="display-4 text-center mt-5">No Orders</h2>
       ) : (
         <table className="table table-striped table-scrollbar mt-5">
           <thead>
@@ -60,8 +69,8 @@ function OrdersAdmin(props) {
             </tr>
           </thead>
           <tbody>
-            {ar.map((item, i) => {
-              return <OrderItem key={item._id} item={item} index={i} doApi={doApi} />;
+            {tempAr.map((item, i) => {
+              return <OrderItemStoreAdmin key={item._id} item={item} index={i} />;
             })}
           </tbody>
         </table>
@@ -71,4 +80,4 @@ function OrdersAdmin(props) {
   );
 }
 
-export default OrdersAdmin;
+export default OrdersStoreAdmin;

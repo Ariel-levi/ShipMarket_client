@@ -1,9 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { BiHomeAlt } from 'react-icons/bi';
+import { Link, useParams } from 'react-router-dom';
+import { BiHomeAlt, BiCategory } from 'react-icons/bi';
 import { MdStorefront } from 'react-icons/md';
+import { BsColumns } from 'react-icons/bs';
+import { HiOutlineClipboardList } from 'react-icons/hi';
 
 function HeaderStore(props) {
+  const params = useParams();
   return (
     <header>
       <nav className="navbar navbar-expand-lg">
@@ -38,13 +41,33 @@ function HeaderStore(props) {
             <div className="offcanvas-body">
               <ul className="navbar-nav justify-content-start flex-grow-1 ps-5">
                 <li data-bs-dismiss="offcanvas">
+                  <Link className="nav-link" to="/">
+                    Go Home <BiHomeAlt className="ms-1" />
+                  </Link>
+                </li>
+                <li data-bs-dismiss="offcanvas">
                   <Link className="nav-link" to="/storeAdmin">
                     My Stores <MdStorefront className="ms-1" />
                   </Link>
                 </li>
                 <li data-bs-dismiss="offcanvas">
-                  <Link className="nav-link" to="/">
-                    Go Home <BiHomeAlt className="ms-1" />
+                  <Link className="nav-link" to={'/storeAdmin/ordersPanel/' + params.id}>
+                    Orders Panel <HiOutlineClipboardList className="ms-1" />
+                  </Link>
+                </li>
+                <li data-bs-dismiss="offcanvas">
+                  <Link className="nav-link" to={'/storeAdmin/products/' + params.id}>
+                    Products <BsColumns className="ms-1" />
+                  </Link>
+                </li>
+                <li data-bs-dismiss="offcanvas">
+                  <Link className="nav-link" to={'/storeAdmin/categories/' + params.id}>
+                    Categories <BiCategory className="ms-1" />
+                  </Link>
+                </li>
+                <li data-bs-dismiss="offcanvas">
+                  <Link className="nav-link" to={'/storeAdmin/orders/' + params.id}>
+                    All Orders <HiOutlineClipboardList className="ms-1" />
                   </Link>
                 </li>
               </ul>
