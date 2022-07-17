@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { BiHomeAlt } from 'react-icons/bi';
+import { BiHomeAlt, BiCategory } from 'react-icons/bi';
 import { MdStorefront } from 'react-icons/md';
 import { BsColumns } from 'react-icons/bs';
+import { HiOutlineClipboardList } from 'react-icons/hi';
 
 function HeaderStore(props) {
   const params = useParams();
@@ -50,23 +51,23 @@ function HeaderStore(props) {
                   </Link>
                 </li>
                 <li data-bs-dismiss="offcanvas">
+                  <Link className="nav-link" to={'/storeAdmin/ordersPanel/' + params.id}>
+                    Orders Panel <HiOutlineClipboardList className="ms-1" />
+                  </Link>
+                </li>
+                <li data-bs-dismiss="offcanvas">
                   <Link className="nav-link" to={'/storeAdmin/products/' + params.id}>
                     Products <BsColumns className="ms-1" />
                   </Link>
                 </li>
                 <li data-bs-dismiss="offcanvas">
                   <Link className="nav-link" to={'/storeAdmin/categories/' + params.id}>
-                    Categories <BsColumns className="ms-1" />
-                  </Link>
-                </li>
-                <li data-bs-dismiss="offcanvas">
-                  <Link className="nav-link" to={'/storeAdmin/ordersPanel/' + params.id}>
-                    Orders Panel <BsColumns className="ms-1" />
+                    Categories <BiCategory className="ms-1" />
                   </Link>
                 </li>
                 <li data-bs-dismiss="offcanvas">
                   <Link className="nav-link" to={'/storeAdmin/orders/' + params.id}>
-                    All Orders <BsColumns className="ms-1" />
+                    All Orders <HiOutlineClipboardList className="ms-1" />
                   </Link>
                 </li>
               </ul>
