@@ -38,9 +38,9 @@ function EditProductAdminStore(props) {
     minLength: 5,
     maxLength: 99
   });
-  let cat_short_idRef = register('cat_short_id', {
+  let categoryRef = register('category', {
     required: true,
-    minLength: 5,
+    minLength: 2,
     maxLength: 99
   });
   let img_urlRef = register('img_url', {
@@ -164,6 +164,26 @@ function EditProductAdminStore(props) {
               )}
             </div>
             <div className="form-group">
+              <p className="small">Category</p>
+              <select
+                {...categoryRef}
+                defaultValue={product.category}
+                className="form-control item">
+                {storeInfo.categories.map((item) => {
+                  return (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+              {errors.categoryRef ? (
+                <small className="text-danger d-block">* Enter valid Category, min 2 max 99</small>
+              ) : (
+                ''
+              )}
+            </div>
+            <div className="form-group">
               <p className="small">Condition</p>
               <input
                 defaultValue={product.condition}
@@ -183,21 +203,6 @@ function EditProductAdminStore(props) {
               />
               {errors.qty ? (
                 <small className="text-danger d-block">* Enter valid qty, min 1</small>
-              ) : (
-                ''
-              )}
-            </div>
-            <div className="form-group">
-              <p className="small">Cat Short Id</p>
-              <input
-                {...cat_short_idRef}
-                defaultValue={product.cat_short_id}
-                type="text"
-                className="form-control item"
-                placeholder="Cat Short Id"
-              />
-              {errors.store_short_id ? (
-                <small className="text-danger d-block">* Enter valid qty, min 5 max 99</small>
               ) : (
                 ''
               )}

@@ -10,7 +10,8 @@ import { API_URL, doApiGet, doApiMethod } from '../../services/apiService';
 import ImagesSearch from '../../comps/general_comps/imagesSearch';
 
 function EditProductAdmin(props) {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState([]);
+  const [store, setStore] = useState([]);
   const [openImageSearch, setOpenImageSearch] = useState(false);
   const [imageSearch, setImageSearch] = useState('');
   let params = useParams();
@@ -34,9 +35,9 @@ function EditProductAdmin(props) {
     minLength: 5,
     maxLength: 99
   });
-  let cat_short_idRef = register('cat_short_id', {
+  let categoryRef = register('category', {
     required: true,
-    minLength: 5,
+    minLength: 2,
     maxLength: 99
   });
   let img_urlRef = register('img_url', {
@@ -55,10 +56,20 @@ function EditProductAdmin(props) {
   }, []);
 
   const doApi = async () => {
-    let urlProduct = API_URL + '/products/single/' + params.id;
-    let resp2 = await doApiGet(urlProduct);
-    setProduct(resp2.data);
-    setImageSearch(resp2.data.img_url);
+    try {
+      let urlProduct = API_URL + '/products/single/' + params.id;
+      let resp = await doApiGet(urlProduct);
+      setProduct(resp.data);
+      setImageSearch(resp.data.img_url);
+
+      let urlStore = API_URL + '/stores/singleShort/' + resp.data.store_short_id;
+      let resp2 = await doApiGet(urlStore);
+      // console.log(resp2.data);
+      setStore(resp2.data);
+    } catch (err) {
+      console.log(err.response);
+      alert(err);
+    }
   };
 
   const onSubForm = (formData) => {
@@ -96,7 +107,7 @@ function EditProductAdmin(props) {
       )}
       <h1 className="text-center mt-3">Edit Product</h1>
       <div className="store-form">
-        {product._id ? (
+        {store._id ? (
           <form onSubmit={handleSubmit(onSubForm)}>
             <div
               className="form-icon edit_img"
@@ -184,16 +195,22 @@ function EditProductAdmin(props) {
               )}
             </div>
             <div className="form-group">
-              <p className="small">Cat Short Id</p>
-              <input
-                {...cat_short_idRef}
-                defaultValue={product.cat_short_id}
-                type="text"
-                className="form-control item"
-                placeholder="Cat Short Id"
-              />
-              {errors.store_short_id ? (
-                <small className="text-danger d-block">* Enter valid qty, min 5 max 99</small>
+              <p className="small">Category</p>
+              <select
+                {...categoryRef}
+                defaultValue={product.category}
+                className="form-control item">
+                <option value="">Select Category</option>
+                {store.categories.map((item) => {
+                  return (
+                    <option key={item} value={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+              {errors.categoryRef ? (
+                <small className="text-danger d-block">* Enter valid Category, min 2 max 99</small>
               ) : (
                 ''
               )}
@@ -208,7 +225,9 @@ function EditProductAdmin(props) {
                 placeholder="Store Short Id"
               />
               {errors.store_short_id ? (
-                <small className="text-danger d-block">* Enter valid qty, min 5 max 99</small>
+                <small className="text-danger d-block">
+                  * Enter valid Store Short Id, min 5 max 99
+                </small>
               ) : (
                 ''
               )}
