@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { BsPen, BsEraser } from 'react-icons/bs';
+import { BsEraser } from 'react-icons/bs';
 import LottieAnimation from '../../comps/general_comps/lottieAnimation';
 import { API_URL, doApiGet, doApiMethod } from '../../services/apiService';
 import { toast } from 'react-toastify';
@@ -78,7 +78,7 @@ function CategoriesAdminStore(props) {
   return (
     <div className="container">
       {/* <AuthClientComp /> */}
-      <h1 className="display-5">{store.name} Categories</h1>
+      {!loading && <h1 className="display-5">{store.name} Categories</h1>}
       <div className="containter col-md-6 mx-auto">
         <div className="input-group my-4">
           <input ref={catRef} type="text" className="form-control" placeholder="Add Category..." />

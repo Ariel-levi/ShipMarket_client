@@ -11,7 +11,6 @@ import ImagesSearch from '../../comps/general_comps/imagesSearch';
 function AddProductAdmin(props) {
   const [btnSend, setBtnSend] = useState(false);
   const [stores, setStores] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [openImageSearch, setOpenImageSearch] = useState(false);
   const [imageSearch, setImageSearch] = useState('');
   let nav = useNavigate();
@@ -26,17 +25,6 @@ function AddProductAdmin(props) {
       let resp2 = await doApiGet(urlStores);
       setStores(resp2.data);
       // console.log("stores", resp2.data);
-    } catch (err) {
-      if (err.response) {
-        console.log(err.response.data);
-      }
-    }
-
-    let urlCategories = API_URL + '/categories';
-    try {
-      let resp3 = await doApiGet(urlCategories);
-      setCategories(resp3.data);
-      // console.log("categories", resp3.data);
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -62,12 +50,6 @@ function AddProductAdmin(props) {
     minLength: 5,
     maxLength: 99
   });
-  let cat_short_idRef = register('cat_short_id', {
-    required: true,
-    minLength: 5,
-    maxLength: 99
-  });
-
   let img_urlRef = register('img_url', {
     required: false,
     minLength: 3,
@@ -98,7 +80,7 @@ function AddProductAdmin(props) {
     } catch (err) {
       console.log(err.response);
       toast.error('Product was not created. Please try again');
-      // nav("/admin/products");
+      nav('/admin/products');
     }
   };
 
@@ -187,23 +169,6 @@ function AddProductAdmin(props) {
             </select>
             {errors.store_short_id ? (
               <small className="text-danger d-block">* Select Store</small>
-            ) : (
-              ''
-            )}
-          </div>
-          <div className="form-group">
-            <select {...cat_short_idRef} className="form-control form-select item">
-              <option value="">* Select Category</option>
-              {categories.map((item) => {
-                return (
-                  <option key={item._id} value={item.short_id}>
-                    {item.name}
-                  </option>
-                );
-              })}
-            </select>
-            {errors.store_short_id ? (
-              <small className="text-danger d-block">* Select Category</small>
             ) : (
               ''
             )}
