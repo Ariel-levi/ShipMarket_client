@@ -16,9 +16,6 @@ import ProductsAdmin from './comps_admin/products/productsAdmin';
 import AddProductAdmin from './comps_admin/products/addProductAdmin';
 import ProductAdminInfo from './comps_admin/products/productAdminInfo';
 import EditProductAdmin from './comps_admin/products/editProductAdmin';
-import CategoriesAdmin from './comps_admin/categories/categoriesAdmin';
-import AddCategory from './comps_admin/categories/addCategory';
-import EditCategory from './comps_admin/categories/editCategory';
 import OrdersAdmin from './comps_admin/orders/ordersAdmin';
 import OrderInfoAdmin from './comps_admin/orders/orderInfoAdmin';
 // user imports
@@ -77,9 +74,6 @@ function AppRoutes(props) {
           <Route path="/admin/addProduct" element={<AddProductAdmin />} />
           <Route path="/admin/productInfo/:id" element={<ProductAdminInfo />} />
           <Route path="/admin/editProduct/:id" element={<EditProductAdmin />} />
-          <Route path="/admin/categories" element={<CategoriesAdmin />} />
-          <Route path="/admin/addCategory" element={<AddCategory />} />
-          <Route path="/admin/editCategory/:id" element={<EditCategory />} />
           <Route path="/admin/orders" element={<OrdersAdmin />} />
           <Route path="/admin/orders/:id" element={<OrderInfoAdmin />} />
         </Route>

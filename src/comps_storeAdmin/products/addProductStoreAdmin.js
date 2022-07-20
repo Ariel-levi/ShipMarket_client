@@ -34,6 +34,11 @@ function AddProductStoreAdmin(props) {
     minLength: 3,
     maxLength: 500
   });
+  let categoryRef = register('category', {
+    required: true,
+    minLength: 2,
+    maxLength: 99
+  });
   let qtyRef = register('qty', {
     required: false,
     minLength: 1,
@@ -45,10 +50,9 @@ function AddProductStoreAdmin(props) {
       formData.img_url = imageSearch;
     }
     formData.store_short_id = storeInfo.short_id;
-    formData.cat_short_id = 'xxxxxxx';
     setBtnSend(true);
 
-    // console.log(formData);
+    console.log(formData);
     doFormApi(formData);
   };
 
@@ -121,6 +125,24 @@ function AddProductStoreAdmin(props) {
             />
             {errors.img_url ? (
               <small className="text-danger d-block">* Enter valid image, min 3 chars</small>
+            ) : (
+              ''
+            )}
+          </div>
+          <div className="form-group">
+            <p className="small">Category</p>
+            <select {...categoryRef} className="form-control item">
+              <option value="">Select category</option>
+              {storeInfo.categories.map((item) => {
+                return (
+                  <option key={item} value={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+            {errors.categoryRef ? (
+              <small className="text-danger d-block">* Enter valid Category, min 2 max 99</small>
             ) : (
               ''
             )}

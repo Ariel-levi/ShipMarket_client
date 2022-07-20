@@ -82,11 +82,6 @@ function HeaderAdmin(props) {
                       </Link>
                     </li>
                     <li data-bs-dismiss="offcanvas">
-                      <Link className="nav-link" to="/admin/categories">
-                        Categories <BiCategory className="ms-1" />
-                      </Link>
-                    </li>
-                    <li data-bs-dismiss="offcanvas">
                       <Link className="nav-link" to="/admin/products">
                         Products <RiShoppingCartLine className="ms-1" />
                       </Link>

@@ -103,13 +103,13 @@ function ProductInfoAdminStore(props) {
               ''
             )}
             <div className="form-group">
-              <p className="small">Cat Short Id</p>
+              <p className="small">Category</p>
               <input
                 disabled
-                defaultValue={product.cat_short_id}
+                defaultValue={product.category}
                 type="text"
                 className="form-control item"
-                placeholder="Cat Short Id"
+                placeholder="category"
               />
             </div>
             <div className="form-group">

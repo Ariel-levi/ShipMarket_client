@@ -14,7 +14,7 @@ function Ticket(props) {
             ? 'badge bg-warning'
             : 'badge bg-success'
         }>
-        {item.status}
+        {item.status === 'shipped' ? 'Courier in the way' : item.status}
       </span>
       <section className="order_number p-3">
         <div className="container mt-4">
