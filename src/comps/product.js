@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCart } from '../redux/actions/cart_action';
 import { MdAddShoppingCart } from 'react-icons/md';
@@ -47,8 +47,13 @@ function Product(props) {
               />
             </div>
             <div className="p-4 blog-container">
-              <small className="font_bold blog-category text-uppercase py-1 px-2 float-left rounded">
-                Food
+              <small
+                style={{
+                  color: item.category ? '#28a745' : '#f47373',
+                  background: item.category ? 'rgba(40, 167, 69, 0.1)' : 'rgba(167, 40, 40, 0.1)'
+                }}
+                className="font_bold blog-category text-uppercase py-1 px-2 float-left rounded">
+                {item.category || 'no category'}
               </small>
               <button
                 onClick={addRemoveFavsClick}
