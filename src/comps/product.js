@@ -6,6 +6,7 @@ import { BsStar, BsStarFill } from 'react-icons/bs';
 import './css/product.css';
 import { toast } from 'react-toastify';
 import { addRemoveFavs } from '../redux/actions/favs_action';
+import { motion } from 'framer-motion';
 
 function Product(props) {
   let item = props.item;
@@ -35,7 +36,12 @@ function Product(props) {
   };
 
   return (
-    <div className="container">
+    <motion.div
+      layout
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      className="container">
       <div className="row">
         <div className="col-md-8 offset-md-2">
           <div className="blog-card bg-white mb-4 overflow-hidden d-lg-flex rounded position-relative hover">
@@ -73,7 +79,7 @@ function Product(props) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
