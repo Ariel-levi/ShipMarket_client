@@ -10,10 +10,13 @@ import LottieAnimation from './general_comps/lottieAnimation';
 import Cart from '../cart_comps/cart';
 import { resetAll, ShowCart } from '../redux/actions/cart_action';
 import { useDispatch, useSelector } from 'react-redux';
+import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'react-toastify';
 
 function StoreInfo(props) {
   const [shop, setShop] = useState({});
   const [storeProducts, setStoreProducts] = useState([]);
+  const [productsTemp, setProductsTemp] = useState([]);
   let params = useParams();
   let nav = useNavigate();
   const dispatch = useDispatch();
@@ -33,15 +36,29 @@ function StoreInfo(props) {
   const doApi = async () => {
     let url = API_URL + '/stores/single/' + params.id;
     let resp = await doApiGet(url);
-    console.log(resp.data);
+    // console.log(resp.data);
     setShop(resp.data);
-    console.table(resp.data);
+    // console.table(resp.data);
 
     let urlProducts = API_URL + '/products/storeProducts/' + params.id;
     let resp2 = await doApiGet(urlProducts);
     setStoreProducts(resp2.data);
-    // console.table(resp2.data);
+    setProductsTemp(resp2.data);
+    console.table(resp2.data);
   };
+
+  const sort_cat = (_catName) => {
+    if (_catName === 'all') {
+      setProductsTemp(storeProducts);
+    } else {
+      let temp = storeProducts.filter((prod) => prod.category === _catName);
+      if (temp.length === 0) {
+        toast.warning(`Sorry no ${_catName} found 😓`);
+      }
+      setProductsTemp(temp);
+    }
+  };
+
   return (
     <React.Fragment>
       {!shop ? (
@@ -101,11 +118,36 @@ function StoreInfo(props) {
               </div>
             </div>
           </div>
+          <div className="container my-4 text-center">
+            <p className="animaLink">
+              Categories <HiTemplate className="mx-2" />
+            </p>
+            <br />
+            <button
+              onClick={() => {
+                sort_cat('all');
+              }}
+              className="mx-1 my-1 cat_btn">
+              All Products
+            </button>
+            {shop.categories?.map((item) => {
+              return (
+                <button
+                  key={item}
+                  onClick={() => {
+                    sort_cat(item);
+                  }}
+                  className="mx-1 my-1 cat_btn">
+                  {item}
+                </button>
+              );
+            })}
+          </div>
           <div className="container text-center">
             <p className="animaLink">
               Products <HiTemplate className="mx-2" />
             </p>
-            {storeProducts == 0 ? (
+            {productsTemp == 0 ? (
               <div>
                 <small>No Products</small>
               </div>
@@ -113,9 +155,13 @@ function StoreInfo(props) {
               ''
             )}
           </div>
-          {storeProducts.map((item) => {
-            return <Product key={item._id} item={item} />;
-          })}
+          <motion.div layout className="mb-5">
+            <AnimatePresence>
+              {productsTemp.map((item) => {
+                return <Product key={item._id} item={item} />;
+              })}
+            </AnimatePresence>
+          </motion.div>
         </React.Fragment>
       )}
     </React.Fragment>
